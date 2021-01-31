@@ -36,13 +36,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.5.0-nullsafety.1"
-  audioplayers:
+  audio_session:
     dependency: transitive
+    description:
+      name: audio_session
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.11"
+  audioplayers:
+    dependency: "direct main"
     description:
       name: audioplayers
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.15.1"
+    version: "0.17.3"
   auto_animated:
     dependency: "direct main"
     description:
@@ -78,13 +85,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
-  box2d_flame:
-    dependency: transitive
-    description:
-      name: box2d_flame
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.4.6"
   build:
     dependency: transitive
     description:
@@ -154,7 +154,7 @@ packages:
       name: carousel_slider
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.4"
   characters:
     dependency: transitive
     description:
@@ -288,6 +288,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.7"
+  emoji_feedback:
+    dependency: "direct main"
+    description:
+      name: emoji_feedback
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0"
   extended_image:
     dependency: "direct main"
     description:
@@ -337,13 +344,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.10.11"
-  flame:
-    dependency: "direct main"
-    description:
-      name: flame
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.28.0"
   flare_dart:
     dependency: transitive
     description:
@@ -377,6 +377,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_animation_progress_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_animation_progress_bar
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.6"
   flutter_beautiful_popup:
     dependency: "direct main"
     description:
@@ -404,7 +411,7 @@ packages:
       name: flutter_calendar_carousel
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.5.2"
+    version: "1.5.3"
   flutter_cupertino_localizations:
     dependency: transitive
     description:
@@ -412,6 +419,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
+  flutter_downloader:
+    dependency: "direct main"
+    description:
+      name: flutter_downloader
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.5.2"
   flutter_dropdown:
     dependency: "direct main"
     description:
@@ -658,6 +672,27 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.5.1"
+  just_audio:
+    dependency: "direct main"
+    description:
+      name: just_audio
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.9"
+  just_audio_platform_interface:
+    dependency: transitive
+    description:
+      name: just_audio_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
+  just_audio_web:
+    dependency: transitive
+    description:
+      name: just_audio_web
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.3"
   keyboard_attachable:
     dependency: "direct main"
     description:
@@ -707,6 +742,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.12.10-nullsafety.1"
+  material_dialogs:
+    dependency: "direct main"
+    description:
+      name: material_dialogs
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.2"
   meta:
     dependency: transitive
     description:
@@ -770,13 +812,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.0"
-  ordered_set:
-    dependency: transitive
-    description:
-      name: ordered_set
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.1"
   package_config:
     dependency: transitive
     description:

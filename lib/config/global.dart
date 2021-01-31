@@ -4,6 +4,7 @@ import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/route/RouterConfig.dart';
 import 'package:SuyuListening/route/RouterHelper.dart';
 import 'package:SuyuListening/utils/share_preferences_utils.dart';
+import 'package:SuyuListening/utils/storage_util.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,8 @@ class Global {
   //初始化全局信息，会在APP启动时执行
 
   static Future init() async {
+    // 创建必要的文件夹
+    createFolder("audios");
     // 初始化配置toast
     initToast();
     // 初始化路由

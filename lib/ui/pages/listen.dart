@@ -1,19 +1,32 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:math';
+import 'dart:ui';
 
 import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/provider/listen_provider.dart';
+import 'package:SuyuListening/ui/components/custom_dialog_box.dart';
+import 'package:SuyuListening/ui/components/emoji_feedback.dart';
 import 'package:SuyuListening/utils/check_util.dart';
+import 'package:SuyuListening/utils/storage_util.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:provider/provider.dart';
 import 'package:styled_text/styled_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:just_audio/just_audio.dart';
 
 class ListenPage extends StatefulWidget {
   ListenPage({Key key}) : super(key: key);
@@ -24,8 +37,34 @@ class ListenPage extends StatefulWidget {
 
 class _ListenPageState extends State<ListenPage> {
   bool isKeyboardVisible = false;
+  ReceivePort _port = ReceivePort();
+
+  @override
+  void dispose() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+    super.dispose();
+  }
+
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    final SendPort send =
+        IsolateNameServer.lookupPortByName('downloader_send_port');
+    send.send([id, status, progress]);
+  }
+
   @override
   void initState() {
+    IsolateNameServer.registerPortWithName(
+        _port.sendPort, 'downloader_send_port');
+    _port.listen((dynamic data) {
+      String id = data[0];
+      DownloadTaskStatus status = data[1];
+      int progress = data[2];
+      setState(() {});
+    });
+
+    FlutterDownloader.registerCallback(downloadCallback);
+
     super.initState();
   }
 
@@ -67,6 +106,64 @@ class _ListenPageState extends State<ListenPage> {
     return false;
   }
 
+  Future<void> download() async {
+    String audiosDir = await getAudiosFolderPath();
+    print("==============");
+    print(audiosDir);
+    print("==============");
+    final taskId = await FlutterDownloader.enqueue(
+      url:
+          'https://files.21voa.com/202101/technology-problems-linked-to-higher-stress-levels-in-workers.mp3',
+      savedDir: audiosDir,
+      showNotification:
+          true, // show download progress in status bar (for Android)
+      openFileFromNotification:
+          true, // click on notification to open downloaded file (for Android)
+    );
+  }
+
+  void onTapFloatingActionButton() {
+    // showCompelete();
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomDialogBox(
+            title: "这篇文章难度怎么样?",
+            contentWidget: EmojiFeedback(
+              onChange: (index) {
+                print(index);
+              },
+            ),
+            text: "反馈",
+          );
+        });
+
+    // child:
+
+    // Provider.of<ListenProvider>(context, listen: false)
+    // .setProgress(Random().nextInt(100));
+  }
+
+  void showCompelete() {
+    Dialogs.materialDialog(
+        color: Colors.white,
+        msg: '今日目标达成!',
+        title: '真棒!',
+        animation: 'assets/lotties/cong_example.json',
+        context: context,
+        actions: [
+          IconsButton(
+            onPressed: () {},
+            text: '老子真棒',
+            iconData: Icons.done,
+            color: Colors.blue,
+            textStyle: TextStyle(color: Colors.white),
+            iconColor: Colors.white,
+          ),
+        ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -79,9 +176,9 @@ class _ListenPageState extends State<ListenPage> {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Scaffold(
-              // floatingActionButton: FloatingActionButton(
-              //   onPressed: addHistorySentence,
-              // ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: onTapFloatingActionButton,
+              ),
               appBar: AppBar(
                 backgroundColor: gradientStartColor,
                 elevation: 0,
@@ -105,7 +202,7 @@ class _ListenPageState extends State<ListenPage> {
                   children: [
                     historyWidget(),
                     ProgressWidget(),
-                    _buildControllerAreaWidget(),
+                    _BuildControllerAreaWidget(),
                     buildInputAreaWidget(),
                     Padding(
                       padding: const EdgeInsets.all(14.0),
@@ -152,7 +249,31 @@ class _ListenPageState extends State<ListenPage> {
                           },
                         ),
                       ),
-                    )
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.circular(10),
+                          border: Border(
+                              bottom: (BorderSide(
+                                  width: 1,
+                                  color: Colors.black.withAlpha(50)))),
+                        ),
+                        child: FAProgressBar(
+                          // backgroundColor: Colors.black.withAlpha(180),
+                          progressColor: ThemeColors.colorTheme.withAlpha(0),
+                          displayTextStyle:
+                              TextStyle(color: gradientStartColor),
+                          animatedDuration: Duration(seconds: 1),
+                          currentValue:
+                              Provider.of<ListenProvider>(context, listen: true)
+                                  .progress,
+
+                          displayText: '🚩',
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )),
@@ -245,106 +366,226 @@ class ProgressWidget extends StatefulWidget {
     return _ProgressWidgetState();
   }
 }
-// 进度条
 
+// 进度条
 class _ProgressWidgetState extends State<ProgressWidget> {
   double _upperValue = 0;
-  double _maxValue = 100;
+  AudioPlayer player;
+  @override
+  void initState() {
+    player =
+        Provider.of<ListenProvider>(context, listen: false).getPlayerInstance();
+    // _maxValue = player.duration.inMinutes.toDouble();
+    super.initState();
+  }
+
+  double _maxValue = 0;
   @override
   Widget build(BuildContext context) {
+    if (player.duration != null) {
+      print(player.duration.inMilliseconds);
+      _maxValue = player.duration.inMilliseconds.toDouble();
+      setState(() {});
+    } else {
+      _maxValue = 100000;
+    }
     return Container(
       padding: EdgeInsets.only(right: 6, left: 6),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            // color: Colors.black,
-            height: 50.h,
-            child: FlutterSlider(
-              handler: FlutterSliderHandler(
-                decoration: BoxDecoration(),
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(width: 2)),
-                    child: Icon(
-                      Icons.play_arrow,
-                      size: 40.sp,
-                    )),
-              ),
-              tooltip: FlutterSliderTooltip(disabled: true),
-              jump: true,
-              trackBar: FlutterSliderTrackBar(
-                inactiveTrackBarHeight: 10.h,
-                activeTrackBarHeight: 10.h,
-                inactiveTrackBar: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                activeTrackBar: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: ThemeColors.colorTheme),
-              ),
-              values: [_upperValue, _upperValue],
-              max: _maxValue,
-              min: 0,
-              maximumDistance: 300,
-              rtl: false,
-              handlerAnimation: FlutterSliderHandlerAnimation(
-                  curve: Curves.elasticOut,
-                  reverseCurve: null,
-                  duration: Duration(milliseconds: 700),
-                  scale: 1.4),
-              onDragging: (handlerIndex, lowerValue, upperValue) {
-                _upperValue = lowerValue;
-                setState(() {});
-              },
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 5, left: 18.0),
-                child: Text(
-                  (_upperValue ~/ 59).toString() +
-                      ":" +
-                      NumUtil.getNumByValueDouble((_upperValue % 59), 0)
-                          .toString(),
-                  style: TextStyle(fontSize: 24.sp, color: Colors.white),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 18.0),
-                child: Text(
-                  (_maxValue ~/ 59).toString() +
-                      ":" +
-                      NumUtil.getNumByValueDouble((_maxValue % 59), 0)
-                          .toString(),
-                  style: TextStyle(fontSize: 24.sp, color: Colors.white),
-                ),
-              ),
-            ],
-          ),
-        ],
+      child: StreamBuilder<Duration>(
+        stream: player.durationStream,
+        builder: (context, snapshot) {
+          final duration = snapshot.data ?? Duration.zero;
+          return StreamBuilder<Duration>(
+            stream: player.positionStream,
+            builder: (context, snapshot) {
+              var position = snapshot.data ?? Duration.zero;
+              if (position > duration) {
+                position = duration;
+              }
+              //  return SeekBar(
+              //   duration: duration,
+              //   position: position,
+              //   onChangeEnd: (newPosition) {
+              //     _player.seek(newPosition);
+              //   },
+              // );
+              // print("===============");
+              // print("duration:");
+              // print(duration);
+              // print("position:");
+              // print(position);
+              // print("===============");
+              // final Duration duration;
+              // final Duration position;
+              // final ValueChanged<Duration> onChanged;
+              // final ValueChanged<Duration> onChangeEnd;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 50.h,
+                    child: FlutterSlider(
+                      handler: FlutterSliderHandler(
+                        decoration: BoxDecoration(),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(width: 2)),
+                            child: Icon(
+                              Icons.play_arrow,
+                              size: 40.sp,
+                            )),
+                      ),
+                      tooltip: FlutterSliderTooltip(disabled: true),
+                      jump: true,
+                      trackBar: FlutterSliderTrackBar(
+                        inactiveTrackBarHeight: 10.h,
+                        activeTrackBarHeight: 10.h,
+                        inactiveTrackBar: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                        ),
+                        activeTrackBar: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: ThemeColors.colorTheme),
+                      ),
+                      values: [
+                        (player.position ?? Duration(milliseconds: 100000))
+                            .inMilliseconds
+                            .toDouble(),
+                        (player.duration ?? Duration(milliseconds: 100000))
+                            .inMilliseconds
+                            .toDouble()
+                      ],
+                      max:
+                          _maxValue, //player.duration.inMilliseconds.toDouble() ?? 0,
+                      min: 0,
+                      maximumDistance: 10000,
+                      rtl: false,
+                      handlerAnimation: FlutterSliderHandlerAnimation(
+                          curve: Curves.elasticOut,
+                          reverseCurve: null,
+                          duration: Duration(milliseconds: 700),
+                          scale: 1.4),
+                      onDragging: (handlerIndex, lowerValue, upperValue) {
+                        _upperValue = lowerValue;
+                        print(lowerValue);
+                        player
+                            .seek(Duration(milliseconds: (lowerValue).round()));
+                        setState(() {});
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, left: 18.0),
+                        child: Text(
+                          (position.inSeconds ~/ 60).toString() +
+                              ":" +
+                              (((position.inSeconds % 60) < 10)
+                                  ? "0" + (position.inSeconds % 60).toString()
+                                  : (position.inSeconds % 60).toString()),
+                          style:
+                              TextStyle(fontSize: 24.sp, color: Colors.white),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 18.0),
+                        child: Text(
+                          (duration.inSeconds ~/ 60).toString() +
+                              ":" +
+                              (((duration.inSeconds % 60) < 10)
+                                  ? "0" + (duration.inSeconds % 60).toString()
+                                  : (duration.inSeconds % 60).toString()),
+                          style:
+                              TextStyle(fontSize: 24.sp, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }
 }
 
-// 控制区域
-Widget _buildControllerAreaWidget() {
-  return Container(
-    margin: EdgeInsets.only(top: 10, bottom: 10),
-    width: 750.w,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Expanded(
-          flex: 2,
-          child: Column(
+class _BuildControllerAreaWidget extends StatefulWidget {
+  _BuildControllerAreaWidget({Key key}) : super(key: key);
+
+  @override
+  __BuildControllerAreaWidgetState createState() =>
+      __BuildControllerAreaWidgetState();
+}
+
+class __BuildControllerAreaWidgetState
+    extends State<_BuildControllerAreaWidget> {
+  AudioPlayer _player;
+
+  @override
+  void initState() {
+    _player =
+        Provider.of<ListenProvider>(context, listen: false).getPlayerInstance();
+    super.initState();
+  }
+
+  String localFilePath = "";
+
+  Future _loadFile() async {
+    String audioPath = await getAudiosFolderPath();
+    final file = File(
+        '$audioPath/technology-problems-linked-to-higher-stress-levels-in-workers.mp3');
+    if (await file.exists()) {
+      setState(() {
+        localFilePath = file.path;
+      });
+    } else {
+      print("文件不存在");
+    }
+  }
+
+  playLocal() async {
+    await _loadFile();
+    await _player.setFilePath(localFilePath);
+    _player.seek(duration);
+    _player.play();
+  }
+
+  Duration duration = Duration(microseconds: 0);
+  pause() async {
+    duration = _player.position;
+    _player.pause();
+  }
+
+  bool isPlaying = false;
+  void onTapPlayButton() {
+    if (isPlaying) {
+      pause();
+    } else {
+      playLocal();
+    }
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return // 控制区域
+        Container(
+      margin: EdgeInsets.only(top: 10, bottom: 10),
+      width: 750.w,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Column(
             children: [
               Icon(
                 Icons.repeat,
@@ -356,10 +597,7 @@ Widget _buildControllerAreaWidget() {
               )
             ],
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Column(
+          Column(
             children: [
               Icon(
                 Icons.skip_previous_outlined,
@@ -371,22 +609,19 @@ Widget _buildControllerAreaWidget() {
               )
             ],
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Column(
-            children: [
-              Icon(
-                Ionicons.play_circle,
-                color: Colors.white,
-                size: 106.sp,
-              )
-            ],
+          GestureDetector(
+            onTap: onTapPlayButton,
+            child: Column(
+              children: [
+                Icon(
+                  isPlaying ? Ionicons.pause_circle : Ionicons.play_circle,
+                  color: Colors.white,
+                  size: 106.sp,
+                )
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Column(
+          Column(
             children: [
               Icon(
                 Icons.skip_next_outlined,
@@ -398,10 +633,7 @@ Widget _buildControllerAreaWidget() {
               )
             ],
           ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Column(
+          Column(
             children: [
               Icon(
                 Ionicons.rocket_outline,
@@ -413,10 +645,10 @@ Widget _buildControllerAreaWidget() {
               )
             ],
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }
 
 // ignore: camel_case_types
@@ -525,4 +757,65 @@ class _buildInputAreaWidgetState extends State<buildInputAreaWidget> {
       ),
     );
   }
+}
+
+class SeekBar extends StatefulWidget {
+  final Duration duration;
+  final Duration position;
+  final ValueChanged<Duration> onChanged;
+  final ValueChanged<Duration> onChangeEnd;
+
+  SeekBar({
+    @required this.duration,
+    @required this.position,
+    this.onChanged,
+    this.onChangeEnd,
+  });
+
+  @override
+  _SeekBarState createState() => _SeekBarState();
+}
+
+class _SeekBarState extends State<SeekBar> {
+  double _dragValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Slider(
+          min: 0.0,
+          max: widget.duration.inMilliseconds.toDouble(),
+          value: min(_dragValue ?? widget.position.inMilliseconds.toDouble(),
+              widget.duration.inMilliseconds.toDouble()),
+          onChanged: (value) {
+            setState(() {
+              _dragValue = value;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged(Duration(milliseconds: value.round()));
+            }
+          },
+          onChangeEnd: (value) {
+            if (widget.onChangeEnd != null) {
+              widget.onChangeEnd(Duration(milliseconds: value.round()));
+            }
+            _dragValue = null;
+          },
+        ),
+        Positioned(
+          right: 16.0,
+          bottom: 0.0,
+          child: Text(
+              RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                      .firstMatch("$_remaining")
+                      ?.group(1) ??
+                  '$_remaining',
+              style: Theme.of(context).textTheme.caption),
+        ),
+      ],
+    );
+  }
+
+  Duration get _remaining => widget.duration - widget.position;
 }

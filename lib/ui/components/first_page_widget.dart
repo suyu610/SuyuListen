@@ -4,12 +4,13 @@ import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/model/article_model.dart';
 import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
 import 'package:SuyuListening/utils/color_util.dart';
+import 'package:audioplayers/audio_cache.dart';
 import 'package:badges/badges.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,70 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
       ],
     },
   );
+
   int currentMonth = new DateTime.now().month;
+
+  ///
+  ///
+  AudioPlayer audioPlayer;
+  AudioCache audioCache = AudioCache();
+
+  void play() async {
+    print("????");
+
+    var bytes = await (await audioCache
+            .load('mic/b2db5f04e40c5a3323941afdb8b095ea5844e9a6.mp3'))
+        .readAsBytes();
+    audioCache.playBytes(bytes);
+
+    // int result = await audioPlayer.play(
+    //     "https://files.21voa.com/202101/scientists-find-first-baby-remains-from-tyrannosaurus-group.mp3");
+    // if (result == 1) {
+    //   // success
+    //   print('play success');
+    // } else {
+    //   print('play failed');
+    // }
+  }
+
+  pause() async {
+    int result = await audioPlayer.pause();
+    if (result == 1) {
+      // success
+      print('pause success');
+    } else {
+      print('pause failed');
+    }
+  }
+
+  @override
+  void initState() {
+    audioPlayer = AudioPlayer();
+    super.initState();
+  }
+
+  jump(startMilliseconds) async {
+    int result =
+        await audioPlayer.seek(new Duration(milliseconds: startMilliseconds));
+    if (result == 1) {
+      print('go to success');
+      // await audioPlayer.resume();
+    } else {
+      print('go to failed');
+    }
+  }
+
+  @override
+  void deactivate() async {
+    print('结束');
+    int result = await audioPlayer.release();
+    if (result == 1) {
+      print('release success');
+    } else {
+      print('release failed');
+    }
+    super.deactivate();
+  }
 
   void handleCalendarChanged(int date) {
     currentMonth = date;
@@ -95,6 +159,8 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
               Container(
                 padding: EdgeInsets.only(left: 10, right: 10),
                 child: CalendarCarousel<Event>(
+                  pageSnapping: false,
+
                   locale: ('zh'),
 
                   headerTextStyle: TextStyle(color: Colors.black.withAlpha(60)),
@@ -155,32 +221,32 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                           showPopup(context, () => Navigator.pop(context),
                               title: ("${day.month}月${day.day}日"),
                               buttonTitle: "关闭",
-                              describe:
-                                  "学习时长为${Random().nextInt(4)}小时\n完成进度:50%");
+                              imageUrl: "assets/images/popup/fail.JPG",
+                              buttonColor: Color(0xffe74c3c),
+                              describe: "一点也没学习!!");
                         },
-                        child: Material(
-                          color: gradientStartColor.withAlpha(100),
-                          shape: SuperellipseShape(
-                            borderRadius: BorderRadius.circular(28.0),
+                        child: Badge(
+                          badgeColor: Colors.grey.shade100,
+                          elevation: 0,
+                          badgeContent: Icon(
+                            Icons.star,
+                            size: 20.sp,
                           ),
-                          child: Container(
-                              height: 90.h,
-                              width: 90.h,
-                              child: Badge(
-                                badgeColor: Colors.transparent,
-                                elevation: 0,
-                                badgeContent: Text(
-                                  "3",
-                                  style: TextStyle(color: Colors.transparent),
-                                ),
+                          child: Material(
+                            color: Color(0xffe74c3c),
+                            shape: SuperellipseShape(
+                              borderRadius: BorderRadius.circular(28.0),
+                            ),
+                            child: Container(
+                                height: 90.h,
+                                width: 90.h,
                                 child: Icon(
-                                  IconData(
-                                    0xe6ec,
-                                    fontFamily: "appIconFonts",
-                                  ),
-                                  color: Colors.white,
-                                ),
-                              )),
+                                    IconData(
+                                      0xe6ec,
+                                      fontFamily: "appIconFonts",
+                                    ),
+                                    color: Colors.white)),
+                          ),
                         ),
                       );
                     } else if (isToday ||
@@ -192,23 +258,31 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                           showPopup(context, () => Navigator.pop(context),
                               buttonTitle: "关闭",
                               title: ("${day.month}月${day.day}日"),
+                              buttonColor: gradientStartColor,
                               describe:
                                   "学习时长为${Random().nextInt(4)}小时\n完成进度:20%");
                         },
-                        child: Material(
-                          color: ThemeColors.colorTheme,
-                          shape: SuperellipseShape(
-                            borderRadius: BorderRadius.circular(28.0),
+                        child: Badge(
+                          badgeContent: Icon(
+                            Icons.star,
+                            size: 20.sp,
                           ),
-                          child: Container(
-                            height: 90.h,
-                            width: 90.h,
-                            child: Center(
-                              child: Icon(
-                                Icons.star,
-                                // IconData(0xe600, fontFamily: "appIconFonts"),
-                                color: Colors.black,
-                                size: 34.sp,
+                          elevation: 0,
+                          badgeColor: Colors.grey.shade100,
+                          child: Material(
+                            color: gradientStartColor,
+                            shape: SuperellipseShape(
+                              borderRadius: BorderRadius.circular(28.0),
+                            ),
+                            child: Container(
+                              height: 90.h,
+                              width: 90.h,
+                              child: Center(
+                                child: Icon(
+                                  Icons.star,
+                                  color: Colors.white,
+                                  size: 34.sp,
+                                ),
                               ),
                             ),
                           ),
@@ -220,11 +294,12 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                           showPopup(context, () => Navigator.pop(context),
                               buttonTitle: "关闭",
                               title: ("${day.month}月${day.day}日"),
+                              buttonColor: gradientStartColor.withAlpha(180),
                               describe:
                                   "学习时长为${Random().nextInt(4)}小时\n完成进度:40%");
                         },
                         child: Material(
-                          color: gradientStartColor,
+                          color: gradientStartColor.withAlpha(180),
                           shape: SuperellipseShape(
                             borderRadius: BorderRadius.circular(28.0),
                           ),
@@ -245,12 +320,13 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                         onTap: () {
                           showPopup(context, () => Navigator.pop(context),
                               title: ("${day.month}月${day.day}日"),
+                              buttonColor: gradientStartColor.withAlpha(100),
                               buttonTitle: "关闭",
                               describe:
                                   "学习时长为${Random().nextInt(4)}小时\n完成进度:24%");
                         },
                         child: Material(
-                          color: gradientStartColor.withAlpha(180),
+                          color: gradientStartColor.withAlpha(100),
                           shape: SuperellipseShape(
                             borderRadius: BorderRadius.circular(28.0),
                           ),
@@ -272,7 +348,6 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                   markedDateIconMargin: 0,
                   markedDatesMap: _markedDateMap,
                   height: 675.0.h,
-
                   // selectedDateTime: _currentDate,
                   daysHaveCircularBorder: false,
                 ),
@@ -297,8 +372,8 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                   height: 320.h,
                   width: double.infinity,
                   child: FlipCard(
-                    direction: FlipDirection.HORIZONTAL,
-                    speed: 1000,
+                    direction: FlipDirection.VERTICAL,
+                    speed: 500,
                     onFlipDone: (status) {
                       print(status);
                     },
@@ -338,10 +413,22 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [],
-                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     GestureDetector(
+                          //       onTap: play,
+                          //       child: Icon(
+                          //         Icons.speaker,
+                          //         color: Colors.white,
+                          //       ),
+                          //     ),
+                          //     Text(
+                          //       "开始学习",
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //   ],
+                          // ),
                           SizedBox(
                             height: 30.h,
                           ),
@@ -425,33 +512,36 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
               ),
             ),
           ),
-          Positioned(
-            right: 100.w,
-            top: 617.h,
-            child: SizedBox(
-              child: FlutterSwitch(
-                toggleColor: Colors.black,
-                width: 100.0.w,
-                height: 40.0.h,
-                valueFontSize: 15.0.sp,
-                toggleSize: 20.0.sp,
-                value: isYourMode,
-                activeColor: gradientStartColor,
-                inactiveColor: ThemeColors.colorTheme,
-                inactiveTextColor: Colors.black.withAlpha(200),
-                activeText: "me",
-                inactiveText: "him",
-                borderRadius: 30.0,
-                padding: 8.0.w,
-                showOnOff: true,
-                onToggle: (val) {
-                  setState(() {
-                    isYourMode = val;
-                  });
-                },
-              ),
-            ),
-          ),
+
+          // Positioned(
+          //   right: 100.w,
+          //   top: 617.h,
+          //   child: SizedBox(
+          //     child: FlutterSwitch(
+          //       toggleColor: Colors.black,
+          //       width: 100.0.w,
+          //       height: 40.0.h,
+          //       valueFontSize: 15.0.sp,
+          //       toggleSize: 20.0.sp,
+          //       value: isYourMode,
+          //       activeColor: gradientStartColor,
+          //       inactiveColor: ThemeColors.colorTheme,
+          //       inactiveTextColor: Colors.black.withAlpha(200),
+          //       activeText: "me",
+          //       inactiveText: "him",
+          //       borderRadius: 30.0,
+          //       padding: 8.0.w,
+          //       showOnOff: true,
+          //       onToggle: (val) {
+          //         setState(() {
+          //           isYourMode = val;
+          //         });
+          //       },
+          //     ),
+          //   ),
+          // ),
+
+          /// 图示
           // 右下角图示
           Positioned(
             right: 0.w,
@@ -490,32 +580,23 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Material(
-                                color: gradientStartColor.withAlpha(100),
+                                color: Color(0xffe74c3c),
                                 shape: SuperellipseShape(
                                   borderRadius: BorderRadius.circular(28.0),
                                 ),
                                 child: Container(
-                                    height: 60.h,
-                                    width: 60.h,
-                                    child: Badge(
-                                      badgeColor: Colors.transparent,
-                                      elevation: 0,
-                                      badgeContent: Text(
-                                        "3",
-                                        style: TextStyle(
-                                            color: Colors.transparent),
-                                      ),
-                                      child: Icon(
-                                        IconData(
-                                          0xe6ec,
-                                          fontFamily: "appIconFonts",
-                                        ),
-                                        color: Colors.white,
-                                      ),
-                                    )),
+                                  height: 60.h,
+                                  width: 60.h,
+                                  child: Center(
+                                    child: Icon(
+                                        IconData(0xe6ec,
+                                            fontFamily: "appIconFonts"),
+                                        color: Colors.white),
+                                  ),
+                                ),
                               ),
                               Text(
-                                "x5",
+                                "x 5",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -523,7 +604,38 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                               SizedBox(
                                 width: 20.w,
                               ),
-                              SizedBox(width: 250.w, child: Text("垃圾，一点也没学")),
+                              SizedBox(width: 250.w, child: Text("学习进度 < 30%")),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Material(
+                                color: gradientStartColor.withAlpha(100),
+                                shape: SuperellipseShape(
+                                  borderRadius: BorderRadius.circular(28.0),
+                                ),
+                                child: Container(
+                                  height: 60.h,
+                                  width: 60.h,
+                                  child: Center(
+                                    child: Text(
+                                      "x",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "x 15",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                width: 20.w,
+                              ),
+                              SizedBox(width: 250.w, child: Text("学习进度 > 30%")),
                             ],
                           ),
                           Row(
@@ -546,7 +658,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                                 ),
                               ),
                               Text(
-                                "x15",
+                                "x 5",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -554,30 +666,42 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                               SizedBox(
                                 width: 20.w,
                               ),
-                              SizedBox(width: 250.w, child: Text("学习进度>30%")),
+                              SizedBox(width: 250.w, child: Text("学习进度 > 60%")),
                             ],
                           ),
+
+                          ///他的标志
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Material(
-                                color: gradientStartColor,
-                                shape: SuperellipseShape(
-                                  borderRadius: BorderRadius.circular(28.0),
+                              Badge(
+                                badgeColor: Colors.white,
+                                elevation: 0,
+                                badgeContent: Icon(
+                                  Icons.star,
+                                  size: 20.sp,
                                 ),
-                                child: Container(
-                                  height: 60.h,
-                                  width: 60.h,
-                                  child: Center(
-                                    child: Text(
-                                      "x",
-                                      style: TextStyle(color: Colors.white),
+                                child: Material(
+                                  color: gradientStartColor,
+                                  shape: SuperellipseShape(
+                                    borderRadius: BorderRadius.circular(28.0),
+                                  ),
+                                  child: Container(
+                                    height: 60.h,
+                                    width: 60.h,
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.star,
+                                        // IconData(0xe600, fontFamily: "appIconFonts"),
+                                        color: ThemeColors.colorWhite,
+                                        size: 34.sp,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                               Text(
-                                "x5",
+                                "x 6",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -585,40 +709,8 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                               SizedBox(
                                 width: 20.w,
                               ),
-                              SizedBox(width: 250.w, child: Text("学习进度>60%")),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Material(
-                                color: ThemeColors.colorTheme,
-                                shape: SuperellipseShape(
-                                  borderRadius: BorderRadius.circular(28.0),
-                                ),
-                                child: Container(
-                                  height: 60.h,
-                                  width: 60.h,
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.star,
-                                      // IconData(0xe600, fontFamily: "appIconFonts"),
-                                      color: ThemeColors.colorBlack,
-                                      size: 34.sp,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "x2",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
                               SizedBox(
-                                width: 20.w,
-                              ),
-                              SizedBox(width: 250.w, child: Text("全部学完了")),
+                                  width: 250.w, child: Text("全部学完\n右上角表示他已学完")),
                             ],
                           ),
                           GestureDetector(

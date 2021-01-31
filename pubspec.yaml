@@ -16,7 +16,7 @@ dependencies:
   sqflite: ^1.3.0  
   dio: ^3.0.8
   toast: ^0.1.5
-  flame: ^0.28.0
+  # flame: ^0.29.0
   flutter_easyloading: ^2.0.0  
   cool_alert: ^1.0.3
   simple_animations: ^1.3.3
@@ -25,6 +25,11 @@ dependencies:
   random_words: ^1.0.2
   badges: ^1.1.6
   flutter_switch: ^0.2.0
+  audioplayers: ^0.17.3
+  just_audio: ^0.6.9
+  material_dialogs: ^0.1.2
+  flutter_animation_progress_bar: ^1.0.6
+  emoji_feedback: ^0.1.0
 
   # 滑块
   flutter_xlider: ^3.4.0
@@ -106,6 +111,7 @@ dependencies:
   superellipse_shape: ^0.1.5
   # 侧边栏
   flutter_inner_drawer: "^0.5.7+2"
+  flutter_downloader: ^1.5.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -114,6 +120,7 @@ dev_dependencies:
 flutter:  
   uses-material-design: true  
   assets:
+    - assets/mic/      
     - assets/images/      
     - assets/images/popup/
     - assets/lotties/
