@@ -1,4 +1,3 @@
-import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:flutter/material.dart';
 
 import '../welcom_page.dart';
@@ -28,11 +27,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
-        color: gradientStartColor,
-        image: DecorationImage(
-          image: AssetImage('assets/images/bg.png'),
-          fit: BoxFit.contain,
-        ),
+        color: Color(0xfffff7eb),
+        // image: DecorationImage(
+        //   image: AssetImage('assets/images/bg.png'),
+        //   fit: BoxFit.contain,
+        // ),
       ),
       child: Center(
         child: Column(
@@ -40,23 +39,22 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Column(
               children: [
-                // Container(
-                //   height: 100,
-                //   width: 100,
-                //   decoration: BoxDecoration(
-                //     color: Color(0xfff8e9d6),
-                //     image: DecorationImage(
-                //       image: AssetImage('assets/images/logo.png'),
-                //     ),
-                //   ),
-                //   // child: SvgPicture.asset('assets/images/logo.svg'),
-                // ),
+                Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    color: Color(0xfffff7eb),
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/logo.png'),
+                    ),
+                  ),
+                ),
                 SizedBox(
-                  height: 150,
+                  height: 80,
                 ),
                 Text(
                   "素语听力",
-                  style: TextStyle(fontSize: 24, color: Colors.white),
+                  style: TextStyle(fontSize: 24, color: Color(0xffbe4f29)),
                 ),
               ],
             ),

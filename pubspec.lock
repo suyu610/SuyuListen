@@ -398,6 +398,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  flutter_calendar_carousel:
+    dependency: "direct main"
+    description:
+      name: flutter_calendar_carousel
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.5.2"
   flutter_cupertino_localizations:
     dependency: transitive
     description:
@@ -472,7 +479,7 @@ packages:
       name: flutter_screenutil
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.0.2+5"
+    version: "4.0.2+8"
   flutter_simple_rating_bar:
     dependency: "direct main"
     description:
@@ -515,18 +522,18 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.6"
+  flutter_switch:
+    dependency: "direct main"
+    description:
+      name: flutter_switch
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_vector_icons:
-    dependency: "direct main"
-    description:
-      name: flutter_vector_icons
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.2.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -601,14 +608,14 @@ packages:
       name: image_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.7+21"
+    version: "0.6.7+22"
   image_picker_platform_interface:
     dependency: transitive
     description:
       name: image_picker_platform_interface
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.6"
   intl:
     dependency: transitive
     description:
@@ -980,6 +987,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.4.0"
+  search_page:
+    dependency: "direct main"
+    description:
+      name: search_page
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.4.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1035,7 +1049,7 @@ packages:
       name: shelf_web_socket
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.3"
+    version: "0.2.4"
   simple_animations:
     dependency: "direct main"
     description:
@@ -1132,41 +1146,48 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3+3"
+  superellipse_shape:
+    dependency: "direct main"
+    description:
+      name: superellipse_shape
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.5"
   syncfusion_flutter_calendar:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_calendar
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "18.4.35"
+    version: "18.4.39"
   syncfusion_flutter_charts:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_charts
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "18.4.35"
+    version: "18.4.39"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "18.4.35+1"
+    version: "18.4.39"
   syncfusion_flutter_datepicker:
     dependency: transitive
     description:
       name: syncfusion_flutter_datepicker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "18.4.35-beta"
+    version: "18.4.39-beta"
   syncfusion_flutter_gauges:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_gauges
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "18.4.35"
+    version: "18.4.39"
   synchronized:
     dependency: transitive
     description:
@@ -1264,7 +1285,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.5+1"
+    version: "0.1.5+3"
   url_launcher_windows:
     dependency: transitive
     description:
@@ -1313,7 +1334,7 @@ packages:
       name: win32
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.7.4"
+    version: "1.7.4+1"
   xdg_directories:
     dependency: transitive
     description:

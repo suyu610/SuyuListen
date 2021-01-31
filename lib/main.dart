@@ -1,5 +1,6 @@
 import 'package:SuyuListening/provider/listen_provider.dart';
 import 'package:SuyuListening/provider/theme_provider.dart';
+import 'package:SuyuListening/ui/components/no_splash.dart';
 import 'package:SuyuListening/ui/pages/splash/splash_screen.dart';
 import 'package:SuyuListening/utils/color_util.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,12 @@ final ThemeData LIGHT = ThemeData(
   backgroundColor: ThemeColors.colorWhite,
   dialogBackgroundColor: ThemeColors.colorTheme,
   primaryColor: ThemeColors.colorTheme,
+
+  splashColor: Colors.transparent,
+  splashFactory: NoSplashFactory(),
+
+  highlightColor: Colors.transparent,
+
   textSelectionColor: Colors.black,
   // primarySwatch: Colors.blue,
   accentColor: Colors.black,

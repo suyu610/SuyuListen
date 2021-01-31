@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void showPopup(
   BuildContext context,
@@ -28,8 +29,8 @@ void showPopup(
         return Align(
           alignment: Alignment.center,
           child: Container(
-            height: 500,
-            width: 350,
+            height: 750.h,
+            width: 620.w,
             padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -49,43 +50,47 @@ void showPopup(
                             icon: Icon(Icons.cancel),
                             onPressed: () {
                               Navigator.pop(context);
-
-                              // setState(() {
-                              //   _success = !_success;
-                              // });
                             })
                       ],
                     ),
                     Image.asset(
                       imageUrl,
-                      height: 200,
+                      height: 300.h,
                     ),
                     Text(
                       title,
                       style: TextStyle(
                         color: buttonColor,
                         fontWeight: FontWeight.bold,
-                        fontSize: 25,
+                        fontSize: 45.sp,
                       ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
                     ),
                     Text(
                       describe,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 15,
+                        color: Colors.black,
+                        fontSize: 30.sp,
                       ),
                     ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Container(
-                      height: 50,
-                      width: 235,
+                      height: 70.h,
+                      width: 235.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Material(
                         borderRadius: BorderRadius.circular(30),
                         color: buttonColor,
-                        child: MaterialButton(
+                        child: FlatButton(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onPressed: () {
                             onTap();
                           },
@@ -97,7 +102,7 @@ void showPopup(
                                 buttonTitle,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 30.sp,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),

@@ -15,7 +15,7 @@ class PlanetInfo {
 }
 
 List<String> columnList = [
-  "All",
+  "首页",
   "Done",
   "Technology Report",
   "This is America",
