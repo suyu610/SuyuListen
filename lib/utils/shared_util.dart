@@ -1,4 +1,4 @@
-import 'package:SuyuListening/config/keys.dart';
+import '../config/keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedUtil {

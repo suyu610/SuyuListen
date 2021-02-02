@@ -13,6 +13,23 @@ const Color color333333 = Color.fromRGBO(255, 51, 51, 51);
 const Color silver = Color(0xfff2f5fc);
 const Color purple = Color(0xff3c1361);
 const Color darkSilver = Color(0xffe7eefb);
+
+///
+///  background: #2980b9; /* fallback for old browsers */
+///   background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+///
+const kListTileGradient = LinearGradient(
+  // radius: .5,
+  stops: [0.4, 0.83],
+  colors: <Color>[
+    blue,
+    // Color(0xff6dd5fa),
+    Color(0xff56CCF2),
+    // blue,
+    // yellow,
+  ],
+);
 const kActiveButtonGradient = LinearGradient(
   begin: Alignment.bottomRight,
   end: Alignment.topLeft,

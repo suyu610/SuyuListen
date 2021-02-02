@@ -1,10 +1,12 @@
 import 'dart:math';
 
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/model/article_model.dart';
-import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
-import 'package:SuyuListening/ui/pages/article/article_detail.dart';
-import 'package:SuyuListening/utils/color_util.dart';
+import '../../model/article_level.dart';
+import '../../constant/theme_color.dart';
+import '../../model/article_model.dart';
+import '../../ui/animation/fade_animation.dart';
+import '../../ui/pages/article/article_detail.dart';
+import '../../utils/color_util.dart';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:badges/badges.dart';
 import 'package:flip_card/flip_card.dart';
@@ -12,8 +14,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:audioplayers/audioplayers.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
@@ -21,9 +21,9 @@ import 'package:random_words/random_words.dart';
 import 'package:search_page/search_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'Button/fancy_button.dart';
 import 'Popup/popup.dart';
 import 'article_today.dart';
+import 'buttons/fancy_button.dart';
 
 class FirstPageWidget extends StatefulWidget {
   const FirstPageWidget({
@@ -383,10 +383,9 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                       0,
                       TodayArticleListTile(
                         model: new ArticleModel()
-                          ..index = 0
                           ..title = generateWordPairs().take(10).join(" ")
                           ..coint = Random().nextInt(10)
-                          ..level = Random().nextInt(10)
+                          ..level = randomLevel()
                           ..learnProgress = Random().nextInt(100)
                           ..downloadValue = 0
                           ..imageUrl = "assets/jupiter.png",
@@ -456,7 +455,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
               width: 90.h,
               decoration: BoxDecoration(
                   color: yellow,
-                  border: Border.all(width: 3.w),
+                  // border: Border.all(width: 3.w),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(45.h),
                   )),

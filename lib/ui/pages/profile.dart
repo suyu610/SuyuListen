@@ -1,5 +1,6 @@
-import 'package:SuyuListening/ui/components/customAvatar/fluttermoji.dart';
 import 'package:flutter/material.dart';
+
+import '../../ui/components/customAvatar/fluttermoji.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);

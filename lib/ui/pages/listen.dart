@@ -4,18 +4,17 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/provider/listen_provider.dart';
-import 'package:SuyuListening/ui/components/custom_dialog_box.dart';
-import 'package:SuyuListening/ui/components/emoji_feedback.dart';
-import 'package:SuyuListening/utils/check_util.dart';
-import 'package:SuyuListening/utils/storage_util.dart';
+import '../../constant/theme_color.dart';
+import '../../provider/listen_provider.dart';
+import '../../ui/components/custom_dialog_box.dart';
+import '../../ui/components/emoji_feedback.dart';
+import '../../utils/check_util.dart';
+import '../../utils/storage_util.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:confetti/confetti.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
@@ -34,6 +33,7 @@ Future<void> download() async {
   print("==============");
   print(audiosDir);
   print("==============");
+  // ignore: unused_local_variable
   final taskId = await FlutterDownloader.enqueue(
     url:
         'https://files.21voa.com/202101/technology-problems-linked-to-higher-stress-levels-in-workers.mp3',
@@ -79,8 +79,11 @@ class _ListenPageState extends State<ListenPage> {
     IsolateNameServer.registerPortWithName(
         _port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
+      // ignore: unused_local_variable
       String id = data[0];
+      // ignore: unused_local_variable
       DownloadTaskStatus status = data[1];
+      // ignore: unused_local_variable
       int progress = data[2];
       setState(() {});
     });
@@ -323,7 +326,9 @@ class _ListenPageState extends State<ListenPage> {
                               ),
                               Text(
                                 "今日学习时间",
-                                style: TextStyle(color:Colors.white.withAlpha(40),),
+                                style: TextStyle(
+                                  color: Colors.white.withAlpha(40),
+                                ),
                               ),
                             ],
                           ),
@@ -496,7 +501,6 @@ class ProgressWidget extends StatefulWidget {
 
 // 进度条
 class _ProgressWidgetState extends State<ProgressWidget> {
-  double _upperValue = 0;
   AudioPlayer player;
   @override
   void initState() {
@@ -596,7 +600,6 @@ class _ProgressWidgetState extends State<ProgressWidget> {
                           duration: Duration(milliseconds: 700),
                           scale: 1.4),
                       onDragging: (handlerIndex, lowerValue, upperValue) {
-                        _upperValue = lowerValue;
                         print(lowerValue);
                         player
                             .seek(Duration(milliseconds: (lowerValue).round()));

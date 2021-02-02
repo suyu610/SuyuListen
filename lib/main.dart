@@ -1,9 +1,8 @@
-import 'package:SuyuListening/provider/listen_provider.dart';
-import 'package:SuyuListening/provider/theme_provider.dart';
-import 'package:SuyuListening/ui/components/no_splash.dart';
-import 'package:SuyuListening/ui/pages/article/article_detail.dart';
-import 'package:SuyuListening/ui/pages/splash/splash_screen.dart';
-import 'package:SuyuListening/utils/color_util.dart';
+import '.../../provider/theme_provider.dart';
+import '.../../ui/components/no_splash.dart';
+
+import '.../../ui/pages/splash/splash_screen.dart';
+import '.../../utils/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -14,6 +13,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'config/global.dart';
 import 'constant/theme_color.dart';
+import 'provider/listen_provider.dart';
+import 'route/router_helper.dart';
+import 'ui/components/app_retain_widget.dart';
 // import 'ui/pages/listen.dart';
 
 void main() async {
@@ -63,6 +65,7 @@ class MyApp extends StatelessWidget {
       designSize: Size(750, 1334),
       allowFontScaling: true,
       child: MaterialApp(
+        onGenerateRoute: RouterHelper.router.generator,
         builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,
         title: '小兔崽听力',
@@ -70,7 +73,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: createMaterialColor(colorBlack),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: StartAppPage(title: '文章列表'),
+        home: SplashScreen(),
       ),
     );
   }
@@ -95,10 +98,11 @@ class _StartAppPageState extends State<StartAppPage> {
 
   @override
   Widget build(BuildContext context) {
+    // return MessagePage();
     // return ArticleDetailPage();
 
     // return ListenPage();
-    return SplashScreen();
+    return AppRetainWidget(child: SplashScreen());
     // if (loginState == 0) {
     //   return WelcomePage();
     // } else {

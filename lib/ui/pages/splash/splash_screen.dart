@@ -1,8 +1,10 @@
-import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
-import 'package:SuyuListening/ui/animation/my_fade_animation.dart';
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-import '../welcom_page.dart';
+import '../../../route/router_helper.dart';
+import '../../../ui/animation/my_fade_animation.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -12,15 +14,10 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    var d = Duration(seconds: 2);
-    // delayed 3 seconds to next page
-    Future.delayed(d, () {
-      // to next page and close this page
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return WelcomePage();
-      }));
+    Future.delayed(Duration(milliseconds: 1800), () {
+      RouterHelper.router.navigateTo(context, "/welcome",
+          transition: TransitionType.fadeIn, clearStack: true);
     });
-
     super.initState();
   }
 
@@ -28,112 +25,54 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: double.infinity,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: Color(0xffffd673),
-          // image: DecorationImage(
-          //   image: AssetImage('assets/images/bg.png'),
-          //   fit: BoxFit.contain,
-          // ),
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  MyFadeAnimation(
-                    1,
-                    1000,
-                    Container(
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        color: Color(0xffffd673),
-                        image: DecorationImage(
-                          image:
-                              AssetImage('assets/images/logo_transparent.png'),
-                        ),
-                      ),
-                    ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyFadeAnimation(
+              1,
+              1000,
+              Container(
+                height: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  color: Color(0xffffd673),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/logo_transparent.png'),
                   ),
-                  SizedBox(
-                    height: 80,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MyFadeAnimation(
-                        1.5,
-                        1000,
-                        Text(
-                          "小",
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black,
-                              fontFamily: "logoFonts"),
-                        ),
-                      ),
-                      MyFadeAnimation(
-                        1.6,
-                        1000,
-                        Text(
-                          "兔",
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black,
-                              fontFamily: "logoFonts"),
-                        ),
-                      ),
-                      MyFadeAnimation(
-                        1.7,
-                        1000,
-                        Text(
-                          "崽",
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black,
-                              fontFamily: "logoFonts"),
-                        ),
-                      ),
-                      MyFadeAnimation(
-                        1.8,
-                        1000,
-                        Text(
-                          "子",
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black,
-                              fontFamily: "logoFonts"),
-                        ),
-                      ),
-                      MyFadeAnimation(
-                        1.9,
-                        1000,
-                        Text(
-                          "听",
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black,
-                              fontFamily: "logoFonts"),
-                        ),
-                      ),
-                      MyFadeAnimation(
-                        2.0,
-                        1000,
-                        Text(
-                          "力",
-                          style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black,
-                              fontFamily: "logoFonts"),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 200,
+            ),
+            MyFadeAnimation(
+              1.5,
+              1000,
+              SizedBox(
+                height: 32,
+                width: 1000,
+                child: WavyAnimatedTextKit(
+                  speed: Duration(milliseconds: 300),
+                  textAlign: TextAlign.center,
+                  textStyle: TextStyle(
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.w100,
+                      fontFamily: "logoFonts",
+                      color: Colors.black),
+                  text: [
+                    "小兔崽听力",
+                  ],
+                  repeatForever: false,
+                  isRepeatingAnimation: false,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

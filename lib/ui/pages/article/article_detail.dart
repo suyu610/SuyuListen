@@ -1,8 +1,8 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/sample_data/data.dart';
-import 'package:SuyuListening/ui/components/Button/fancy_button.dart';
-import 'package:SuyuListening/ui/pages/listen.dart';
-import 'package:SuyuListening/ui/pages/word_detail_page.dart';
+import '../../../constant/theme_color.dart';
+import '../../../sample_data/data.dart';
+import '../../../ui/components/buttons/fancy_button.dart';
+import '../../../ui/pages/listen.dart';
+import '../../../ui/pages/word_detail_page.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/gestures.dart';

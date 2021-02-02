@@ -1,7 +1,8 @@
+import '../../../ui/components/customAvatar/fluttermoji_assets/fluttermojimodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'fluttermoji_assets/fluttermojimodel.dart';
+// import 'fluttermoji_assets/fluttermojimodel.dart';
 import 'package:get/get.dart';
 import 'fluttermojiController.dart';
 
@@ -81,7 +82,6 @@ class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
           padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12),
           child: SvgPicture.asset(
             attribute.iconAsset,
-            package: 'fluttermoji',
             height: (attribute.iconsize == 0)
                 ? widget.scaffoldHeight > 0
                     ? widget.scaffoldHeight / heightFactor * 0.03
@@ -291,52 +291,48 @@ class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
                 : size.height * heightFactor,
             width: widget.scaffoldWidth > 0 ? widget.scaffoldWidth : size.width,
             child: expandedCard(cardTitle: "Customize", attributes: [
-              /*  ExpandedFluttermojiCardItem(
-                        iconAsset: "attributeicons/hair.svg",
-                        title: "Fluttermoji Style",
-                        key: "style"), */
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/hair.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/hair.svg",
                   title: "头发",
                   key: "topType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/haircolor.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/haircolor.svg",
                   title: "头发颜色",
                   key: "hairColor"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/beard.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/beard.svg",
                   title: "胡须",
                   key: "facialHairType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/beardcolor.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/beardcolor.svg",
                   title: "胡须颜色",
                   key: "facialHairColor"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/outfit.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/outfit.svg",
                   title: "上衣",
                   key: "clotheType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/outfitcolor.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/outfitcolor.svg",
                   title: "上衣颜色",
                   key: "clotheColor"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/eyes.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/eyes.svg",
                   title: "眼睛",
                   key: "eyeType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/eyebrow.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/eyebrow.svg",
                   title: "眉毛",
                   key: "eyebrowType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/mouth.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/mouth.svg",
                   title: "嘴巴",
                   key: "mouthType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/skin.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/skin.svg",
                   title: "皮肤颜色",
                   key: "skinColor"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "attributeicons/accessories.svg",
+                  iconAsset: "assets/icons/customAvatarIcons/accessories.svg",
                   title: "眼镜",
                   key: "accessoriesType"),
             ]),

@@ -2,10 +2,11 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/model/article_model.dart';
-import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
-import 'package:SuyuListening/ui/pages/article/article_detail.dart';
+import '../pages/article/article_detail.dart';
+import '../../ui/animation/fade_animation.dart';
+import '../../constant/theme_color.dart';
+import '../../model/article_model.dart';
+
 import 'package:bordered_text/bordered_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,13 @@ class ArticleListTile extends StatefulWidget {
   _ArticleListTileState createState() => _ArticleListTileState();
 }
 
-class _ArticleListTileState extends State<ArticleListTile> {
+class _ArticleListTileState extends State<ArticleListTile>
+    with AutomaticKeepAliveClientMixin {
   ArticleModel model;
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     model = widget.model;
@@ -61,6 +67,7 @@ class _ArticleListTileState extends State<ArticleListTile> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return GestureDetector(
       onTap: () => {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -92,7 +99,8 @@ class _ArticleListTileState extends State<ArticleListTile> {
         padding: EdgeInsets.all(18),
         margin: EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
-            color: blue,
+            // color: blue,
+            gradient: kListTileGradient,
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
                 image: AssetImage(model.imageUrl),
@@ -167,7 +175,7 @@ class _ArticleListTileState extends State<ArticleListTile> {
                         child: FadeAnimation(
                           1.1,
                           RatingBar(
-                            rating: 3,
+                            rating: model.level.index.toDouble(),
                             icon: Icon(
                               Icons.star,
                               size: 30.sp,

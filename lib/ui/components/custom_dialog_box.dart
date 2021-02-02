@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:SuyuListening/constant/theme_color.dart';
+import '../../constant/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -13,10 +13,15 @@ class Constants {
 class CustomDialogBox extends StatefulWidget {
   final String title, text;
   final Widget contentWidget;
-  final Image img;
-
+  final Widget headWidget;
+  final Function onTapButton;
   const CustomDialogBox(
-      {Key key, this.title, this.contentWidget, this.text, this.img})
+      {Key key,
+      this.title,
+      this.contentWidget,
+      this.onTapButton,
+      this.text,
+      this.headWidget})
       : super(key: key);
 
   @override
@@ -75,14 +80,15 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               Align(
                 alignment: Alignment.bottomRight,
                 child: GestureDetector(
-                  onTap: () {
-                    FocusScope.of(context).requestFocus(new FocusNode());
+                  onTap: widget.onTapButton ??
+                      () {
+                        FocusScope.of(context).requestFocus(new FocusNode());
 
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                    EasyLoading.showSuccess("反馈成功");
-                  },
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        EasyLoading.showSuccess("反馈成功");
+                      },
                   child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -107,7 +113,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             child: ClipRRect(
                 borderRadius:
                     BorderRadius.all(Radius.circular(Constants.avatarRadius)),
-                child: Image.asset("assets/images/logo.png")),
+                child: widget.headWidget),
           ),
         ),
       ],

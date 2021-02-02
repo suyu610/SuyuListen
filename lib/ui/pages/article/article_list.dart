@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/model/article_model.dart';
-import 'package:SuyuListening/provider/theme_provider.dart';
-import 'package:SuyuListening/sample_data/data.dart';
-import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
-import 'package:SuyuListening/ui/components/article_list_tile.dart';
-import 'package:SuyuListening/ui/components/first_page_widget.dart';
+import '../../../constant/theme_color.dart';
+import '../../../model/article_level.dart';
+import '../../../model/article_model.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../sample_data/data.dart';
+import '../../../ui/animation/fade_animation.dart';
+import '../../../ui/components/article_list_tile.dart';
+import '../../../ui/components/first_page_widget.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,10 +55,9 @@ class _ArticleListPageState extends State<ArticleListPage> {
 
         list = List.generate(count, (index) {
           return new ArticleModel()
-            ..index = index
             ..title = generateWordPairs().take(10).join(" ")
             ..coint = Random().nextInt(10)
-            ..level = Random().nextInt(10)
+            ..level = randomLevel()
             ..learnProgress = Random().nextInt(100)
             ..downloadValue = 0
             ..imageUrl =
@@ -79,10 +79,9 @@ class _ArticleListPageState extends State<ArticleListPage> {
     } else {
       await Future.delayed(Duration(milliseconds: 1000), () {
         list.add(new ArticleModel()
-          ..index = 10
           ..title = generateWordPairs().take(10).join(" ")
           ..coint = Random().nextInt(10)
-          ..level = Random().nextInt(10)
+          ..level = randomLevel()
           ..learnProgress = Random().nextInt(100)
           ..downloadValue = 0
           ..imageUrl = coverImageList[Random().nextInt(coverImageList.length)]);
@@ -111,10 +110,9 @@ class _ArticleListPageState extends State<ArticleListPage> {
 
     list = List.generate(10, (index) {
       return new ArticleModel()
-        ..index = index
         ..title = generateWordPairs().take(10).join(" ")
         ..coint = Random().nextInt(10)
-        ..level = Random().nextInt(10)
+        ..level = randomLevel()
         ..learnProgress = Random().nextInt(100)
         ..downloadValue = 0
         ..imageUrl = coverImageList[Random().nextInt(coverImageList.length)];
@@ -235,13 +233,6 @@ class _ArticleListPageState extends State<ArticleListPage> {
                   child: Icon(Icons.home, color: Colors.black),
                 );
               }
-              if (f == "Done") {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:
-                      Icon(icon_2.Ionicons.checkmark_done, color: Colors.black),
-                );
-              }
               return Container(
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -249,7 +240,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                   child: Text(
                     f,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 30.sp, color: Colors.black),
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ),
               );

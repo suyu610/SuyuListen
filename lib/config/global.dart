@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/route/RouterConfig.dart';
-import 'package:SuyuListening/route/RouterHelper.dart';
-import 'package:SuyuListening/utils/share_preferences_utils.dart';
-import 'package:SuyuListening/utils/storage_util.dart';
+import '../constant/theme_color.dart';
+import '../route/router_config.dart';
+import '../route/router_helper.dart';
+import '../utils/share_preferences_utils.dart';
+import '../utils/storage_util.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +25,7 @@ class Global {
     final router = FluroRouter();
     RouterConfig.configureRoutes(router);
     RouterHelper.router = router;
+
     // 指定手机方向
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 

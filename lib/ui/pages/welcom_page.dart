@@ -1,11 +1,12 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/ui/components/Button/fancy_button.dart';
+import '../../constant/theme_color.dart';
+import '../../route/router_helper.dart';
+import '../../ui/components/buttons/fancy_button.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:styled_text/styled_text.dart';
 
-import 'home_page.dart';
 import 'login/login.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -60,10 +61,9 @@ class WelcomePage extends StatelessWidget {
                 children: <Widget>[
                   FancyButton(
                       onPress: () async {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage()));
+                        RouterHelper.router.navigateTo(context, "/home",
+                            transition: TransitionType.inFromRight,
+                            clearStack: true);
                       },
                       label: "Experience without Login",
                       gradient:

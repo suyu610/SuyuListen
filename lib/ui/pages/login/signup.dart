@@ -1,5 +1,5 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
+import '../../../constant/theme_color.dart';
+import '../../../ui/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatelessWidget {

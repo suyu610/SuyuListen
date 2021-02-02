@@ -1,4 +1,4 @@
-import 'package:SuyuListening/provider/theme_provider.dart';
+import '../../../provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

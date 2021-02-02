@@ -2,9 +2,9 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/model/article_model.dart';
-import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
+import '../../constant/theme_color.dart';
+import '../../model/article_model.dart';
+import '../../ui/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_rating_bar/flutter_simple_rating_bar.dart';
@@ -24,10 +24,19 @@ class TodayArticleListTile extends StatefulWidget {
 
 class _TodayArticleListTileState extends State<TodayArticleListTile> {
   ArticleModel model;
+  Image myImage;
+
   @override
   void initState() {
+    myImage = Image.asset("assets/jupiter.png");
     model = widget.model;
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(myImage.image, context);
   }
 
   void tapBookMark() {
@@ -64,10 +73,11 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
       padding: EdgeInsets.all(20),
       // margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-          color: blue,
+          // color: blue,
+          gradient: kListTileGradient,
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
-              image: AssetImage(model.imageUrl),
+              image: myImage.image,
               fit: BoxFit.contain,
               alignment: Alignment.bottomCenter),
           boxShadow: [
@@ -136,7 +146,7 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
                       child: FadeAnimation(
                         1.1,
                         RatingBar(
-                          rating: 3,
+                          rating: model.level.index.toDouble(),
                           icon: Icon(
                             Icons.star,
                             size: 30.sp,

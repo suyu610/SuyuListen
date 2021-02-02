@@ -1,9 +1,7 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/sample_data/data.dart';
-import 'package:SuyuListening/ui/components/Button/fancy_button.dart';
+import '../../constant/theme_color.dart';
+import '../../sample_data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ionicons/ionicons.dart';
 
 class WordDetailPage extends StatefulWidget {
   final PlanetInfo planetInfo;

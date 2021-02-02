@@ -1,8 +1,9 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/route/RouterHelper.dart';
-import 'package:SuyuListening/ui/components/Popup/popup.dart';
-import 'package:SuyuListening/ui/components/customAvatar/fluttermojiCircleAvatar.dart';
-import 'package:SuyuListening/ui/pages/profile.dart';
+import '../../../constant/theme_color.dart';
+import '../../../route/router_helper.dart';
+import '../../../ui/components/Popup/popup.dart';
+import '../../../ui/components/customAvatar/fluttermojiCircleAvatar.dart';
+import '../../../ui/pages/message.dart';
+import '../../../ui/pages/profile.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,10 +46,12 @@ class MenuWidget extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () => {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ProfilePage();
-                          }))
+                          Future.delayed(Duration.zero, () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ProfilePage();
+                            }));
+                          })
                         },
                         child: FluttermojiCircleAvatar(
                           radius: 50.h,
@@ -130,13 +133,14 @@ class MenuWidget extends StatelessWidget {
                   MenuItem(
                       title: "消息",
                       icon: Ionicons.notifications,
-                      tapAction: () {
-                        RouterHelper.router.navigateTo(
-                          context,
-                          "/gameCenter",
-                          transition: TransitionType.inFromRight,
-                        );
-                      }),
+                      tapAction: () => {
+                            Future.delayed(Duration.zero, () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return MessagePage();
+                              }));
+                            })
+                          }),
                   MenuItem(
                       title: "单词本",
                       icon: Ionicons.book_outline,

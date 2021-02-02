@@ -1,6 +1,6 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
-import 'package:SuyuListening/ui/pages/login/signup.dart';
+import '../../../constant/theme_color.dart';
+import '../../../ui/animation/fade_animation.dart';
+import '../../../ui/pages/login/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

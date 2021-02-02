@@ -15,7 +15,7 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         val binaryMessenger = flutterEngine.dartExecutor.binaryMessenger
         
-        MethodChannel(binaryMessenger, "com.example/background_service").apply {
+        MethodChannel(binaryMessenger, "cool.suyu/background_service").apply {
             setMethodCallHandler { method, result ->
                 if (method.method == "startService") {
                     val callbackRawHandle = method.arguments as Long
