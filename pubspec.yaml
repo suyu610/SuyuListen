@@ -60,7 +60,7 @@ dependencies:
   json_annotation: ^3.0.1
   # 画图
   syncfusion_flutter_charts: ^18.3.44
-  flutter_svg: ^0.18.1
+  flutter_svg: ^0.19.1
   hand_signature: ^0.6.0
   image_picker: ^0.6.7+12
   path_provider: ^1.6.22
@@ -81,13 +81,8 @@ dependencies:
   flutter_dropdown: ^0.0.8
   liquid_progress_indicator: ^0.3.2
   device_info: ^1.0.0
+  get: ^3.24.0
 
-  # 富文本编辑器
-  # zefyr: ^1.0.0-dev.1.0
-  zefyr:
-      git:
-        url: https://github.com/memspace/zefyr.git
-        path: packages/zefyr        
   bordered_text: ^1.0.1
   # 
   auto_animated: ^2.1.0
@@ -100,8 +95,6 @@ dependencies:
   # 超级强大的功能
   common_utils: ^1.2.1
   loading_indicator_view: ^1.1.0
-  # 快速选择
-  direct_select_flutter: ^1.0.6
   # 列表下面的角标
   smooth_page_indicator: ^0.2.0
   # 路由
@@ -115,6 +108,7 @@ dependencies:
   # 侧边栏
   flutter_inner_drawer: "^0.5.7+2"
   flutter_downloader: ^1.5.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

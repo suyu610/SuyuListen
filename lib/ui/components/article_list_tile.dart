@@ -6,6 +6,7 @@ import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/model/article_model.dart';
 import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
 import 'package:SuyuListening/ui/pages/article/article_detail.dart';
+import 'package:bordered_text/bordered_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -88,7 +89,7 @@ class _ArticleListTileState extends State<ArticleListTile> {
       child: Container(
         height: 300.h,
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(18),
         margin: EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
             color: blue,
@@ -116,21 +117,22 @@ class _ArticleListTileState extends State<ArticleListTile> {
                     children: <Widget>[
                       // 标题
                       FadeAnimation(
-                          1,
-                          Text(
+                        1,
+                        BorderedText(
+                          strokeWidth: 2.0,
+                          strokeColor: Colors.black38,
+                          child: Text(
                             model.title,
                             maxLines: 2,
                             style: TextStyle(
-                                shadows: [
-                                  Shadow(
-                                      color: Colors.black54,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 0))
-                                ],
+                                decoration: TextDecoration.none,
+                                decorationColor: Colors.red,
                                 color: Colors.white,
                                 fontSize: 30.sp,
                                 fontWeight: FontWeight.bold),
-                          )),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -276,14 +278,23 @@ class _ArticleListTileState extends State<ArticleListTile> {
             ),
             // 进度
             FadeAnimation(
-                1.3,
-                Text(
+              1.3,
+              BorderedText(
+                strokeWidth: 2.0,
+                strokeColor: Colors.black38,
+                child: Text(
                   model.learnProgress.toString() + "%",
+                  maxLines: 2,
                   style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      decoration: TextDecoration.none,
+                      decorationColor: Colors.red,
                       color: Colors.white,
                       fontSize: 60.sp,
                       fontWeight: FontWeight.bold),
-                )),
+                ),
+              ),
+            ),
           ],
         ),
       ),

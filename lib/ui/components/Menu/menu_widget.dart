@@ -1,5 +1,8 @@
+import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/route/RouterHelper.dart';
 import 'package:SuyuListening/ui/components/Popup/popup.dart';
+import 'package:SuyuListening/ui/components/customAvatar/fluttermojiCircleAvatar.dart';
+import 'package:SuyuListening/ui/pages/profile.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,40 +38,83 @@ class MenuWidget extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                          child: Image.asset("assets/earth.png"),
+                      GestureDetector(
+                        onTap: () => {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ProfilePage();
+                          }))
+                        },
+                        child: FluttermojiCircleAvatar(
                           radius: 50.h,
-                          foregroundColor: Colors.transparent,
-                          backgroundColor: Colors.transparent),
-                      Text(
-                        "20",
-                        textAlign: TextAlign.end,
-                        style: TextStyle(fontSize: 48.sp, color: Colors.white),
+                          backgroundColor: colorWhite,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Ionicons.flower_outline,
+                            color: Colors.white,
+                            size: 30.sp,
+                          ),
+                          SizedBox(
+                            width: 14.w,
+                          ),
+                          Text(
+                            "30",
+                            textAlign: TextAlign.end,
+                            style:
+                                TextStyle(fontSize: 30.sp, color: Colors.white),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 30.w,
-                  ),
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                          child: Image.asset("assets/jupiter.png"),
+                      GestureDetector(
+                        onTap: () => {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ProfilePage();
+                          }))
+                        },
+                        child: FluttermojiCircleAvatar(
                           radius: 50.h,
-                          foregroundColor: Colors.transparent,
-                          backgroundColor: Colors.transparent),
-                      Text(
-                        "30",
-                        textAlign: TextAlign.end,
-                        style: TextStyle(fontSize: 48.sp, color: Colors.white),
+                          backgroundColor: colorWhite,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Ionicons.flower_outline,
+                            color: Colors.white,
+                            size: 30.sp,
+                          ),
+                          SizedBox(
+                            width: 14.w,
+                          ),
+                          Text(
+                            "30",
+                            textAlign: TextAlign.end,
+                            style:
+                                TextStyle(fontSize: 30.sp, color: Colors.white),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -84,13 +130,13 @@ class MenuWidget extends StatelessWidget {
                   MenuItem(
                       title: "消息",
                       icon: Ionicons.notifications,
-                      tapAction: () => {
-                            RouterHelper.router.navigateTo(
-                              context,
-                              "/gameCenter",
-                              transition: TransitionType.inFromRight,
-                            )
-                          }),
+                      tapAction: () {
+                        RouterHelper.router.navigateTo(
+                          context,
+                          "/gameCenter",
+                          transition: TransitionType.inFromRight,
+                        );
+                      }),
                   MenuItem(
                       title: "单词本",
                       icon: Ionicons.book_outline,
@@ -104,11 +150,12 @@ class MenuWidget extends StatelessWidget {
                   MenuItem(
                       title: "你的伙伴",
                       icon: Ionicons.cog_outline,
-                      tapAction: () => RouterHelper.router.navigateTo(
-                            context,
-                            "/editor",
-                            transition: TransitionType.inFromRight,
-                          )),
+                      tapAction: () => {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return ProfilePage();
+                            }))
+                          }),
                   MenuItem(
                       title: "我的",
                       icon: Ionicons.person_outline,

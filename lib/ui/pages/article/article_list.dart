@@ -123,11 +123,19 @@ class _ArticleListPageState extends State<ArticleListPage> {
 
     _pageController = PageController();
 
+    DateTime _lastTime; //上次滑动的时间
+
     // 应该只让他监听一次
     _pageController.addListener(() {
       double offset = _pageController.offset;
       double page = _pageController.page;
-      if (page == 0 && offset < -10) {
+
+      if (page == 0 &&
+          offset < -10 &&
+          (_lastTime == null ||
+              DateTime.now().difference(_lastTime) > Duration(seconds: 1))) {
+        //两次点击间隔超过1s重新计时
+        _lastTime = DateTime.now();
         Provider.of<ThemeProvider>(context, listen: false)
             .innerDrawerKey
             .currentState

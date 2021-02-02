@@ -43,14 +43,13 @@ class _HomePageState extends State<HomePage> {
         scaffold: ArticleListPage(),
         // 一些配置
         onTapClose: true,
-
         swipe: true,
         colorTransitionChild: Colors.grey[900],
         colorTransitionScaffold: Colors.white70,
         offset: IDOffset.only(bottom: 0, right: 0, left: 0.3),
         proportionalChildArea: true,
         borderRadius: 0,
-        leftAnimationType: InnerDrawerAnimation.linear,
+        leftAnimationType: InnerDrawerAnimation.quadratic,
         backgroundDecoration: BoxDecoration(color: Colors.grey[900]),
         innerDrawerCallback: (a) => {},
       ),

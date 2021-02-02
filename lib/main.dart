@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         builder: EasyLoading.init(),
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: '小兔崽听力',
         theme: ThemeData(
           primarySwatch: createMaterialColor(colorBlack),
           visualDensity: VisualDensity.adaptivePlatformDensity,
