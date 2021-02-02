@@ -1,8 +1,10 @@
 import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/sample_data/data.dart';
+import 'package:SuyuListening/ui/components/Button/fancy_button.dart';
 import 'package:SuyuListening/ui/pages/listen.dart';
 import 'package:SuyuListening/ui/pages/word_detail_page.dart';
 import 'package:cool_alert/cool_alert.dart';
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,6 +22,22 @@ class ArticleDetailPage extends StatefulWidget {
 }
 
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
+  bool wordIsTap = false;
+  bool wordIsBookmark = false;
+  List<GlobalKey<FlipCardState>> cardKeys = [];
+  int currentIndex = 0;
+  @override
+  void initState() {
+    cardKeys =
+        List.generate(planets.length, (i) => new GlobalKey<FlipCardState>());
+
+    super.initState();
+  }
+
+  void onIndexchanged(index) {
+    currentIndex = index;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,134 +48,411 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         toolbarHeight: 0,
       ), // status bar brightness,
 
-      backgroundColor: gradientStartColor,
+      backgroundColor: blue,
       body: Container(
-        decoration: BoxDecoration(
-          color: gradientStartColor,
-          // gradient: LinearGradient(
-          //     colors: [gradientStartColor, gradientEndColor],
-          //     begin: Alignment.topCenter,
-          //     end: Alignment.bottomCenter,
-          //     stops: [1.0, 1.0])
-        ),
+        decoration: BoxDecoration(),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: const EdgeInsets.all(32),
                 child: Column(
                   children: <Widget>[
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                            child: Icon(
-                              Ionicons.chevron_back_outline,
-                              color: Colors.white,
+                        Row(
+                          children: [
+                            GestureDetector(
+                                child: Icon(
+                                  Ionicons.chevron_back_outline,
+                                  color: Colors.white,
+                                ),
+                                onTap: () => Navigator.pop(context)),
+                            SizedBox(
+                              width: 20.w,
                             ),
-                            onTap: () => Navigator.pop(context)),
-                        SizedBox(
-                          width: 30.w,
+                            Text(
+                              'Word List',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontFamily: 'Avenir',
+                                fontSize: 64.sp,
+                                color: const Color(0xffffffff),
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Word List',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Avenir',
-                            fontSize: 64.sp,
-                            color: const Color(0xffffffff),
-                            fontWeight: FontWeight.w900,
+                        IconButton(
+                          icon: Icon(
+                            Ionicons.water,
+                            color: Colors.white,
+                            size: 32.sp,
                           ),
+                          onPressed: () {},
                         ),
                       ],
                     ),
-                    DropdownButton(
-                      isExpanded: true,
-                      dropdownColor: Colors.black,
-                      style: new TextStyle(color: Colors.red),
-                      items: [
-                        DropdownMenuItem(
-                          child: Text(
-                            'Major Space Missions Planned',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontFamily: 'Avenir',
-                              fontSize: 32.sp,
-                              color: const Color(0x7cdbf1ff),
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        DropdownMenuItem(
-                          child: Text(
-                            'Major Space Missions Planned1',
-                            style: TextStyle(
-                              fontFamily: 'Avenir',
-                              fontSize: 32.sp,
-                              color: const Color(0x7cdbf1ff),
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        DropdownMenuItem(
-                          child: Text(
-                            'Major Space Missions Planned2',
-                            style: TextStyle(
-                              fontFamily: 'Avenir',
-                              fontSize: 32.sp,
-                              color: const Color(0x7cdbf1ff),
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        DropdownMenuItem(
-                          child: Text(
-                            'Major Space Missions Planned3',
-                            style: TextStyle(
-                              fontFamily: 'Avenir',
-                              fontSize: 32.sp,
-                              color: const Color(0x7cdbf1ff),
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                      onChanged: (value) {},
-                      icon: Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Icon(
-                          Ionicons.chevron_down_outline,
-                          color: const Color(0x7cdbf1ff),
-                        ),
-                      ),
-                      underline: SizedBox(),
-                    ),
+                    // DropdownButton(
+                    //   isExpanded: false,
+                    //   dropdownColor: Colors.black,
+                    //   style: new TextStyle(color: Colors.red),
+                    //   items: [
+                    //     DropdownMenuItem(
+                    //       child: Text(
+                    //         'Mor Space Missions Planned',
+                    //         overflow: TextOverflow.ellipsis,
+                    //         style: TextStyle(
+                    //           fontFamily: 'Avenir',
+                    //           fontSize: 32.sp,
+                    //           color: const Color(0x7cdbf1ff),
+                    //           fontWeight: FontWeight.w500,
+                    //         ),
+                    //         textAlign: TextAlign.center,
+                    //       ),
+                    //     ),
+                    //     DropdownMenuItem(
+                    //       child: Text(
+                    //         'Major Space Missions Planned1',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Avenir',
+                    //           fontSize: 32.sp,
+                    //           color: const Color(0x7cdbf1ff),
+                    //           fontWeight: FontWeight.w500,
+                    //         ),
+                    //         textAlign: TextAlign.center,
+                    //       ),
+                    //     ),
+                    //     DropdownMenuItem(
+                    //       child: Text(
+                    //         'Major Space Missions Planned2',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Avenir',
+                    //           fontSize: 32.sp,
+                    //           color: const Color(0x7cdbf1ff),
+                    //           fontWeight: FontWeight.w500,
+                    //         ),
+                    //         textAlign: TextAlign.center,
+                    //       ),
+                    //     ),
+                    //     DropdownMenuItem(
+                    //       child: Text(
+                    //         'Major Space Missions Planned3',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Avenir',
+                    //           fontSize: 32.sp,
+                    //           color: const Color(0x7cdbf1ff),
+                    //           fontWeight: FontWeight.w500,
+                    //         ),
+                    //         textAlign: TextAlign.center,
+                    //       ),
+                    //     ),
+                    //   ],
+                    //   onChanged: (value) {},
+                    //   icon: Padding(
+                    //     padding: const EdgeInsets.only(left: 16.0),
+                    //     child: Icon(
+                    //       Ionicons.chevron_down_outline,
+                    //       color: const Color(0x7cdbf1ff),
+                    //     ),
+                    //   ),
+                    //   underline: SizedBox(),
+                    // ),
                   ],
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 180.w,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 25.w,
+                            height: 25.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: silver,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Text(
+                            "Learning",
+                            style: TextStyle(
+                              color: Color(0x7cdbf1ff),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Text(
+                            "2",
+                            style: TextStyle(
+                                color: Colors.white.withAlpha(200),
+                                fontSize: 50.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 180.w,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 25.w,
+                            height: 25.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color(0xffff6324).withAlpha(220),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Text(
+                            "Reviewing",
+                            style: TextStyle(color: Color(0x7cdbf1ff)),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Text(
+                            "10",
+                            style: TextStyle(
+                                color: Colors.white.withAlpha(200),
+                                fontSize: 50.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 180.w,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 25.w,
+                            height: 25.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: yellow,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Text(
+                            "Mastered",
+                            style: TextStyle(color: Color(0x7cdbf1ff)),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Text(
+                            "3",
+                            style: TextStyle(
+                                color: Colors.white.withAlpha(200),
+                                fontSize: 50.sp,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40.h),
               Container(
-                height: 830.h,
+                height: 600.h,
+                color: Colors.transparent,
                 padding: const EdgeInsets.only(left: 32),
                 child: Swiper(
+                  onIndexChanged: (index) => onIndexchanged(index),
                   itemCount: planets.length,
                   itemWidth: MediaQuery.of(context).size.width - 2 * 55,
                   layout: SwiperLayout.STACK,
                   pagination: SwiperPagination(
                     builder: DotSwiperPaginationBuilder(
-                        // activeSize: 28.w,
-                        space: 16.w,
-                        activeColor: ThemeColors.colorTheme),
+                        activeSize: 5,
+                        size: 5,
+                        space: 5.w,
+                        color: Colors.transparent,
+                        activeColor: Colors.transparent),
                   ),
                   itemBuilder: (context, index) {
-                    return Stack(
-                      children: <Widget>[
+                    return FlipCard(
+                      key: cardKeys[index],
+                      speed: 350,
+                      direction: FlipDirection.VERTICAL,
+                      front: Stack(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 60.h,
+                              ),
+                              Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32),
+                                ),
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      SizedBox(height: 50.h),
+                                      GestureDetector(
+                                        onTap: () {
+                                          print("播放音频手势");
+                                        },
+                                        child: Text(
+                                          planets[index].name,
+                                          style: TextStyle(
+                                            fontFamily: 'Avenir',
+                                            fontSize: 74.sp,
+                                            color: const Color(0xff47455f),
+                                            fontWeight: FontWeight.w900,
+                                          ),
+                                          textAlign: TextAlign.right,
+                                        ),
+                                      ),
+                                      SizedBox(height: 40.h),
+                                      // 音标
+                                      Container(
+                                        height: 140.h,
+                                        child: Text(
+                                          "英 / ˈjʊərənəs /    美 / ˈjʊrənəs /",
+                                          maxLines: 4,
+                                          style: TextStyle(
+                                            fontFamily: 'Avenir',
+                                            fontSize: 30.sp,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  PageRouteBuilder(
+                                                    pageBuilder:
+                                                        (context, a, b) =>
+                                                            WordDetailPage(
+                                                      planetInfo:
+                                                          planets[index],
+                                                    ),
+                                                  ));
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: blue),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 10.0,
+                                                    bottom: 10.0,
+                                                    left: 20,
+                                                    right: 20),
+                                                child: Text(
+                                                  '详细',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Avenir',
+                                                    fontSize: 30.sp,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 80.w,
+                                          ),
+                                          GestureDetector(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: Icon(
+                                                  Icons.headset_mic_rounded,
+                                                  size: 44.sp,
+                                                  color: Colors.black),
+                                            ),
+                                            onTap: () {
+                                              EasyLoading.showToast("播放音频");
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          //顶部头像
+                          Positioned(
+                            top: 10.h,
+                            right: 0.w,
+                            child: Hero(
+                              tag: planets[index].position,
+                              child: Image(
+                                width: 220.w,
+                                fit: BoxFit.fill,
+                                image: AssetImage(planets[index].iconImage),
+                              ),
+                            ),
+                          ),
+                          //数字
+                          GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            child: Container(
+                              margin: EdgeInsets.only(top: 200.h, left: 390.w),
+                              child: Text(
+                                planets[index].position.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Avenir',
+                                  fontSize: 200.sp,
+                                  color: primaryTextColor.withOpacity(0.04),
+                                  fontWeight: FontWeight.w900,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      back: Stack(children: [
                         Column(
                           children: <Widget>[
-                            SizedBox(height: 120.h),
+                            SizedBox(
+                              height: 60.h,
+                            ),
                             Card(
                               elevation: 8,
                               shape: RoundedRectangleBorder(
@@ -169,110 +464,41 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    SizedBox(height: 200.h),
+                                    SizedBox(height: 50.h),
                                     GestureDetector(
                                       onTap: () {
                                         print("播放音频手势");
                                       },
-                                      child: Row(
-                                        children: [
-                                          Hero(
-                                            tag: planets[index].name,
-                                            child: Text(
-                                              planets[index].name,
-                                              style: TextStyle(
-                                                fontFamily: 'Avenir',
-                                                fontSize: 74.sp,
-                                                color: const Color(0xff47455f),
-                                                fontWeight: FontWeight.w900,
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                          ),
-                                          // Padding(
-                                          //   padding: const EdgeInsets.all(8.0),
-                                          //   child: Icon(
-                                          //     Icons.headset_mic_rounded,
-                                          //     size: 46.sp,
-                                          //     color: const Color(0xff47455f),
-                                          //   ),
-                                          // ),
-                                        ],
+                                      child: Text(
+                                        planets[index].name,
+                                        style: TextStyle(
+                                          fontFamily: 'Avenir',
+                                          fontSize: 40.sp,
+                                          color: const Color(0xff47455f),
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                        textAlign: TextAlign.right,
                                       ),
                                     ),
-                                    SizedBox(height: 20.h),
-                                    Text(
-                                      '抛弃;放弃;放纵;抛弃;放弃;放纵;抛弃;\n放弃;放纵;抛弃;放弃;放纵;\n抛弃;放弃;放纵;抛弃;放弃;放纵',
-                                      maxLines: 3,
-                                      style: TextStyle(
-                                        fontFamily: 'Avenir',
-                                        fontSize: 30.sp,
-                                        color: primaryTextColor,
-                                        fontWeight: FontWeight.w500,
+                                    SizedBox(height: 30.h),
+                                    // 详细
+                                    Container(
+                                      width: double.infinity,
+                                      height: 180.h,
+                                      child: Text(
+                                        "n.火花;火星;电火花;(指品质或感情)一星，丝毫，一丁点\n\nv.引发;触发;冒火花;飞火星;产生电火花",
+                                        maxLines: 6,
+                                        style: TextStyle(
+                                          fontFamily: 'Avenir',
+                                          fontSize: 30.sp,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        textAlign: TextAlign.left,
                                       ),
-                                      textAlign: TextAlign.left,
                                     ),
-                                    SizedBox(height: 20.h),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(0.0),
-                                            child: Icon(Icons.bookmark_border,
-                                                size: 44.sp,
-                                                color: Colors.black),
-                                          ),
-                                          onTap: () {
-                                            EasyLoading.showToast("已收藏");
-                                          },
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        GestureDetector(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: Icon(
-                                                Icons.headset_mic_rounded,
-                                                size: 44.sp,
-                                                color: Colors.black),
-                                          ),
-                                          onTap: () {
-                                            EasyLoading.showToast("播放音频");
-                                          },
-                                        ),
-                                        SizedBox(
-                                          width: 80.w,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: gradientStartColor),
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10.0,
-                                                  bottom: 10.0,
-                                                  left: 20,
-                                                  right: 20),
-                                              child: Text(
-                                                '详细',
-                                                style: TextStyle(
-                                                  fontFamily: 'Avenir',
-                                                  fontSize: 30.sp,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    SizedBox(
+                                      height: 90.h,
                                     ),
                                   ],
                                 ),
@@ -280,42 +506,87 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             ),
                           ],
                         ),
-                        Hero(
-                          tag: planets[index].position,
-                          child: Image.asset(planets[index].iconImage),
-                        ),
-                        Hero(
-                          tag: index.toString() + "name",
-                          child: GestureDetector(
-                            onTap: () => {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (context, a, b) =>
-                                      WordDetailPage(
-                                    planetInfo: planets[index],
-                                  ),
-                                ),
-                              )
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(top: 300.h, left: 320.w),
-                              child: Text(
-                                planets[index].position.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'Avenir',
-                                  fontSize: 200,
-                                  color: primaryTextColor.withOpacity(0.08),
-                                  fontWeight: FontWeight.w900,
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ]),
                     );
                   },
+                ),
+              ),
+
+              //控制区域
+              Container(
+                // height: 0.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: 180.w,
+                      height: 100.h,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FancyButton(
+                          onPress: () async {},
+                          label: "简单",
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Colors.white,
+                              Colors.white,
+                            ],
+                          ),
+                          // gradient: kInActiveButtonGradient
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 180.w,
+                      height: 100.h,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FancyButton(
+                          onPress: () async {
+                            setState(() {
+                              wordIsTap = !wordIsTap;
+                              cardKeys[currentIndex].currentState.toggleCard();
+                            });
+                          },
+                          icon: Icon(!wordIsTap
+                              ? Ionicons.eye_off
+                              : IconData(0xe68b, fontFamily: "appIconFonts")),
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Colors.white,
+                              Colors.white,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 180.w,
+                      height: 100.h,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FancyButton(
+                          onPress: () async {
+                            setState(() {
+                              wordIsBookmark = !wordIsBookmark;
+                            });
+                          },
+                          icon: Icon(wordIsBookmark
+                              ? Icons.bookmark
+                              : Ionicons.bookmark_outline),
+                          gradient: wordIsBookmark
+                              ? kActiveButtonGradient
+                              : LinearGradient(
+                                  colors: <Color>[
+                                    Colors.white,
+                                    Colors.white,
+                                  ],
+                                ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -323,6 +594,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         ),
       ),
       bottomNavigationBar: Container(
+        margin: EdgeInsets.only(top: 20.h),
         decoration: BoxDecoration(
           border: Border.all(width: 0),
           borderRadius: BorderRadius.vertical(
@@ -339,7 +611,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                     context: context,
                     type: CoolAlertType.confirm,
                     backgroundColor: Colors.transparent,
-                    confirmBtnColor: ThemeColors.colorTheme,
+                    confirmBtnColor: yellow,
                     confirmBtnTextStyle: TextStyle(color: Colors.black),
                     lottieAsset: "assets/lotties/money.json",
                     confirmBtnText: "确定",
@@ -377,7 +649,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                       padding: const EdgeInsets.all(18.0),
                                       margin: const EdgeInsets.all(18.0),
                                       decoration: BoxDecoration(
-                                          color: gradientStartColor,
+                                          color: blue,
                                           borderRadius:
                                               BorderRadius.circular(10),
                                           boxShadow: [
@@ -427,7 +699,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                           size: 30.sp,
                           color: Colors.grey.shade300,
                         ),
-                        color: gradientEndColor,
+                        color: yellow,
                         starCount: 5,
                         spacing: 1.0.w,
                         size: 30.w,

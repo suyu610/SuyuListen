@@ -7,7 +7,11 @@ void createFolder(String folderName) async {
 
   final path = Directory(dir.path + "/" + folderName);
   if ((!await path.exists())) {
+    print("创建目录成功");
     path.create();
+  } else {
+    print(path.path);
+    print("目录已存在");
   }
 }
 

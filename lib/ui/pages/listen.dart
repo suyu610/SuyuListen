@@ -10,7 +10,8 @@ import 'package:SuyuListening/ui/components/custom_dialog_box.dart';
 import 'package:SuyuListening/ui/components/emoji_feedback.dart';
 import 'package:SuyuListening/utils/check_util.dart';
 import 'package:SuyuListening/utils/storage_util.dart';
-import 'package:common_utils/common_utils.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:confetti/confetti.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +23,27 @@ import 'package:ionicons/ionicons.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
-import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:provider/provider.dart';
 import 'package:styled_text/styled_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:just_audio/just_audio.dart';
+
+Future<void> download() async {
+  String audiosDir = await getAudiosFolderPath();
+  createFolder(audiosDir);
+  print("==============");
+  print(audiosDir);
+  print("==============");
+  final taskId = await FlutterDownloader.enqueue(
+    url:
+        'https://files.21voa.com/202101/technology-problems-linked-to-higher-stress-levels-in-workers.mp3',
+    savedDir: audiosDir,
+    showNotification:
+        true, // show download progress in status bar (for Android)
+    openFileFromNotification:
+        true, // click on notification to open downloaded file (for Android)
+  );
+}
 
 class ListenPage extends StatefulWidget {
   ListenPage({Key key}) : super(key: key);
@@ -42,6 +59,11 @@ class _ListenPageState extends State<ListenPage> {
   @override
   void dispose() {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
+    _controllerCenterRight.dispose();
+    _controllerCenterLeft.dispose();
+    _controllerTopCenter.dispose();
+    _controllerBottomCenter.dispose();
+
     super.dispose();
   }
 
@@ -62,8 +84,16 @@ class _ListenPageState extends State<ListenPage> {
       int progress = data[2];
       setState(() {});
     });
-
+    _timerController = CountDownController();
     FlutterDownloader.registerCallback(downloadCallback);
+    _controllerCenterRight =
+        ConfettiController(duration: const Duration(seconds: 10));
+    _controllerCenterLeft =
+        ConfettiController(duration: const Duration(seconds: 10));
+    _controllerTopCenter =
+        ConfettiController(duration: const Duration(seconds: 10));
+    _controllerBottomCenter =
+        ConfettiController(duration: const Duration(seconds: 10));
 
     super.initState();
   }
@@ -81,7 +111,7 @@ class _ListenPageState extends State<ListenPage> {
 
   bool popConfirm() {
     CoolAlert.show(
-        confirmBtnColor: ThemeColors.colorTheme,
+        confirmBtnColor: yellow,
         confirmBtnTextStyle: TextStyle(color: Colors.black),
         cancelBtnTextStyle: TextStyle(color: Colors.black),
         backgroundColor: Colors.white,
@@ -106,41 +136,14 @@ class _ListenPageState extends State<ListenPage> {
     return false;
   }
 
-  Future<void> download() async {
-    String audiosDir = await getAudiosFolderPath();
-    print("==============");
-    print(audiosDir);
-    print("==============");
-    final taskId = await FlutterDownloader.enqueue(
-      url:
-          'https://files.21voa.com/202101/technology-problems-linked-to-higher-stress-levels-in-workers.mp3',
-      savedDir: audiosDir,
-      showNotification:
-          true, // show download progress in status bar (for Android)
-      openFileFromNotification:
-          true, // click on notification to open downloaded file (for Android)
-    );
-  }
-
   void onTapFloatingActionButton() {
-    // showCompelete();
+    //庆祝
 
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CustomDialogBox(
-            title: "这篇文章难度怎么样?",
-            contentWidget: EmojiFeedback(
-              onChange: (index) {
-                print(index);
-              },
-            ),
-            text: "反馈",
-          );
-        });
-
+    _controllerCenterRight.play();
+    _controllerCenterLeft.play();
+    _controllerTopCenter.play();
     // child:
-
+    Future.delayed(Duration(seconds: 3), showCompelete);
     // Provider.of<ListenProvider>(context, listen: false)
     // .setProgress(Random().nextInt(100));
   }
@@ -148,21 +151,42 @@ class _ListenPageState extends State<ListenPage> {
   void showCompelete() {
     Dialogs.materialDialog(
         color: Colors.white,
-        msg: '今日目标达成!',
+        msg: '今日目标达成!\n他还只完成了57%',
         title: '真棒!',
         animation: 'assets/lotties/cong_example.json',
         context: context,
         actions: [
           IconsButton(
-            onPressed: () {},
-            text: '老子真棒',
-            iconData: Icons.done,
-            color: Colors.blue,
+            onPressed: () {
+              Navigator.pop(context);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CustomDialogBox(
+                      title: "这篇文章难度怎么样?",
+                      contentWidget: EmojiFeedback(
+                        onChange: (index) {
+                          print(index);
+                        },
+                      ),
+                      text: "提交",
+                    );
+                  });
+            },
+            text: '我真棒',
+            iconData: Icons.star,
+            color: blue,
             textStyle: TextStyle(color: Colors.white),
             iconColor: Colors.white,
           ),
         ]);
   }
+
+  ConfettiController _controllerCenterRight;
+  ConfettiController _controllerCenterLeft;
+  ConfettiController _controllerTopCenter;
+  ConfettiController _controllerBottomCenter;
+  CountDownController _timerController;
 
   @override
   Widget build(BuildContext context) {
@@ -177,10 +201,12 @@ class _ListenPageState extends State<ListenPage> {
           },
           child: Scaffold(
               floatingActionButton: FloatingActionButton(
+                child: Text("完成", style: TextStyle(color: Colors.black)),
+                backgroundColor: yellow,
                 onPressed: onTapFloatingActionButton,
               ),
               appBar: AppBar(
-                backgroundColor: gradientStartColor,
+                backgroundColor: blue,
                 elevation: 0,
                 title: Text("Website Helps Students Hoping to Attend College",
                     style: TextStyle(fontSize: 24.sp)),
@@ -195,88 +221,189 @@ class _ListenPageState extends State<ListenPage> {
                   SizedBox(width: 14.w),
                 ],
               ),
-              body: Container(
-                color: gradientStartColor,
-                // height: 200.h,
-                child: Column(
-                  children: [
-                    historyWidget(),
-                    ProgressWidget(),
-                    _BuildControllerAreaWidget(),
-                    buildInputAreaWidget(),
-                    Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: AnimatedOpacity(
-                        duration: Duration(milliseconds: 300),
-                        opacity:
-                            Provider.of<ListenProvider>(context, listen: true)
-                                    .showCheckText
-                                ? 1.0
-                                : 0.0,
-                        child: StyledText(
-                          text:
+              body: Stack(children: <Widget>[
+                Container(
+                  color: blue,
+                  child: Column(
+                    children: [
+                      historyWidget(),
+                      ProgressWidget(),
+                      _BuildControllerAreaWidget(),
+                      buildInputAreaWidget(),
+                      Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: AnimatedOpacity(
+                          duration: Duration(milliseconds: 300),
+                          opacity:
                               Provider.of<ListenProvider>(context, listen: true)
-                                  .checkText,
-                          // '<normal>green and </normal><error>red color</error> <miss>hello,world</miss><normal> text.</normal>',
-                          styles: {
-                            'bold': TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 40.sp),
-                            'miss': TextStyle(
-                                fontSize: 40.sp,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                                decorationThickness: 2,
-                                decorationColor: Colors.red,
-                                decorationStyle: TextDecorationStyle.solid,
-                                color: Colors.transparent),
-                            'trans': TextStyle(
-                                fontSize: 30.sp,
-                                decorationThickness: 2,
-                                decorationStyle: TextDecorationStyle.solid,
-                                color: Colors.white),
-                            'normal': TextStyle(
-                                fontSize: 40.sp,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white),
-                            'error': TextStyle(
-                                fontSize: 40.sp,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.lineThrough,
-                                decorationThickness: 2,
-                                decorationColor: Colors.red,
-                                decorationStyle: TextDecorationStyle.solid,
-                                color: ThemeColors.colorTheme),
-                          },
+                                      .showCheckText
+                                  ? 1.0
+                                  : 0.0,
+                          child: StyledText(
+                            text: Provider.of<ListenProvider>(context,
+                                    listen: true)
+                                .checkText,
+                            // '<normal>green and </normal><error>red color</error> <miss>hello,world</miss><normal> text.</normal>',
+                            styles: {
+                              'bold': TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 40.sp),
+                              'miss': TextStyle(
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                  decorationThickness: 2,
+                                  decorationColor: Colors.red,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                  color: Colors.transparent),
+                              'trans': TextStyle(
+                                  fontSize: 30.sp,
+                                  decorationThickness: 2,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                  color: Colors.white),
+                              'normal': TextStyle(
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white),
+                              'error': TextStyle(
+                                  fontSize: 40.sp,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.lineThrough,
+                                  decorationThickness: 2,
+                                  decorationColor: Colors.red,
+                                  decorationStyle: TextDecorationStyle.solid,
+                                  color: yellow),
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.circular(10),
-                          border: Border(
-                              bottom: (BorderSide(
-                                  width: 1,
-                                  color: Colors.black.withAlpha(50)))),
-                        ),
-                        child: FAProgressBar(
-                          // backgroundColor: Colors.black.withAlpha(180),
-                          progressColor: ThemeColors.colorTheme.withAlpha(0),
-                          displayTextStyle:
-                              TextStyle(color: gradientStartColor),
-                          animatedDuration: Duration(seconds: 1),
-                          currentValue:
-                              Provider.of<ListenProvider>(context, listen: true)
-                                  .progress,
-
-                          displayText: '🚩',
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            // borderRadius: BorderRadius.circular(10),
+                            border: Border(
+                                bottom: (BorderSide(
+                                    width: 1,
+                                    color: Colors.black.withAlpha(0)))),
+                          ),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  print("?");
+                                  _timerController.start();
+                                },
+                                child: CircularCountDownTimer(
+                                  duration: 100,
+                                  controller: _timerController,
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  height:
+                                      MediaQuery.of(context).size.height / 4,
+                                  color: Colors.white.withAlpha(40),
+                                  fillColor: yellow,
+                                  backgroundColor: Colors.transparent,
+                                  strokeWidth: 15.0.w,
+                                  strokeCap: StrokeCap.round,
+                                  textStyle: TextStyle(
+                                      fontSize: 33.0.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                  textFormat: CountdownTextFormat.MM_SS,
+                                  isReverse: false,
+                                  isReverseAnimation: false,
+                                  isTimerTextShown: true,
+                                  autoStart: false,
+                                  onStart: () {
+                                    print('Countdown Started');
+                                  },
+                                  onComplete: () {
+                                    print('Countdown Ended');
+                                  },
+                                ),
+                              ),
+                              Text(
+                                "今日学习时间",
+                                style: TextStyle(color:Colors.white.withAlpha(40),),
+                              ),
+                            ],
+                          ),
+                          // FAProgressBar(
+                          //   // backgroundColor: Colors.black.withAlpha(180),
+                          //   progressColor: yellow.withAlpha(0),
+                          //   displayTextStyle:
+                          //       TextStyle(color: blue),
+                          //   animatedDuration: Duration(seconds: 1),
+                          //   currentValue: Provider.of<ListenProvider>(context,
+                          //           listen: true)
+                          //       .progress,
+                          //   displayText: '🚩',
+                          // ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              )),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ConfettiWidget(
+                    confettiController: _controllerCenterRight,
+                    blastDirection: pi, // radial value - LEFT
+                    particleDrag: 0.05, // apply drag to the confetti
+                    emissionFrequency: 0.05, // how often it should emit
+                    numberOfParticles: 20, // number of particles to emit
+                    gravity: 0.05, // gravity - or fall speed
+                    shouldLoop: false,
+                    colors: const [
+                      Colors.green,
+                      Colors.blue,
+                      Colors.pink
+                    ], // manually specify the colors to be used
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: ConfettiWidget(
+                    confettiController: _controllerCenterLeft,
+                    blastDirection: 0, // radial value - RIGHT
+                    emissionFrequency: 0.6,
+                    minimumSize: const Size(10,
+                        10), // set the minimum potential size for the confetti (width, height)
+                    maximumSize: const Size(50,
+                        50), // set the maximum potential size for the confetti (width, height)
+                    numberOfParticles: 1,
+                    gravity: 0.04,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: ConfettiWidget(
+                    confettiController: _controllerTopCenter,
+                    blastDirection: pi / 9,
+                    maxBlastForce: 5, // set a lower max blast force
+                    minBlastForce: 2, // set a lower min blast force
+                    emissionFrequency: 0.01,
+                    numberOfParticles: 50, // a lot of particles at once
+                    gravity: 0.01,
+                    colors: const [
+                      Colors.green,
+                      Colors.blue,
+                      Colors.pink
+                    ], // manually specify the colors to be used
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ConfettiWidget(
+                    confettiController: _controllerBottomCenter,
+                    blastDirection: -pi / 6,
+                    emissionFrequency: 0.01,
+                    numberOfParticles: 10,
+                    maxBlastForce: 100,
+                    minBlastForce: 80,
+                    gravity: 0.3,
+                  ),
+                ),
+              ])),
         ));
   }
 }
@@ -448,7 +575,7 @@ class _ProgressWidgetState extends State<ProgressWidget> {
                         ),
                         activeTrackBar: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            color: ThemeColors.colorTheme),
+                            color: yellow),
                       ),
                       values: [
                         (player.position ?? Duration(milliseconds: 100000))
@@ -546,6 +673,7 @@ class __BuildControllerAreaWidgetState
         localFilePath = file.path;
       });
     } else {
+      download();
       print("文件不存在");
     }
   }
@@ -723,7 +851,7 @@ class _buildInputAreaWidgetState extends State<buildInputAreaWidget> {
                     context: context,
                     type: CoolAlertType.confirm,
                     backgroundColor: Colors.transparent,
-                    confirmBtnColor: ThemeColors.colorTheme,
+                    confirmBtnColor: yellow,
                     confirmBtnTextStyle: TextStyle(color: Colors.black),
                     lottieAsset: "assets/lotties/money.json",
                     confirmBtnText: "确定",

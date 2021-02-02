@@ -176,6 +176,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.4"
+  circular_countdown_timer:
+    dependency: "direct main"
+    description:
+      name: circular_countdown_timer
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.9"
   circular_profile_avatar:
     dependency: "direct main"
     description:
@@ -218,6 +225,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.1"
+  confetti:
+    dependency: "direct main"
+    description:
+      name: confetti
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.4+1"
   convert:
     dependency: transitive
     description:
@@ -980,6 +994,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
+  random_color:
+    dependency: transitive
+    description:
+      name: random_color
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.5"
   random_string:
     dependency: "direct main"
     description:

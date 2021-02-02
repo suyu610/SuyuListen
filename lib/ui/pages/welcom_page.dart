@@ -1,7 +1,9 @@
 import 'package:SuyuListening/constant/theme_color.dart';
+import 'package:SuyuListening/ui/components/Button/fancy_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:styled_text/styled_text.dart';
 
 import 'home_page.dart';
 import 'login/login.dart';
@@ -10,10 +12,17 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 0,
+        elevation: 0,
+        backgroundColor: silver,
+        brightness: Brightness.light,
+      ),
       body: SafeArea(
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
+          color: silver,
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,16 +31,22 @@ class WelcomePage extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    "欢迎",
+                    "Welcome",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    "素语听力是吧啦吧啦吧吧啦吧吧啦吧",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey[700], fontSize: 15),
+                  StyledText(
+                    text:
+                        "<normal>©️小兔崽子听力 is an app written by Flutter & Java for my lover susu to use to improve listening skill efficiently</normal>",
+                    styles: {
+                      'normal': TextStyle(
+                          wordSpacing: 2,
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black.withAlpha(100)),
+                    },
                   ),
                 ],
               ),
@@ -43,52 +58,28 @@ class WelcomePage extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  MaterialButton(
-                    minWidth: double.infinity,
-                    height: 70.h,
-                    onPressed: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Text(
-                      "先随便看看",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                    ),
-                  ),
+                  FancyButton(
+                      onPress: () async {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      },
+                      label: "Experience without Login",
+                      gradient:
+                          LinearGradient(colors: [Colors.white, Colors.white])),
                   SizedBox(
                     height: 20.h,
                   ),
-                  Container(
-                    height: 70.h,
-                    padding: EdgeInsets.only(top: 6.h, left: 5.h),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(
-                          color: Colors.black,
-                        )),
-                    child: MaterialButton(
-                      minWidth: double.infinity,
-                      onPressed: () {
+                  FancyButton(
+                      onPress: () async {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LoginPage()));
                       },
-                      color: ThemeColors.colorTheme,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Text(
-                        "登陆",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 18),
-                      ),
-                    ),
-                  )
+                      label: "Login",
+                      gradient: kActiveButtonGradient),
                 ],
               )
             ],

@@ -1,8 +1,8 @@
 import 'package:SuyuListening/provider/listen_provider.dart';
 import 'package:SuyuListening/provider/theme_provider.dart';
 import 'package:SuyuListening/ui/components/no_splash.dart';
-import 'package:SuyuListening/ui/pages/listen.dart';
-import 'package:SuyuListening/ui/pages/welcom_page.dart';
+import 'package:SuyuListening/ui/pages/article/article_detail.dart';
+import 'package:SuyuListening/ui/pages/splash/splash_screen.dart';
 import 'package:SuyuListening/utils/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'config/global.dart';
 import 'constant/theme_color.dart';
+// import 'ui/pages/listen.dart';
 
 void main() async {
   // 状态栏颜色
@@ -40,10 +41,11 @@ void main() async {
 
 // ignore: non_constant_identifier_names
 final ThemeData LIGHT = ThemeData(
-  scaffoldBackgroundColor: ThemeColors.colorWhite,
-  backgroundColor: ThemeColors.colorWhite,
-  dialogBackgroundColor: ThemeColors.colorTheme,
-  primaryColor: ThemeColors.colorTheme,
+  scaffoldBackgroundColor: colorWhite,
+  backgroundColor: colorWhite,
+  dialogBackgroundColor: yellow,
+
+  primaryColor: yellow,
   splashColor: Colors.transparent,
   splashFactory: NoSplashFactory(),
   highlightColor: Colors.transparent,
@@ -51,7 +53,7 @@ final ThemeData LIGHT = ThemeData(
   // primarySwatch: Colors.blue,
   accentColor: Colors.black,
   hintColor: Colors.black,
-  primaryIconTheme: IconThemeData(color: ThemeColors.colorBlack),
+  primaryIconTheme: IconThemeData(color: colorBlack),
 );
 
 class MyApp extends StatelessWidget {
@@ -65,7 +67,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: createMaterialColor(ThemeColors.colorBlack),
+          primarySwatch: createMaterialColor(colorBlack),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: StartAppPage(title: '文章列表'),
@@ -93,8 +95,10 @@ class _StartAppPageState extends State<StartAppPage> {
 
   @override
   Widget build(BuildContext context) {
+    // return ArticleDetailPage();
+
     // return ListenPage();
-    return WelcomePage();
+    return SplashScreen();
     // if (loginState == 0) {
     //   return WelcomePage();
     // } else {

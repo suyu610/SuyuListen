@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/model/article_model.dart';
 import 'package:SuyuListening/ui/animation/FadeAnimation.dart';
+import 'package:SuyuListening/ui/pages/article/article_detail.dart';
 import 'package:SuyuListening/utils/color_util.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:badges/badges.dart';
@@ -20,6 +21,7 @@ import 'package:random_words/random_words.dart';
 import 'package:search_page/search_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'Button/fancy_button.dart';
 import 'Popup/popup.dart';
 import 'article_today.dart';
 
@@ -258,7 +260,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                           showPopup(context, () => Navigator.pop(context),
                               buttonTitle: "关闭",
                               title: ("${day.month}月${day.day}日"),
-                              buttonColor: gradientStartColor,
+                              buttonColor: blue,
                               describe:
                                   "学习时长为${Random().nextInt(4)}小时\n完成进度:20%");
                         },
@@ -270,7 +272,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                           elevation: 0,
                           badgeColor: Colors.grey.shade100,
                           child: Material(
-                            color: gradientStartColor,
+                            color: blue,
                             shape: SuperellipseShape(
                               borderRadius: BorderRadius.circular(28.0),
                             ),
@@ -294,12 +296,12 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                           showPopup(context, () => Navigator.pop(context),
                               buttonTitle: "关闭",
                               title: ("${day.month}月${day.day}日"),
-                              buttonColor: gradientStartColor.withAlpha(180),
+                              buttonColor: blue.withAlpha(180),
                               describe:
                                   "学习时长为${Random().nextInt(4)}小时\n完成进度:40%");
                         },
                         child: Material(
-                          color: gradientStartColor.withAlpha(180),
+                          color: blue.withAlpha(180),
                           shape: SuperellipseShape(
                             borderRadius: BorderRadius.circular(28.0),
                           ),
@@ -320,13 +322,13 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                         onTap: () {
                           showPopup(context, () => Navigator.pop(context),
                               title: ("${day.month}月${day.day}日"),
-                              buttonColor: gradientStartColor.withAlpha(100),
+                              buttonColor: blue.withAlpha(100),
                               buttonTitle: "关闭",
                               describe:
                                   "学习时长为${Random().nextInt(4)}小时\n完成进度:24%");
                         },
                         child: Material(
-                          color: gradientStartColor.withAlpha(100),
+                          color: blue.withAlpha(100),
                           shape: SuperellipseShape(
                             borderRadius: BorderRadius.circular(28.0),
                           ),
@@ -369,7 +371,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
               Padding(
                 padding: const EdgeInsets.only(right: 10.0, left: 10),
                 child: Container(
-                  height: 320.h,
+                  height: 300.h,
                   width: double.infinity,
                   child: FlipCard(
                     direction: FlipDirection.VERTICAL,
@@ -391,12 +393,14 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                       ),
                     ),
                     back: Container(
+                      height: 200.h,
                       decoration: BoxDecoration(
-                        color: ThemeColors.colorTheme,
+                        color: blue,
                         borderRadius: BorderRadius.all(Radius.circular(20.0)),
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -404,58 +408,38 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                               Text(
                                 '他的进度 ',
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontSize: 30.sp),
+                                style: TextStyle(
+                                    fontSize: 30.sp, color: Colors.white),
                               ),
                               Text(
                                 '40%',
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontSize: 30.sp),
+                                style: TextStyle(
+                                    fontSize: 30.sp, color: Colors.white),
                               ),
                             ],
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     GestureDetector(
-                          //       onTap: play,
-                          //       child: Icon(
-                          //         Icons.speaker,
-                          //         color: Colors.white,
-                          //       ),
-                          //     ),
-                          //     Text(
-                          //       "开始学习",
-                          //       style: TextStyle(color: Colors.white),
-                          //     ),
-                          //   ],
-                          // ),
                           SizedBox(
-                            height: 30.h,
-                          ),
-                          SizedBox(
-                            width: 240.w,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: FlatButton(
-                                  highlightColor: Colors.transparent,
-                                  splashColor: Colors.transparent,
-                                  color: Colors.black,
-                                  onPressed: () => {},
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Ionicons.flash,
-                                        color: Colors.white,
-                                      ),
-                                      Text(
-                                        "开始学习",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                          )
+                              width: 240.w,
+                              height: 100.h,
+                              child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: FancyButton(
+                                    onPress: () async {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ArticleDetailPage()));
+                                    },
+                                    label: "开始学习",
+                                    gradient: LinearGradient(
+                                      colors: <Color>[
+                                        Colors.white,
+                                        Colors.white,
+                                      ],
+                                    ),
+                                  )))
                         ],
                       ),
                     ),
@@ -471,7 +455,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
               height: 90.h,
               width: 90.h,
               decoration: BoxDecoration(
-                  color: ThemeColors.colorTheme,
+                  color: yellow,
                   border: Border.all(width: 3.w),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(45.h),
@@ -485,8 +469,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                     barTheme: ThemeData(
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
-                      primarySwatch:
-                          createMaterialColor(ThemeColors.colorTheme),
+                      primarySwatch: createMaterialColor(yellow),
                     ),
                     items: widget.list,
                     searchLabel: 'Search Word',
@@ -524,8 +507,8 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
           //       valueFontSize: 15.0.sp,
           //       toggleSize: 20.0.sp,
           //       value: isYourMode,
-          //       activeColor: gradientStartColor,
-          //       inactiveColor: ThemeColors.colorTheme,
+          //       activeColor: blue,
+          //       inactiveColor: yellow,
           //       inactiveTextColor: Colors.black.withAlpha(200),
           //       activeText: "me",
           //       inactiveText: "him",
@@ -611,7 +594,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Material(
-                                color: gradientStartColor.withAlpha(100),
+                                color: blue.withAlpha(100),
                                 shape: SuperellipseShape(
                                   borderRadius: BorderRadius.circular(28.0),
                                 ),
@@ -642,7 +625,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Material(
-                                color: gradientStartColor.withAlpha(180),
+                                color: blue.withAlpha(180),
                                 shape: SuperellipseShape(
                                   borderRadius: BorderRadius.circular(28.0),
                                 ),
@@ -682,7 +665,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                                   size: 20.sp,
                                 ),
                                 child: Material(
-                                  color: gradientStartColor,
+                                  color: blue,
                                   shape: SuperellipseShape(
                                     borderRadius: BorderRadius.circular(28.0),
                                   ),
@@ -693,7 +676,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                                       child: Icon(
                                         Icons.star,
                                         // IconData(0xe600, fontFamily: "appIconFonts"),
-                                        color: ThemeColors.colorWhite,
+                                        color: colorWhite,
                                         size: 34.sp,
                                       ),
                                     ),
@@ -721,7 +704,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                               padding: const EdgeInsets.all(10.0),
                               // margin: const EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
-                                  color: gradientStartColor,
+                                  color: blue,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(

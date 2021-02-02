@@ -1,6 +1,8 @@
 import 'dart:ui';
+import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Constants {
   Constants._();
@@ -72,14 +74,26 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      widget.text,
-                      style: TextStyle(fontSize: 18),
-                    )),
+                child: GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    EasyLoading.showSuccess("反馈成功");
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: blue,
+                      ),
+                      padding: EdgeInsets.all(12),
+                      child: Text(
+                        widget.text,
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      )),
+                ),
               ),
             ],
           ),

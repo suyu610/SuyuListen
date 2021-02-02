@@ -92,7 +92,7 @@ class LoginPage extends StatelessWidget {
                                 return HomePage();
                               }));
                             },
-                            color: ThemeColors.colorTheme,
+                            color: yellow,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50)),

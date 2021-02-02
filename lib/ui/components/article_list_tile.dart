@@ -68,9 +68,9 @@ class _ArticleListTileState extends State<ArticleListTile> {
       },
       onLongPress: () => {
         CoolAlert.show(
-            backgroundColor: ThemeColors.colorTheme,
+            backgroundColor: yellow,
             context: context,
-            confirmBtnColor: ThemeColors.colorTheme,
+            confirmBtnColor: yellow,
             confirmBtnTextStyle: TextStyle(color: Colors.black),
             type: CoolAlertType.confirm,
             lottieAsset: "assets/lotties/lf30_editor_obrqtkg5.json",
@@ -91,7 +91,7 @@ class _ArticleListTileState extends State<ArticleListTile> {
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
-            color: gradientStartColor,
+            color: blue,
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
                 image: AssetImage(model.imageUrl),
@@ -171,7 +171,7 @@ class _ArticleListTileState extends State<ArticleListTile> {
                               size: 30.sp,
                               color: Colors.white,
                             ),
-                            color: gradientEndColor,
+                            color: yellow,
                             starCount: 5,
                             spacing: 1.0.w,
                             size: 30.w,
@@ -204,7 +204,7 @@ class _ArticleListTileState extends State<ArticleListTile> {
                                       shape: BoxShape.circle,
                                       color: model.downloadValue < 1
                                           ? Colors.white
-                                          : ThemeColors.colorTheme),
+                                          : yellow),
                                   child: model.downloadValue < 1
                                       ? Center(
                                           child:
@@ -212,8 +212,7 @@ class _ArticleListTileState extends State<ArticleListTile> {
                                             value: model
                                                 .downloadValue, // Defaults to 0.5.
                                             valueColor: AlwaysStoppedAnimation(
-                                                ThemeColors
-                                                    .colorTheme), // Defaults to the current Theme's accentColor.
+                                                yellow), // Defaults to the current Theme's accentColor.
                                             backgroundColor: Colors
                                                 .transparent, // Defaults to the current Theme's backgroundColor.
                                             direction: Axis
@@ -261,9 +260,7 @@ class _ArticleListTileState extends State<ArticleListTile> {
                             margin: EdgeInsets.only(left: 10),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: model.isMark
-                                    ? ThemeColors.colorTheme
-                                    : Colors.white),
+                                color: model.isMark ? yellow : Colors.white),
                             child: Center(
                               child: Icon(
                                 Icons.bookmark_border_rounded,

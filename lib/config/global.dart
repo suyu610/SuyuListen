@@ -66,7 +66,7 @@ void initToast() {
     ..indicatorSize = 25.0
     ..radius = 10.0
     ..toastPosition = EasyLoadingToastPosition.bottom
-    ..backgroundColor = ThemeColors.colorTheme
+    ..backgroundColor = yellow
     ..indicatorColor = Colors.black
     ..textColor = Colors.black
     ..textStyle = TextStyle(fontWeight: FontWeight.w500)

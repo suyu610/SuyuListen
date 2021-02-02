@@ -190,7 +190,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                   child: Badge(
                     elevation: 0,
                     shape: BadgeShape.circle,
-                    badgeColor: ThemeColors.colorTheme,
+                    badgeColor: yellow,
                     showBadge: hasNewMsg,
                     position: BadgePosition.topEnd(top: 1, end: 1),
                     animationDuration: Duration(milliseconds: 300),
@@ -248,11 +248,11 @@ class _ArticleListPageState extends State<ArticleListPage> {
             }).toList(),
             controller: _tabController,
             indicator: BoxDecoration(
-                color: ThemeColors.colorTheme.withAlpha(90),
+                color: yellow.withAlpha(90),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
             indicatorSize: TabBarIndicatorSize.label,
             isScrollable: true,
-            indicatorColor: gradientStartColor,
+            indicatorColor: blue,
             labelStyle: TextStyle(height: 3.h, color: Colors.white),
           ),
         ),
