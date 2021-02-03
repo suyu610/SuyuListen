@@ -5,7 +5,7 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../../../route/router_helper.dart';
-import '../../../ui/animation/my_fade_animation.dart';
+import '../../../ui/components/animation/my_fade_animation.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
                       fontSize: 32.0,
+                      fontFamily: 'logoFonts',
                       fontWeight: FontWeight.w200,
                       color: Colors.black),
                   text: [

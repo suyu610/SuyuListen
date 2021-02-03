@@ -1,5 +1,5 @@
 import 'dart:ui';
-import '../../constant/theme_color.dart';
+import '../../../constant/theme_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

@@ -1,8 +1,8 @@
 import '../../../constant/theme_color.dart';
 import '../../../sample_data/data.dart';
 import '../../../ui/components/buttons/fancy_button.dart';
-import '../../../ui/pages/listen.dart';
-import '../../../ui/pages/word_detail_page.dart';
+import '../listen_page/listen_page.dart';
+import '../word_detail_page/word_detail_page.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/gestures.dart';

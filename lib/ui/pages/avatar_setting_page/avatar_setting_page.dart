@@ -1,10 +1,10 @@
 import 'package:SuyuListening/constant/theme_color.dart';
+import 'package:SuyuListening/ui/components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
+import 'package:SuyuListening/ui/components/avatar/custom_avatar/fluttermojiCustomizer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
-
-import '../components/customAvatar/fluttermoji.dart';
 
 class AvatarSettingPage extends StatefulWidget {
   AvatarSettingPage({Key key}) : super(key: key);

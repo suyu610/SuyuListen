@@ -1,12 +1,11 @@
 import 'package:SuyuListening/constant/theme_color.dart';
+import 'package:SuyuListening/ui/components/avatar/custom_avatar/fluttermoji.dart';
 import 'package:SuyuListening/ui/components/avatar/enums.dart';
 import 'package:SuyuListening/ui/components/avatar/generator.dart';
 import 'package:SuyuListening/ui/components/buttons/fancy_button.dart';
-import 'package:SuyuListening/ui/components/customAvatar/fluttermojiController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter/services.dart';
 
 class TempPage extends StatefulWidget {
   TempPage({Key key}) : super(key: key);

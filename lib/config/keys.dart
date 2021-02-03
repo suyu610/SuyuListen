@@ -1,3 +1,6 @@
+///
+/// 设置项对应的shared_preference的key
+///
 class Keys {
   static final String currentLanguageCode = "current_language_code";
   static final String currentLanguage = "current_language";

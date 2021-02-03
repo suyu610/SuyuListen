@@ -1,18 +1,16 @@
-import 'package:SuyuListening/ui/components/avatar/generator.dart';
-import 'package:SuyuListening/ui/pages/temp/avatar.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:SuyuListening/ui/components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
 
+import '../../../ui/components/dialog/popup.dart';
+import '../../../ui/components/theme_switcher.dart';
+import '../../../ui/pages/temp/avatar.dart';
 import '../../../constant/theme_color.dart';
 import '../../../route/router_helper.dart';
-import '../../../ui/components/Popup/popup.dart';
-import '../../../ui/components/customAvatar/fluttermojiCircleAvatar.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../theme_switcher.dart';
 import 'menu_item.dart';
 
 class MenuWidget extends StatelessWidget {

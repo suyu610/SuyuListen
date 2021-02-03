@@ -1,25 +1,23 @@
 import 'dart:math';
 
-import 'package:SuyuListening/route/router_helper.dart';
+import 'package:SuyuListening/ui/components/avatar/custom_avatar/fluttermoji.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 
-import '../../model/article_level.dart';
-import '../../constant/theme_color.dart';
-import '../../model/article_model.dart';
-import '../../ui/animation/fade_animation.dart';
-import '../../ui/pages/article/article_detail.dart';
-import '../../utils/color_util.dart';
+import '../../../model/article_level.dart';
+import '../../../constant/theme_color.dart';
+import '../../../model/article_model.dart';
+import '../../components/animation/fade_animation.dart';
+import '../../../utils/color_util.dart';
+import '../../../route/router_helper.dart';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:badges/badges.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
@@ -27,10 +25,9 @@ import 'package:random_words/random_words.dart';
 import 'package:search_page/search_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'Popup/popup.dart';
-import 'article_today.dart';
-import 'buttons/fancy_button.dart';
-import 'customAvatar/fluttermojiCircleAvatar.dart';
+import 'article_today_front_list_tile.dart';
+import '../../components/buttons/fancy_button.dart';
+import '../../components/dialog/popup.dart';
 
 class FirstPageWidget extends StatefulWidget {
   const FirstPageWidget({
@@ -43,56 +40,12 @@ class FirstPageWidget extends StatefulWidget {
 }
 
 class _FirstPageWidgetState extends State<FirstPageWidget> {
-  // DateTime _currentDate = new DateTime.now();
-
-  // static Widget _eventIcon = new Container(
-  //   decoration: new BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.all(Radius.circular(1000)),
-  //       border: Border.all(color: Colors.blue, width: 2.0)),
-  //   child: new Icon(
-  //     Icons.person,
-  //     color: Colors.amber,
-  //   ),
-  // );
-
-  EventList<Event> _markedDateMap = new EventList<Event>(
-    events: {
-      new DateTime(2021, 2, 10): [
-        //   new Event(
-        //     date: new DateTime(2020, 2, 11),
-        //     title: 'Event 1',
-        //     icon: _eventIcon,
-        //     dot: Container(
-        //       margin: EdgeInsets.symmetric(horizontal: 1.0),
-        //       color: Colors.red,
-        //       height: 5.0,
-        //       width: 5.0,
-        //     ),
-        //   ),
-        //   new Event(
-        //     date: new DateTime(2021, 2, 12),
-        //     title: 'Event 2',
-        //     icon: _eventIcon,
-        //   ),
-        //   new Event(
-        //     date: new DateTime(2021, 2, 13),
-        //     title: 'Event 3',
-        //     icon: _eventIcon,
-        //   ),
-        // ],
-      ],
-    },
-  );
-
   int currentMonth = new DateTime.now().month;
 
   @override
   void initState() {
     super.initState();
   }
-
-
 
   @override
   void deactivate() async {
@@ -135,9 +88,6 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                           ? Colors.white.withAlpha(50)
                           : Colors.black.withAlpha(50),
 
-                  // onDayPressed: (DateTime date, List<Event> events) {
-                  //   this.setState(() => _currentDate = date);
-                  // },
                   isScrollable: false,
                   headerMargin: EdgeInsets.all(0),
                   weekFormat: false,
@@ -314,7 +264,6 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                   },
                   // weekDayMargin: EdgeInsets.zero,
                   markedDateIconMargin: 0,
-                  markedDatesMap: _markedDateMap,
                   height: 675.0.h,
                   // selectedDateTime: _currentDate,
                   daysHaveCircularBorder: false,

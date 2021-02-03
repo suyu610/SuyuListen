@@ -2,9 +2,9 @@
 import 'dart:async';
 import 'dart:ui';
 
-import '../../constant/theme_color.dart';
-import '../../model/article_model.dart';
-import '../../ui/animation/fade_animation.dart';
+import '../../../constant/theme_color.dart';
+import '../../../model/article_model.dart';
+import '../../components/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_rating_bar/flutter_simple_rating_bar.dart';
@@ -118,9 +118,7 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
                     FadeAnimation(
                         1.1,
                         Container(
-                          // padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
                           width: 100.w,
-                          // color: Colors.black38,
                           child: Row(
                             children: [
                               Icon(

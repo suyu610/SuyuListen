@@ -1,4 +1,3 @@
-import '../../../constant/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,7 +30,6 @@ class FancyButton extends StatelessWidget {
                 Text(
                   '$label',
                   style: TextStyle(
-                    color: purple,
                     fontFamily: 'Varela',
                     fontWeight: FontWeight.bold,
                   ),

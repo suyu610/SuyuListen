@@ -1,12 +1,12 @@
-import '../../constant/theme_color.dart';
-import '../../ui/components/custom_dialog_box.dart';
+import '../../../constant/theme_color.dart';
+import '../../components/dialog/custom_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:keyboard_actions/keyboard_actions_config.dart';
 import 'package:waveprogressbar_flutter/waveprogressbar_flutter.dart';
 
-import '../foo.dart';
+import 'foo.dart';
 
 class MessagePage extends StatefulWidget {
   MessagePage({Key key}) : super(key: key);

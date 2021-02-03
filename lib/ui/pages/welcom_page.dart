@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:styled_text/styled_text.dart';
 
-import 'login/login.dart';
+import 'login_page/login.dart';
 
 class WelcomePage extends StatelessWidget {
   @override

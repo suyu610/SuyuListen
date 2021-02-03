@@ -4,14 +4,12 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-
-import '../../constant/theme_color.dart';
-import '../../provider/listen_provider.dart';
-import '../../ui/components/custom_dialog_box.dart';
-import '../../ui/components/emoji_feedback.dart';
-import '../../utils/check_util.dart';
-import '../../utils/storage_util.dart';
+import '../../../constant/theme_color.dart';
+import '../../../provider/listen_provider.dart';
+import '../../components/dialog/custom_dialog_box.dart';
+import '../../components/dialog/emoji_feedback.dart';
+import '../../../utils/check_util.dart';
+import '../../../utils/storage_util.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:confetti/confetti.dart';
 import 'package:cool_alert/cool_alert.dart';

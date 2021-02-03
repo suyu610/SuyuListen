@@ -375,7 +375,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Bat'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         fill-rule='evenodd'
         fill='#FFFFFF'>
         <g transform='translate(77.000000, 58.000000)' id='Batman!'>
@@ -386,7 +386,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Cumbia'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         stroke-width='1'
         fill-rule='evenodd'>
         <g transform='translate(77.000000, 58.000000)' id='Group'>
@@ -443,7 +443,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Deer'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         fill-rule='evenodd'
         fill='#FFFFFF'>
         <g transform='translate(77.000000, 58.000000)' id='oh,-deer!'>
@@ -454,7 +454,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Diamond'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         stroke-width='1'
         fill-rule='evenodd'>
         <g transform='translate(77.000000, 58.000000)' id='Diamond'>
@@ -486,7 +486,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Hola'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         fill-rule='evenodd'
         fill='#FFFFFF'>
         <g transform='translate(77.000000, 58.000000)' id='Hola'>
@@ -497,7 +497,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Pizza'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         stroke-width='1'
         fill-rule='evenodd'>
         <g transform='translate(77.000000, 58.000000)' id='Group-2'>
@@ -524,7 +524,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Resist'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         stroke-width='1'
         fill-rule='evenodd'>
         <g transform='translate(77.000000, 58.000000)' id='Resist'>
@@ -576,7 +576,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Selena'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         stroke-width='1'
         fill-rule='evenodd'>
         <g transform='translate(77.000000, 58.000000)' id='Selena'>
@@ -603,7 +603,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Bear'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         stroke-width='1'
         fill-rule='evenodd'>
         <defs>
@@ -630,7 +630,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Skull-Outline'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         stroke-width='1'
         fill-rule='evenodd'>
         <g transform='translate(77.000000, 58.000000)' id='Skull'>
@@ -662,7 +662,7 @@ String graphic(Graphic graphic, String maskId) {
       return """
       <g
         id='Clothing/Graphic/Skull'
-        mask='url(#${maskId})'
+        mask='url(#$maskId)'
         fill-rule='evenodd'
         fill='#FFFFFF'>
         <g transform='translate(77.000000, 58.000000)' id='Fill-49'>

@@ -1,5 +1,3 @@
-import 'package:avataar_generator/enums.dart';
-import 'package:avataar_generator/generator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

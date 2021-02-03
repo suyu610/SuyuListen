@@ -1,6 +1,7 @@
+import 'package:SuyuListening/ui/pages/slider_menu_page/menu_widget.dart';
+
 import '../../provider/key_provider.dart';
-import '../../ui/components/Menu/menu_widget.dart';
-import '../../ui/pages/article/article_list.dart';
+import '../../ui/pages/article_page/article_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

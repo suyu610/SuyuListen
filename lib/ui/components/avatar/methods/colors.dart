@@ -4,9 +4,9 @@ String makeColor(String hex, String maskId) {
   return """
   <g
           id='Color/Palette/Gray-01'
-          mask='url(#${maskId})'
+          mask='url(#$maskId)'
           fill-rule='evenodd'
-          fill='${hex}'>
+          fill='$hex'>
           <rect id='pen-Color' x='0' y='0' width='264' height='110' />
         </g>""";
 }

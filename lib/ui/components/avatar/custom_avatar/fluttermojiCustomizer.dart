@@ -1,13 +1,11 @@
 import 'package:SuyuListening/ui/components/avatar/generator.dart';
-import 'package:ionicons/ionicons.dart';
 
-import '../../../ui/components/customAvatar/fluttermoji_assets/fluttermojimodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'fluttermoji_assets/fluttermojimodel.dart';
 import 'package:get/get.dart';
 import 'fluttermojiController.dart';
+import 'fluttermoji_assets/fluttermojimodel.dart';
 
 /// This widget provides a UI for customizing the Fluttermoji
 ///
@@ -255,8 +253,6 @@ class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    Color iconColor = (!isDarkMode) ? Colors.grey[700] : Colors.white;
     return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -280,7 +276,7 @@ class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
                     String newSvgStr = getSvg(randomAvatarOptions());
                     fluttermojiController.setFluttermoji(
                         fluttermojiNew: newSvgStr);
-                    
+
                     fluttermojiController.updatePreview();
 
                     setState(() {});
@@ -304,47 +300,47 @@ class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
             width: widget.scaffoldWidth > 0 ? widget.scaffoldWidth : size.width,
             child: expandedCard(cardTitle: "Customize", attributes: [
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/hair.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/hair.svg",
                   title: "头发",
                   key: "topType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/haircolor.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/haircolor.svg",
                   title: "头发颜色",
                   key: "hairColor"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/beard.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/beard.svg",
                   title: "胡须",
                   key: "facialHairType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/beardcolor.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/beardcolor.svg",
                   title: "胡须颜色",
                   key: "facialHairColor"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/outfit.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/outfit.svg",
                   title: "上衣",
                   key: "clotheType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/outfitcolor.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/outfitcolor.svg",
                   title: "上衣颜色",
                   key: "clotheColor"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/eyes.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/eyes.svg",
                   title: "眼睛",
                   key: "eyeType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/eyebrow.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/eyebrow.svg",
                   title: "眉毛",
                   key: "eyebrowType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/mouth.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/mouth.svg",
                   title: "嘴巴",
                   key: "mouthType"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/skin.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/skin.svg",
                   title: "皮肤颜色",
                   key: "skinColor"),
               ExpandedFluttermojiCardItem(
-                  iconAsset: "assets/icons/customAvatarIcons/accessories.svg",
+                  iconAsset: "assets/icons/custom_avatarIcons/accessories.svg",
                   title: "眼镜",
                   key: "accessoriesType"),
             ]),

@@ -1,11 +1,11 @@
 import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/ui/pages/article/article_detail.dart';
-import 'package:SuyuListening/ui/pages/avatar_setting_page.dart';
-import 'package:SuyuListening/ui/pages/setting_page.dart';
+import 'package:SuyuListening/ui/pages/article_page/article_detail.dart';
+import 'package:SuyuListening/ui/pages/avatar_setting_page/avatar_setting_page.dart';
+import 'package:SuyuListening/ui/pages/setting_page/setting_page.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 import '../ui/pages/home_page.dart';
-import '../ui/pages/login/login.dart';
+import '../ui/pages/login_page/login.dart';
 import '../ui/pages/welcom_page.dart';
 import '../ui/pages/splash/splash_screen.dart';
 import 'package:fluro/fluro.dart';
