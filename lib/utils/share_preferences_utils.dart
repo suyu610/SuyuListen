@@ -85,20 +85,7 @@ class SharePreferencesUtils {
     }
   }
 
-  /// *********************************** 存取删sign ***********************************
-  static sign(SharePreferencesUtilsWorkType type, {dynamic value}) {
-    String key = 'sign';
-    if (type == SharePreferencesUtilsWorkType.save) {
-      return _saveToLocalMap(key, value);
-    }
-    if (type == SharePreferencesUtilsWorkType.remove) {
-      return _deleteFromLocalMap(key);
-    }
-    if (type == SharePreferencesUtilsWorkType.get) {
-      return _readFromLocalMap(key);
-    }
-  }
-
+  
   /// 存取删user
   /// [SharePreferencesUtilsWorkType] 指定操作模式
   static user(SharePreferencesUtilsWorkType type, {dynamic value}) {

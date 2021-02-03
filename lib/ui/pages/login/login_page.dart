@@ -1,6 +1,6 @@
 import '../../../constant/theme_color.dart';
-import '../../../ui/components/animation/fade_animation.dart';
-import '../../../ui/pages/login_page/signup.dart';
+import '../../components/animation/fade_animation.dart';
+import 'signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

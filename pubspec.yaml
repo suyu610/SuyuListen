@@ -65,9 +65,9 @@ dependencies:
   web_socket_channel: ^1.1.0
   extended_image: ^1.3.0
   # syncfusion_flutter_calendar: ^18.3.47  
-  flutter_swipe_action_cell: ^1.3.4
+  # flutter_swipe_action_cell: ^1.3.4
   # 刮刮乐
-  scratcher: "^1.4.0"
+  # scratcher: "^1.4.0"
   # 左右翻动
   flutter_mobile_carousel: ^1.0.3
   carousel_slider: ^2.3.1
@@ -92,7 +92,7 @@ dependencies:
   common_utils: ^1.2.1
   loading_indicator_view: ^1.1.0
   # 列表下面的角标
-  smooth_page_indicator: ^0.2.0
+  # smooth_indicator_page: ^0.2.0
   # 路由
   fluro: ^1.7.8
   # 反面
@@ -105,12 +105,11 @@ dependencies:
   flutter_inner_drawer: "^0.5.7+2"
   flutter_downloader: ^1.5.2
   animated_text_kit: ^3.1.0
-  progressive_image: ^1.0.1
-  avataar_generator: ^1.1.1  
   flutter_chat_bubble: ^1.0.2
   # Icons library, based on Line Awesome Icons
   line_awesome_flutter: ^1.0.1
   animated_theme_switcher: ^1.0.9
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

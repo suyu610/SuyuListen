@@ -1,9 +1,8 @@
-import 'package:SuyuListening/ui/components/avatar/generator.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import '../avatar.dart';
 import 'fluttermojiController.dart';
 import 'fluttermoji_assets/fluttermojimodel.dart';
 

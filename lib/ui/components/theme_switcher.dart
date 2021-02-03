@@ -1,4 +1,4 @@
-import 'package:SuyuListening/constant/theme_color.dart';
+import '../../constant/theme_color.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,4 +1,4 @@
-import 'package:SuyuListening/ui/components/avatar/enums.dart';
+import '../avatar.dart';
 
 String accessorySvg(Accessories acc) {
   switch (acc) {

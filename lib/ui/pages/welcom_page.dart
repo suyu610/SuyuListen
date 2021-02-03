@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:styled_text/styled_text.dart';
 
-import 'login_page/login.dart';
+import 'login/login_page.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -60,6 +60,7 @@ class WelcomePage extends StatelessWidget {
               Column(
                 children: <Widget>[
                   FancyButton(
+                      titleColor: Colors.black,
                       onPress: () async {
                         RouterHelper.router.navigateTo(context, "/home",
                             transition: TransitionType.inFromRight,
@@ -72,6 +73,7 @@ class WelcomePage extends StatelessWidget {
                     height: 20.h,
                   ),
                   FancyButton(
+                      titleColor: Colors.black,
                       onPress: () async {
                         Navigator.push(
                             context,

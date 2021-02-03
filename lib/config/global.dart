@@ -3,7 +3,6 @@ import 'dart:ui';
 import '../constant/theme_color.dart';
 import '../route/router_config.dart';
 import '../route/router_helper.dart';
-import '../utils/share_preferences_utils.dart';
 import '../utils/storage_util.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ class Global {
   static String userID;
 
   //初始化全局信息，会在APP启动时执行
-
   static Future init() async {
     // 创建必要的文件夹
     createFolder("audios");
@@ -26,8 +24,9 @@ class Global {
     RouterConfig.configureRoutes(router);
     RouterHelper.router = router;
 
-    // 指定手机方向
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    // 强制竖屏
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     // 如果是第一次启动app
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -49,13 +48,6 @@ class Global {
 // 当第一次打开app时，应该进行的流程
 void firstLauchApp() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  // 创建数据库
-  // 创建 user 文件
-  // 创建签名文件
-  SharePreferencesUtils.sign(
-    SharePreferencesUtilsWorkType.save,
-    value: "",
-  );
   prefs.setString("firstLauch", "");
 }
 

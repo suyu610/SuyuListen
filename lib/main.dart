@@ -7,7 +7,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart' as temp;
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 import 'config/global.dart';
 import 'constant/theme_color.dart';
@@ -22,10 +22,6 @@ void main() async {
   await FlutterDownloader.initialize(
       // optional: set false to disable printing logs to console
       debug: true);
-
-  // 强制竖屏
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   Global.init().then((value) => runApp(
         MultiProvider(providers: [
@@ -45,7 +41,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(750, 1334),
       allowFontScaling: true,
-      child: temp.ThemeProvider(
+      child: ThemeProvider(
         initTheme: lightTheme,
         child: Builder(builder: (context) {
           return MaterialApp(
@@ -53,7 +49,7 @@ class MyApp extends StatelessWidget {
               builder: EasyLoading.init(),
               debugShowCheckedModeBanner: false,
               title: '小兔崽听力',
-              theme: temp.ThemeProvider.of(context),
+              theme: ThemeProvider.of(context),
               home: SplashScreen());
         }),
       ),

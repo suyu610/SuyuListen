@@ -1,13 +1,14 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/ui/pages/article_page/article_detail.dart';
-import 'package:SuyuListening/ui/pages/avatar_setting_page/avatar_setting_page.dart';
-import 'package:SuyuListening/ui/pages/setting_page/setting_page.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
-import '../ui/pages/home_page.dart';
-import '../ui/pages/login_page/login.dart';
-import '../ui/pages/welcom_page.dart';
+import '../ui/pages/article_detail/article_detail.dart';
 import '../ui/pages/splash/splash_screen.dart';
+import '../ui/pages/avatar_setting/avatar_setting_page.dart';
+import '../ui/pages/setting/setting_page.dart';
+import '../ui/pages/home_page.dart';
+import '../ui/pages/login/login_page.dart';
+import '../ui/pages/welcom_page.dart';
+import '../constant/theme_color.dart';
+
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -41,14 +42,16 @@ class RouterConfig {
 
     var articleDetailPageHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-      ThemeSwitcher.of(context).changeTheme(theme: lightTheme);
-      return ArticleDetailPage();
+      // 设置成白天模式
+      return ThemeSwitcher(
+        clipper: ThemeSwitcherCircleClipper(),
+        builder: (context) {
+          ThemeSwitcher.of(context).changeTheme(theme: lightTheme);
+          return ArticleDetailPage();
+        },
+      );
     });
 
-    // var loginPageHandler = Handler(
-    //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    //   return LoginPage();
-    // });
     router.define("/login", handler: loginPageHandler);
     router.define("/splash", handler: splashPageHandler);
     router.define("/welcome", handler: welcomePageHandler);

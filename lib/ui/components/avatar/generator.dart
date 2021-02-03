@@ -1,10 +1,6 @@
 import 'dart:math';
 
-import 'package:SuyuListening/ui/components/avatar/enums.dart';
-import 'package:SuyuListening/ui/components/avatar/methods/clothes.dart';
-import 'package:SuyuListening/ui/components/avatar/methods/colors.dart';
-import 'package:SuyuListening/ui/components/avatar/methods/face.dart';
-import 'package:SuyuListening/ui/components/avatar/methods/tops.dart';
+import 'avatar.dart';
 
 String getSvg(Options options) {
   return """

@@ -6,7 +6,13 @@ class FancyButton extends StatelessWidget {
   final Function onPress;
   final LinearGradient gradient;
   final Icon icon;
-  FancyButton({this.label = "", this.onPress, this.icon, this.gradient});
+  final Color titleColor;
+  FancyButton(
+      {this.label = "",
+      this.titleColor = Colors.white,
+      this.onPress,
+      this.icon,
+      this.gradient});
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -30,6 +36,7 @@ class FancyButton extends StatelessWidget {
                 Text(
                   '$label',
                   style: TextStyle(
+                    color: titleColor,
                     fontFamily: 'Varela',
                     fontWeight: FontWeight.bold,
                   ),

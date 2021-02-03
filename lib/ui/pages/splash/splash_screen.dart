@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:SuyuListening/provider/key_provider.dart';
+import '../../../provider/key_provider.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:provider/provider.dart';
 

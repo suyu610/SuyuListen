@@ -1,4 +1,4 @@
-import 'package:SuyuListening/ui/components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
+import '../../components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
 
 import '../../../ui/components/dialog/popup.dart';
 import '../../../ui/components/theme_switcher.dart';

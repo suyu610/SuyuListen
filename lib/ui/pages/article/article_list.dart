@@ -239,7 +239,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                   child: Text(
                     f,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 14),
                   ),
                 ),
               );

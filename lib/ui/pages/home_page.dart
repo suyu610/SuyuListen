@@ -1,12 +1,13 @@
-import 'package:SuyuListening/ui/pages/slider_menu_page/menu_widget.dart';
+import 'slider_menu/menu_widget.dart';
 
 import '../../provider/key_provider.dart';
-import '../../ui/pages/article_page/article_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:provider/provider.dart';
+
+import 'article/article_list.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);

@@ -1,7 +1,7 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/ui/components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
-import 'package:SuyuListening/ui/pages/setting_page/profile_list_item.dart';
-import 'package:SuyuListening/ui/components/theme_switcher.dart';
+import '../../../constant/theme_color.dart';
+import '../../components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
+import '../setting/profile_list_item.dart';
+import '../../components/theme_switcher.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,5 +1,4 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-
+import '../../../constant/theme_color.dart';
 import '../../../provider/key_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';

@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'article_detail.dart';
+import '../article_detail/article_detail.dart';
 import '../../components/animation/fade_animation.dart';
 import '../../../constant/theme_color.dart';
 import '../../../model/article_model.dart';
@@ -294,7 +294,6 @@ class _ArticleListTileState extends State<ArticleListTile>
                   model.learnProgress.toString() + "%",
                   maxLines: 2,
                   style: TextStyle(
-                      fontStyle: FontStyle.italic,
                       decoration: TextDecoration.none,
                       decorationColor: Colors.red,
                       color: Colors.white,
