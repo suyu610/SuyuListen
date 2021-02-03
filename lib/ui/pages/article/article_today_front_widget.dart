@@ -12,17 +12,17 @@ import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:ionicons/ionicons.dart' as icon_2;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TodayArticleListTile extends StatefulWidget {
-  const TodayArticleListTile({
+class TodayArticleFrontWidget extends StatefulWidget {
+  const TodayArticleFrontWidget({
     this.model,
     Key key,
   }) : super(key: key);
   final ArticleModel model;
   @override
-  _TodayArticleListTileState createState() => _TodayArticleListTileState();
+  _TodayArticleFrontWidgetState createState() => _TodayArticleFrontWidgetState();
 }
 
-class _TodayArticleListTileState extends State<TodayArticleListTile> {
+class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
   ArticleModel model;
   Image myImage;
   Timer timer;

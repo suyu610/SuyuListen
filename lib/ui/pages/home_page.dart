@@ -1,4 +1,4 @@
-import 'slider_menu/menu_widget.dart';
+import 'slider_menu/slider_menu_page.dart';
 
 import '../../provider/key_provider.dart';
 import 'package:flutter/cupertino.dart';

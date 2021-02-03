@@ -1,18 +1,12 @@
 import 'dart:math';
-
-import '../../components/avatar/custom_avatar/fluttermoji.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:flutter_chat_bubble/bubble_type.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
-import 'package:search_page/search_page.dart';
+import 'article.dart';
 
 import '../../../model/article_level.dart';
 import '../../../constant/theme_color.dart';
 import '../../../model/article_model.dart';
 import '../../components/animation/fade_animation.dart';
 import '../../../utils/color_util.dart';
-import '../../../route/router_helper.dart';
+import '../../components/dialog/popup.dart';
 
 import 'package:badges/badges.dart';
 import 'package:flip_card/flip_card.dart';
@@ -22,12 +16,9 @@ import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
-import 'package:random_words/random_words.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'article_today_front_list_tile.dart';
-import '../../components/buttons/fancy_button.dart';
-import '../../components/dialog/popup.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:search_page/search_page.dart';
 
 class FirstPageWidget extends StatefulWidget {
   const FirstPageWidget({
@@ -289,77 +280,24 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                   height: 300.h,
                   width: double.infinity,
                   child: FlipCard(
-                    direction: FlipDirection.VERTICAL,
-                    speed: 500,
-                    onFlipDone: (status) {
-                      print(status);
-                    },
-                    front: FadeAnimation(
-                      0,
-                      TodayArticleListTile(
-                        model: new ArticleModel()
-                          ..title = generateWordPairs().take(10).join(" ")
-                          ..coint = Random().nextInt(10)
-                          ..level = randomLevel()
-                          ..learnProgress = Random().nextInt(100)
-                          ..downloadValue = 0
-                          ..imageUrl = "assets/jupiter.png",
+                      direction: FlipDirection.VERTICAL,
+                      speed: 500,
+                      onFlipDone: (status) {
+                        print(status);
+                      },
+                      front: FadeAnimation(
+                        0,
+                        TodayArticleFrontWidget(
+                          model: new ArticleModel()
+                            ..title = "title"
+                            ..coint = Random().nextInt(10)
+                            ..level = randomLevel()
+                            ..learnProgress = Random().nextInt(100)
+                            ..downloadValue = 0
+                            ..imageUrl = "assets/jupiter.png",
+                        ),
                       ),
-                    ),
-                    back: Container(
-                      height: 200.h,
-                      decoration: BoxDecoration(
-                        color: blue,
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FluttermojiCircleAvatar(
-                                radius: 70.h,
-                                backgroundColor: Colors.transparent,
-                              ),
-                              ChatBubble(
-                                clipper: ChatBubbleClipper4(
-                                    type: BubbleType.receiverBubble),
-                                backGroundColor: Colors.white,
-                                margin: EdgeInsets.only(top: 20),
-                                child: Container(
-                                  constraints: BoxConstraints(
-                                    maxWidth:
-                                        MediaQuery.of(context).size.width * 0.7,
-                                  ),
-                                  child: Text(
-                                    "我已经学了2小时了，你还不开始学习吗?",
-                                    style: TextStyle(
-                                        fontSize: 24.sp, color: Colors.black),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              width: 240.w,
-                              height: 100.h,
-                              child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: FancyButton(
-                                    titleColor: Colors.black,
-                                    onPress: () async {
-                                      RouterHelper.router.navigateTo(
-                                          context, "/articleDetail");
-                                    },
-                                    label: "开始学习",
-                                    gradient: kActiveButtonGradient,
-                                  )))
-                        ],
-                      ),
-                    ),
-                  ),
+                      back: TodayArticleBackWidget()),
                 ),
               ),
             ],

@@ -1,12 +1,11 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../../../constant/theme_color.dart';
-import '../../components/dialog/custom_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:keyboard_actions/keyboard_actions_config.dart';
-import 'package:waveprogressbar_flutter/waveprogressbar_flutter.dart';
-
-import 'foo.dart';
 
 class MessagePage extends StatefulWidget {
   MessagePage({Key key}) : super(key: key);
@@ -18,16 +17,8 @@ class MessagePage extends StatefulWidget {
 class _MessagePageState extends State<MessagePage> {
   //默认初始值为0.0
 
-  double waterHeight = 0.6;
-  WaterController waterController = WaterController();
   @override
   void initState() {
-    WidgetsBinding widgetsBinding = WidgetsBinding.instance;
-    widgetsBinding.addPostFrameCallback((callback) {
-      //这里写你想要显示的百分比
-      waterController.changeWaterHeight(0.82);
-    });
-
     super.initState();
   }
 
@@ -64,7 +55,11 @@ class _MessagePageState extends State<MessagePage> {
             },
             (node) {
               return GestureDetector(
-                onTap: () => node.unfocus(),
+                onTap: () => {
+                  EasyLoading.instance.indicatorType =
+                      EasyLoadingIndicatorType.wave,
+                  EasyLoading.show(status: "正在录音", dismissOnTap: true)
+                },
                 child: Container(
                   color: Colors.transparent,
                   padding: EdgeInsets.all(8.0),
@@ -75,33 +70,24 @@ class _MessagePageState extends State<MessagePage> {
             //button 2
             (node) {
               return GestureDetector(
-                onTap: () => showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CustomDialogBox(
-                        onTapButton: () {
-                          Navigator.pop(context);
-                        },
-                        headWidget: Image(
-                          image: AssetImage("assets/icons/record.png"),
-                        ),
-                        title: "正在录音..",
-                        text: "结束",
-                        contentWidget: WaveProgressBar(
-                          flowSpeed: 1.0,
-                          waveDistance: 45.0,
-                          waterColor: blue,
-                          strokeCircleColor: Colors.transparent,
-                          heightController: waterController,
-                          percentage: waterHeight,
-                          size: new Size(100, 100),
-                          textStyle: new TextStyle(
-                              color: Colors.transparent,
-                              fontSize: 60.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      );
-                    }),
+                onLongPress: () => {
+                  EasyLoading.instance.indicatorType =
+                      EasyLoadingIndicatorType.wave,
+                  EasyLoading.show(status: "正在录音", dismissOnTap: true)
+                },
+                onLongPressEnd: (detail) => {
+                  print(detail),
+                  EasyLoading.instance.indicatorType =
+                      EasyLoadingIndicatorType.pulse,
+                  EasyLoading.show(status: "识别中", dismissOnTap: true),
+                  Future.delayed(
+                      Duration(seconds: 2),
+                      () => {
+                            EasyLoading.showSuccess("识别的文字为\n\n皇甫素素是笨蛋",
+                                duration: Duration(seconds: 3)),
+                          })
+                },
+                onTap: () => EasyLoading.showInfo("请长按"),
                 child: Container(
                   color: Colors.transparent,
                   padding: EdgeInsets.all(8.0),
@@ -127,11 +113,6 @@ class _MessagePageState extends State<MessagePage> {
     );
   }
 
-  _openWidget(BuildContext context, Widget widget) =>
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => widget),
-      );
-
   @override
   Widget build(BuildContext context) {
     return KeyboardActions(
@@ -148,9 +129,13 @@ class _MessagePageState extends State<MessagePage> {
                 hintText: "Input Text without Done button",
               ),
             ),
-            RaisedButton(
-              onPressed: () => {_openWidget(context, Content())},
-            ),
+            // CupertinoSegmentedControl<EasyLoadingIndicatorType>(
+            //     onValueChanged: (value) {
+            //       EasyLoading.instance.indicatorType = value;
+            //     },
+            //     selectedColor: Colors.blue,
+            //     children: {
+            //     }),
           ],
         ),
       ),

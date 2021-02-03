@@ -1,6 +1,8 @@
+import 'package:SuyuListening/ui/pages/splash/splash_screen.dart';
+
 import 'provider/key_provider.dart';
 
-import '.../../ui/pages/splash/splash_screen.dart';
+// import '.../../ui/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -13,7 +15,6 @@ import 'config/global.dart';
 import 'constant/theme_color.dart';
 import 'provider/listen_provider.dart';
 import 'route/router_helper.dart';
-// import 'ui/pages/listen.dart';
 
 void main() async {
   // 状态栏颜色

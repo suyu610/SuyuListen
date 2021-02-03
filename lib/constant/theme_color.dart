@@ -43,18 +43,16 @@ const kInActiveButtonGradient = LinearGradient(
   ],
 );
 
-Color primaryTextColor = Color(0xFF414C6B);
-Color secondaryTextColor = Color(0xFFE4979E);
-Color titleTextColor = Colors.white;
-Color contentTextColor = Color(0xff868686);
-Color mBackgroundColor = Color(0xFFFFFFFF);
+Color primaryTextColor = Color.fromARGB(255, 65, 76, 107);
+// Color secondaryTextColor = Color(0xFFE4979E);
+// Color titleTextColor = Colors.white;
 
 const kSpacingUnit = 20;
-const kDarkPrimaryColor = Color(0xFF212121);
-const kDarkSecondaryColor = Color(0xFF373737);
-const kLightPrimaryColor = Color(0xFFFFFFFF);
+const kDarkPrimaryColor = Color.fromARGB(255, 33, 33, 33);
+const kDarkSecondaryColor = Color.fromARGB(255, 55, 55, 55);
 
-const kLightSecondaryColor = Color(0xffffffff);
+const kLightPrimaryColor = Color.fromARGB(255, 255, 255, 255);
+const kLightSecondaryColor = Color.fromARGB(255, 242, 245, 252);
 const kAccentColor = yellow;
 
 final kTitleTextStyle = TextStyle(

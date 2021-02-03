@@ -1,4 +1,4 @@
-import '../config/keys.dart';
+import '../config/pref_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedUtil {

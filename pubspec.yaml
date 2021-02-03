@@ -1,6 +1,5 @@
 name: SuyuListening
-description: A new Flutter project.
-
+description: 素语听力©️ is an app written by Flutter & Java for my lover 素素 to use to improve listening skill efficiently
 version: 1.0.0+1
 
 environment:
@@ -8,106 +7,107 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.2
-  ionicons: ^0.0.3
-  shared_preferences: ^0.5.12+2
-  provider: ^4.3.2+2
-  flutter_screenutil: ^4.0.2+3
-  sqflite: ^1.3.0  
-  dio: ^3.0.8
-  
-  # flame: ^0.29.0
-  flutter_easyloading: ^2.0.0  
-  cool_alert: ^1.0.3
-  simple_animations: ^1.3.3
-  circular_countdown_timer: ^0.0.9
-  # 生成随机句子
-  random_string: ^2.1.0
-  random_words: ^1.0.2
-  badges: ^1.1.6
-  flutter_switch: ^0.2.0
-  audioplayers: ^0.17.3
-  just_audio: ^0.6.9
-  material_dialogs: ^0.1.2
-  flutter_animation_progress_bar: ^1.0.6
-  emoji_feedback: ^0.1.0
-  # 庆祝动画
-  confetti: ^0.5.4+1
-  # 检测键盘是否弹出
-  keyboard_visibility: ^0.5.6
-  flutter_xlider: ^3.4.0
-  keyboard_attachable: ^1.0.3
-  styled_text: ^1.0.3+3
 
-  # 头像
-  circular_profile_avatar: ^1.0.6
-  # 月份选择
-  # month_picker_dialog: ^0.3.3
-
-  http: ^0.12.2
-  # stack: ^0.1.0
-  universal_io: ^1.0.1
-  # 漂亮的弹窗
-  flutter_beautiful_popup: ^1.5.0
-
-  ######
-  # 验证码
-  # pin_code_fields: 
-  flutter_easyrefresh: 2.1.8
+  #################
+  #### 系统相关 ####
+  #################
   json_annotation: ^3.0.1
-  # 画图
-  # syncfusion_flutter_charts: ^18.3.44
-  flutter_svg: ^0.19.1
-  # hand_signature: ^0.6.0
-  # image_picker: ^0.6.7+12
-  path_provider: ^1.6.22
-  lottie: ^0.7.0+1
-  web_socket_channel: ^1.1.0
-  extended_image: ^1.3.0
-  # syncfusion_flutter_calendar: ^18.3.47  
-  # flutter_swipe_action_cell: ^1.3.4
-  # 刮刮乐
-  # scratcher: "^1.4.0"
-  # 左右翻动
-  flutter_mobile_carousel: ^1.0.3
-  carousel_slider: ^2.3.1
-  flutter_swiper: ^1.1.6
-  modal_bottom_sheet: ^1.0.0+1
-  flutter_simple_rating_bar: 0.0.3  
-  liquid_progress_indicator: ^0.3.2
   device_info: ^1.0.0
   get: ^3.24.0
+
+  # 检测键盘是否弹出
+  keyboard_visibility: ^0.5.6
+  
+  ### 持久化
+  path_provider: ^1.6.22
+  shared_preferences: ^0.5.12+2
+  sqflite: ^1.3.0  
+  
+  provider: ^4.3.2+2
+  ### 屏幕适配
+  flutter_screenutil: ^4.0.2+3
+  ### 网络
+  dio: ^3.0.8
+  http: ^0.12.2
+  flutter_downloader: ^1.5.2
+
+  ### 音频
+  audioplayers: ^0.17.3
+  just_audio: ^0.6.9
+
+  ### 动画增强
+  simple_animations: ^1.3.3
+  lottie: ^0.7.0+1
+
+  ##############
+  #### 组件 ####
+  ##############
+  # 下拉，上拉 刷新
+  flutter_easyrefresh: 2.1.8
+  # 听力的进度条滑块
+  flutter_xlider: ^3.4.0
+  # 头像
+  circular_profile_avatar: ^1.0.6
+  # 庆祝动画
+  confetti: ^0.5.4+1
+  # 自定义键盘上的功能区
   keyboard_actions: ^3.3.1+1
-  waveprogressbar_flutter: ^0.1.2
+
+  # 用在头像的自定义
+  flutter_svg: ^0.19.1
+  flutter_swiper: ^1.1.6
+  modal_bottom_sheet: ^1.0.0+1
+  # 评分
+  flutter_simple_rating_bar: 0.0.3  
+  # 用于显示下载的进度
+  liquid_progress_indicator: ^0.3.2
+  #
+  circular_countdown_timer: ^0.0.9
+  #
+  badges: ^1.1.6
+  #
   bordered_text: ^1.0.1
-  # listview一张张出来
-  # auto_animated: ^2.1.0
+  # 给text打标签
+  styled_text: ^1.0.3+3
+
   #权限申请
   permission_handler: ^4.4.0
-  # 转盘
-  # flutter_spinning_wheel: ^1.1.0
-  # 仪表
-  # syncfusion_flutter_gauges: ^18.3.50
   # 超级强大的功能
   common_utils: ^1.2.1
-  loading_indicator_view: ^1.1.0
-  # 列表下面的角标
-  # smooth_indicator_page: ^0.2.0
   # 路由
   fluro: ^1.7.8
-  # 反面
+  # 正反面切换
   flip_card: ^0.4.4
-  fab_circular_menu: ^1.0.0
+  #
   search_page: ^1.4.0
+  # 日历
   flutter_calendar_carousel: ^1.5.2
+  # 椭圆形状shape
   superellipse_shape: ^0.1.5
   # 侧边栏
   flutter_inner_drawer: "^0.5.7+2"
-  flutter_downloader: ^1.5.2
+  #
   animated_text_kit: ^3.1.0
+  # 聊天气泡
   flutter_chat_bubble: ^1.0.2
-  # Icons library, based on Line Awesome Icons
+  
+  ##############
+  #### 弹窗 ####
+  ##############
+  material_dialogs: ^0.1.2
+  flutter_beautiful_popup: ^1.5.0
+  flutter_easyloading: ^2.0.0  
+  cool_alert: ^1.0.3
+  # 用在结束听力后的反馈
+  emoji_feedback: ^0.1.0
+
+  ###############
+  #### icons ####
+  ###############
   line_awesome_flutter: ^1.0.1
+  cupertino_icons: ^0.1.2
+  ionicons: ^0.0.3
+  
   animated_theme_switcher: ^1.0.9
 
 dev_dependencies:
@@ -118,11 +118,11 @@ dev_dependencies:
 flutter:  
   uses-material-design: true  
   assets:
+    - assets/
     - assets/mic/      
     - assets/images/      
     - assets/images/popup/
     - assets/lotties/
-    - assets/
     - assets/icons/
     - assets/icons/customAvatarIcons/
   fonts:

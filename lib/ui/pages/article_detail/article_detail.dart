@@ -95,71 +95,6 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                         ),
                       ],
                     ),
-                    // DropdownButton(
-                    //   isExpanded: false,
-                    //   dropdownColor: Colors.black,
-                    //   style: new TextStyle(color: Colors.red),
-                    //   items: [
-                    //     DropdownMenuItem(
-                    //       child: Text(
-                    //         'Mor Space Missions Planned',
-                    //         overflow: TextOverflow.ellipsis,
-                    //         style: TextStyle(
-                    //           fontFamily: 'Avenir',
-                    //           fontSize: 32.sp,
-                    //           color: const Color(0x7cdbf1ff),
-                    //           fontWeight: FontWeight.w500,
-                    //         ),
-                    //         textAlign: TextAlign.center,
-                    //       ),
-                    //     ),
-                    //     DropdownMenuItem(
-                    //       child: Text(
-                    //         'Major Space Missions Planned1',
-                    //         style: TextStyle(
-                    //           fontFamily: 'Avenir',
-                    //           fontSize: 32.sp,
-                    //           color: const Color(0x7cdbf1ff),
-                    //           fontWeight: FontWeight.w500,
-                    //         ),
-                    //         textAlign: TextAlign.center,
-                    //       ),
-                    //     ),
-                    //     DropdownMenuItem(
-                    //       child: Text(
-                    //         'Major Space Missions Planned2',
-                    //         style: TextStyle(
-                    //           fontFamily: 'Avenir',
-                    //           fontSize: 32.sp,
-                    //           color: const Color(0x7cdbf1ff),
-                    //           fontWeight: FontWeight.w500,
-                    //         ),
-                    //         textAlign: TextAlign.center,
-                    //       ),
-                    //     ),
-                    //     DropdownMenuItem(
-                    //       child: Text(
-                    //         'Major Space Missions Planned3',
-                    //         style: TextStyle(
-                    //           fontFamily: 'Avenir',
-                    //           fontSize: 32.sp,
-                    //           color: const Color(0x7cdbf1ff),
-                    //           fontWeight: FontWeight.w500,
-                    //         ),
-                    //         textAlign: TextAlign.center,
-                    //       ),
-                    //     ),
-                    //   ],
-                    //   onChanged: (value) {},
-                    //   icon: Padding(
-                    //     padding: const EdgeInsets.only(left: 16.0),
-                    //     child: Icon(
-                    //       Ionicons.chevron_down_outline,
-                    //       color: const Color(0x7cdbf1ff),
-                    //     ),
-                    //   ),
-                    //   underline: SizedBox(),
-                    // ),
                   ],
                 ),
               ),
@@ -525,6 +460,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: FancyButton(
+                          titleColor: Colors.black,
                           onPress: () async {},
                           label: "简单",
                           gradient: LinearGradient(

@@ -1,8 +1,8 @@
 import '../../components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
 
-import '../../../ui/components/dialog/popup.dart';
-import '../../../ui/components/theme_switcher.dart';
-import '../../../ui/pages/temp/avatar.dart';
+import '../../components/dialog/popup.dart';
+import '../../components/theme_switcher.dart';
+import '../temp/avatar.dart';
 import '../../../constant/theme_color.dart';
 import '../../../route/router_helper.dart';
 import 'package:fluro/fluro.dart';

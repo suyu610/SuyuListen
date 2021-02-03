@@ -18,7 +18,6 @@ import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart' as icon_2;
-import 'package:random_words/random_words.dart';
 
 class ArticleListPage extends StatefulWidget {
   ArticleListPage({Key key}) : super(key: key);
@@ -55,7 +54,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
 
         list = List.generate(count, (index) {
           return new ArticleModel()
-            ..title = generateWordPairs().take(10).join(" ")
+            ..title = "title"
             ..coint = Random().nextInt(10)
             ..level = randomLevel()
             ..learnProgress = Random().nextInt(100)
@@ -79,7 +78,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
     } else {
       await Future.delayed(Duration(milliseconds: 1000), () {
         list.add(new ArticleModel()
-          ..title = generateWordPairs().take(10).join(" ")
+          ..title = "title"
           ..coint = Random().nextInt(10)
           ..level = randomLevel()
           ..learnProgress = Random().nextInt(100)
@@ -110,7 +109,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
 
     list = List.generate(10, (index) {
       return new ArticleModel()
-        ..title = generateWordPairs().take(10).join(" ")
+        ..title = "title"
         ..coint = Random().nextInt(10)
         ..level = randomLevel()
         ..learnProgress = Random().nextInt(100)
