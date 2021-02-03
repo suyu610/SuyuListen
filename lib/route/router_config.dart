@@ -1,3 +1,5 @@
+import 'package:SuyuListening/ui/pages/avatar_setting_page.dart';
+
 import '../ui/pages/home_page.dart';
 import '../ui/pages/login/login.dart';
 import '../ui/pages/welcom_page.dart';
@@ -23,10 +25,10 @@ class RouterConfig {
         handlerFunc: (BuildContext context, Map<String, dynamic> params) {
       return HomePage();
     });
-    // var loginPageHandler = Handler(
-    //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    //   return LoginPage();
-    // });
+    var avatarSettingPageHandler = Handler(
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      return AvatarSettingPage();
+    });
     // var loginPageHandler = Handler(
     //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     //   return LoginPage();
@@ -39,6 +41,7 @@ class RouterConfig {
     router.define("/splash", handler: splashPageHandler);
     router.define("/welcome", handler: welcomePageHandler);
     router.define("/home", handler: homePageHandler);
+    router.define("/avatar_setting", handler: avatarSettingPageHandler);
 
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {

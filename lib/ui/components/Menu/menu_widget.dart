@@ -1,9 +1,11 @@
+import 'package:SuyuListening/ui/components/avatar/generator.dart';
+import 'package:SuyuListening/ui/pages/temp/avatar.dart';
+import 'package:flutter_svg/svg.dart';
+
 import '../../../constant/theme_color.dart';
 import '../../../route/router_helper.dart';
 import '../../../ui/components/Popup/popup.dart';
 import '../../../ui/components/customAvatar/fluttermojiCircleAvatar.dart';
-import '../../../ui/pages/message.dart';
-import '../../../ui/pages/profile.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,41 +23,31 @@ class MenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[900],
-        // image: DecorationImage(
-        // image: AssetImage("assets/images/main_bg_with_blank.png"),
-        // fit: BoxFit.none,
-        // repeat: ImageRepeat.repeat,
-        // )
-      ),
-      // color: ThemeColors.colorBlack,
-      // color: Colors.grey[900],
+      decoration: BoxDecoration(gradient: drawerGradient),
       child: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 2,
+              flex: 3,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () => {
-                          Future.delayed(Duration.zero, () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return ProfilePage();
-                            }));
-                          })
+                          RouterHelper.router.navigateTo(
+                            context,
+                            "/avatar_setting",
+                            transition: TransitionType.fadeIn,
+                          )
                         },
                         child: FluttermojiCircleAvatar(
-                          radius: 50.h,
-                          backgroundColor: colorWhite,
+                          radius: 70.h,
+                          backgroundColor: silver.withAlpha(200),
                         ),
                       ),
                       SizedBox(
@@ -73,7 +65,15 @@ class MenuWidget extends StatelessWidget {
                             width: 14.w,
                           ),
                           Text(
-                            "30",
+                            "13",
+                            style:
+                                TextStyle(fontSize: 30.sp, color: Colors.white),
+                          ),
+                          SizedBox(
+                            width: 14.w,
+                          ),
+                          Text(
+                            "皇甫素素",
                             textAlign: TextAlign.end,
                             style:
                                 TextStyle(fontSize: 30.sp, color: Colors.white),
@@ -82,20 +82,29 @@ class MenuWidget extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 40.h,
+                  ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () => {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ProfilePage();
-                          }))
+                          RouterHelper.router.navigateTo(
+                            context,
+                            "/avatar_setting",
+                            transition: TransitionType.fadeIn,
+                          )
                         },
-                        child: FluttermojiCircleAvatar(
-                          radius: 50.h,
-                          backgroundColor: colorWhite,
-                        ),
+                        child: CircleAvatar(
+                            backgroundColor: silver.withAlpha(200),
+                            radius: 70.h,
+                            child: SvgPicture.string(
+                              getSvg(
+                                randomAvatarOptions(),
+                              ),
+                              height: 70.h * 1.6,
+                            )),
                       ),
                       SizedBox(
                         height: 20.h,
@@ -112,7 +121,15 @@ class MenuWidget extends StatelessWidget {
                             width: 14.w,
                           ),
                           Text(
-                            "30",
+                            "19",
+                            style:
+                                TextStyle(fontSize: 30.sp, color: Colors.white),
+                          ),
+                          SizedBox(
+                            width: 14.w,
+                          ),
+                          Text(
+                            "黄鹏宇",
                             textAlign: TextAlign.end,
                             style:
                                 TextStyle(fontSize: 30.sp, color: Colors.white),
@@ -124,6 +141,26 @@ class MenuWidget extends StatelessWidget {
                 ],
               ),
             ),
+            Padding(
+                padding:
+                    const EdgeInsets.only(right: 10.0, left: 10, bottom: 10),
+                child: Row(children: <Widget>[
+                  Expanded(
+                      child: Divider(
+                    color: Colors.white.withAlpha(60),
+                  )),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0, left: 10),
+                    child: Text(
+                      "菜单",
+                      style: TextStyle(color: Colors.white.withAlpha(60)),
+                    ),
+                  ),
+                  Expanded(
+                      child: Divider(
+                    color: Colors.white.withAlpha(60),
+                  )),
+                ])),
             Expanded(
               flex: 2,
               child: Column(
@@ -134,12 +171,11 @@ class MenuWidget extends StatelessWidget {
                       title: "消息",
                       icon: Ionicons.notifications,
                       tapAction: () => {
-                            Future.delayed(Duration.zero, () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return MessagePage();
-                              }));
-                            })
+                            RouterHelper.router.navigateTo(
+                              context,
+                              "/avatar_setting",
+                              transition: TransitionType.fadeIn,
+                            )
                           }),
                   MenuItem(
                       title: "单词本",
@@ -154,12 +190,10 @@ class MenuWidget extends StatelessWidget {
                   MenuItem(
                       title: "你的伙伴",
                       icon: Ionicons.cog_outline,
-                      tapAction: () => {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return ProfilePage();
-                            }))
-                          }),
+                      tapAction: () => Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                              pageBuilder: (context, a, b) => TempPage()))),
                   MenuItem(
                       title: "我的",
                       icon: Ionicons.person_outline,

@@ -129,7 +129,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
       double page = _pageController.page;
 
       if (page == 0 &&
-          offset < -10 &&
+          offset < -40 &&
           (_lastTime == null ||
               DateTime.now().difference(_lastTime) > Duration(seconds: 1))) {
         //两次点击间隔超过1s重新计时

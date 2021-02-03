@@ -100,7 +100,7 @@ class _ArticleListTileState extends State<ArticleListTile>
         margin: EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
             // color: blue,
-            gradient: kListTileGradient,
+            gradient: listTileGradient,
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
                 image: AssetImage(model.imageUrl),

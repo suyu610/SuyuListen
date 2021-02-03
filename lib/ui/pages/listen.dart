@@ -840,7 +840,7 @@ class _buildInputAreaWidgetState extends State<buildInputAreaWidget> {
           },
           maxLines: 4,
           minLines: 1,
-          keyboardType: TextInputType.visiblePassword,
+          keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.go,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(

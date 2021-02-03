@@ -64,6 +64,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0"
+  avataar_generator:
+    dependency: "direct main"
+    description:
+      name: avataar_generator
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.1"
   badges:
     dependency: "direct main"
     description:
@@ -419,6 +426,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.5.3"
+  flutter_chat_bubble:
+    dependency: "direct main"
+    description:
+      name: flutter_chat_bubble
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.2"
   flutter_downloader:
     dependency: "direct main"
     description:

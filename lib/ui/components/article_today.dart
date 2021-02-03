@@ -74,7 +74,7 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
       // margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
           // color: blue,
-          gradient: kListTileGradient,
+          gradient: listTileGradient,
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
               image: myImage.image,

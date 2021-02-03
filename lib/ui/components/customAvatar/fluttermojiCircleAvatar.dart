@@ -1,3 +1,5 @@
+import 'package:avataar_generator/enums.dart';
+import 'package:avataar_generator/generator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,9 +23,7 @@ class FluttermojiCircleAvatar extends StatelessWidget {
     if (backgroundColor == null)
       CircleAvatar(radius: radius, child: buildGetX());
     return CircleAvatar(
-        radius: radius,
-        backgroundColor: backgroundColor,
-        child: buildGetX());
+        radius: radius, backgroundColor: backgroundColor, child: buildGetX());
   }
 
   GetX<FluttermojiController> buildGetX() {
@@ -37,7 +37,7 @@ class FluttermojiCircleAvatar extends StatelessWidget {
           return SvgPicture.string(
             snapshot.fluttermoji.value,
             height: radius * 1.6,
-            semanticsLabel: "Your Fluttermoji",
+            // semanticsLabel: "Your Fluttermoji",
             placeholderBuilder: (context) => Center(
               child: CupertinoActivityIndicator(),
             ),

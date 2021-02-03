@@ -1,3 +1,6 @@
+import 'package:SuyuListening/ui/pages/avatar_setting_page.dart';
+import 'package:SuyuListening/ui/pages/temp/avatar.dart';
+
 import '.../../provider/theme_provider.dart';
 import '.../../ui/components/no_splash.dart';
 
@@ -65,16 +68,15 @@ class MyApp extends StatelessWidget {
       designSize: Size(750, 1334),
       allowFontScaling: true,
       child: MaterialApp(
-        onGenerateRoute: RouterHelper.router.generator,
-        builder: EasyLoading.init(),
-        debugShowCheckedModeBanner: false,
-        title: '小兔崽听力',
-        theme: ThemeData(
-          primarySwatch: createMaterialColor(colorBlack),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: SplashScreen(),
-      ),
+          onGenerateRoute: RouterHelper.router.generator,
+          builder: EasyLoading.init(),
+          debugShowCheckedModeBanner: false,
+          title: '小兔崽听力',
+          theme: ThemeData(
+            primarySwatch: createMaterialColor(colorBlack),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: SplashScreen()),
     );
   }
 }
@@ -100,9 +102,8 @@ class _StartAppPageState extends State<StartAppPage> {
   Widget build(BuildContext context) {
     // return MessagePage();
     // return ArticleDetailPage();
-
     // return ListenPage();
-    return AppRetainWidget(child: SplashScreen());
+    // return AppRetainWidget(child: SplashScreen());
     // if (loginState == 0) {
     //   return WelcomePage();
     // } else {

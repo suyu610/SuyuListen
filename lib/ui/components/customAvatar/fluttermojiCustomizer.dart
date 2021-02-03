@@ -1,3 +1,6 @@
+import 'package:SuyuListening/ui/components/avatar/generator.dart';
+import 'package:ionicons/ionicons.dart';
+
 import '../../../ui/components/customAvatar/fluttermoji_assets/fluttermojimodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -272,14 +275,23 @@ class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
                           : size.height * 0.02,
                       fontWeight: FontWeight.w700),
                 ),
-                IconButton(
-                  onPressed: () {
-                    fluttermojiController.setFluttermoji();
+                GestureDetector(
+                  onTap: () {
+                    String newSvgStr = getSvg(randomAvatarOptions());
+                    fluttermojiController.setFluttermoji(
+                        fluttermojiNew: newSvgStr);
+                    
+                    fluttermojiController.updatePreview();
+
                     setState(() {});
                   },
-                  icon: Icon(
-                    Icons.save,
-                    color: iconColor,
+                  child: Text(
+                    "随机",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
