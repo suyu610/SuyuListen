@@ -1,5 +1,11 @@
 import 'dart:math';
 
+import 'package:SuyuListening/route/router_helper.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:flutter_chat_bubble/bubble_type.dart';
+import 'package:flutter_chat_bubble/chat_bubble.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
+
 import '../../model/article_level.dart';
 import '../../constant/theme_color.dart';
 import '../../model/article_model.dart';
@@ -24,6 +30,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'Popup/popup.dart';
 import 'article_today.dart';
 import 'buttons/fancy_button.dart';
+import 'customAvatar/fluttermojiCircleAvatar.dart';
 
 class FirstPageWidget extends StatefulWidget {
   const FirstPageWidget({
@@ -80,65 +87,15 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
 
   int currentMonth = new DateTime.now().month;
 
-  ///
-  ///
-  AudioPlayer audioPlayer;
-  AudioCache audioCache = AudioCache();
-
-  void play() async {
-    print("????");
-
-    var bytes = await (await audioCache
-            .load('mic/b2db5f04e40c5a3323941afdb8b095ea5844e9a6.mp3'))
-        .readAsBytes();
-    audioCache.playBytes(bytes);
-
-    // int result = await audioPlayer.play(
-    //     "https://files.21voa.com/202101/scientists-find-first-baby-remains-from-tyrannosaurus-group.mp3");
-    // if (result == 1) {
-    //   // success
-    //   print('play success');
-    // } else {
-    //   print('play failed');
-    // }
-  }
-
-  pause() async {
-    int result = await audioPlayer.pause();
-    if (result == 1) {
-      // success
-      print('pause success');
-    } else {
-      print('pause failed');
-    }
-  }
-
   @override
   void initState() {
-    audioPlayer = AudioPlayer();
     super.initState();
   }
 
-  jump(startMilliseconds) async {
-    int result =
-        await audioPlayer.seek(new Duration(milliseconds: startMilliseconds));
-    if (result == 1) {
-      print('go to success');
-      // await audioPlayer.resume();
-    } else {
-      print('go to failed');
-    }
-  }
+
 
   @override
   void deactivate() async {
-    print('结束');
-    int result = await audioPlayer.release();
-    if (result == 1) {
-      print('release success');
-    } else {
-      print('release failed');
-    }
     super.deactivate();
   }
 
@@ -152,7 +109,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey.shade100,
+      color: Theme.of(context).backgroundColor,
       height: 1334.h,
       child: Stack(
         children: [
@@ -164,11 +121,20 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                   pageSnapping: false,
 
                   locale: ('zh'),
-
-                  headerTextStyle: TextStyle(color: Colors.black.withAlpha(60)),
+                  headerTextStyle:
+                      ThemeProvider.of(context).brightness == Brightness.dark
+                          ? TextStyle(color: Colors.white.withAlpha(50))
+                          : TextStyle(color: Colors.black.withAlpha(50)),
                   weekdayTextStyle:
-                      TextStyle(color: Colors.black.withAlpha(60)),
-                  iconColor: Colors.black.withAlpha(60),
+                      ThemeProvider.of(context).brightness == Brightness.dark
+                          ? TextStyle(color: Colors.white.withAlpha(50))
+                          : TextStyle(color: Colors.black.withAlpha(50)),
+
+                  iconColor:
+                      ThemeProvider.of(context).brightness == Brightness.dark
+                          ? Colors.white.withAlpha(50)
+                          : Colors.black.withAlpha(50),
+
                   // onDayPressed: (DateTime date, List<Event> events) {
                   //   this.setState(() => _currentDate = date);
                   // },
@@ -228,14 +194,14 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                               describe: "一点也没学习!!");
                         },
                         child: Badge(
-                          badgeColor: Colors.grey.shade100,
+                          badgeColor: Theme.of(context).backgroundColor,
                           elevation: 0,
                           badgeContent: Icon(
                             Icons.star,
                             size: 20.sp,
                           ),
                           child: Material(
-                            color: Color(0xffe74c3c),
+                            color: Colors.red,
                             shape: SuperellipseShape(
                               borderRadius: BorderRadius.circular(28.0),
                             ),
@@ -270,7 +236,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                             size: 20.sp,
                           ),
                           elevation: 0,
-                          badgeColor: Colors.grey.shade100,
+                          badgeColor: Theme.of(context).backgroundColor,
                           child: Material(
                             color: blue,
                             shape: SuperellipseShape(
@@ -404,17 +370,26 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                '他的进度 ',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 30.sp, color: Colors.white),
+                              FluttermojiCircleAvatar(
+                                radius: 70.h,
+                                backgroundColor: Colors.transparent,
                               ),
-                              Text(
-                                '40%',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 30.sp, color: Colors.white),
+                              ChatBubble(
+                                clipper: ChatBubbleClipper4(
+                                    type: BubbleType.receiverBubble),
+                                backGroundColor: Colors.white,
+                                margin: EdgeInsets.only(top: 20),
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width * 0.7,
+                                  ),
+                                  child: Text(
+                                    "我今天学了2小时咯，你还不开始学习吗?",
+                                    style: TextStyle(
+                                        fontSize: 24.sp, color: Colors.black),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -425,19 +400,11 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: FancyButton(
                                     onPress: () async {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ArticleDetailPage()));
+                                      RouterHelper.router.navigateTo(
+                                          context, "/articleDetail");
                                     },
                                     label: "开始学习",
-                                    gradient: LinearGradient(
-                                      colors: <Color>[
-                                        Colors.white,
-                                        Colors.white,
-                                      ],
-                                    ),
+                                    gradient: kActiveButtonGradient,
                                   )))
                         ],
                       ),
@@ -494,34 +461,6 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
               ),
             ),
           ),
-
-          // Positioned(
-          //   right: 100.w,
-          //   top: 617.h,
-          //   child: SizedBox(
-          //     child: FlutterSwitch(
-          //       toggleColor: Colors.black,
-          //       width: 100.0.w,
-          //       height: 40.0.h,
-          //       valueFontSize: 15.0.sp,
-          //       toggleSize: 20.0.sp,
-          //       value: isYourMode,
-          //       activeColor: blue,
-          //       inactiveColor: yellow,
-          //       inactiveTextColor: Colors.black.withAlpha(200),
-          //       activeText: "me",
-          //       inactiveText: "him",
-          //       borderRadius: 30.0,
-          //       padding: 8.0.w,
-          //       showOnOff: true,
-          //       onToggle: (val) {
-          //         setState(() {
-          //           isYourMode = val;
-          //         });
-          //       },
-          //     ),
-          //   ),
-          // ),
 
           /// 图示
           // 右下角图示
@@ -703,15 +642,9 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                               padding: const EdgeInsets.all(10.0),
                               // margin: const EdgeInsets.all(10.0),
                               decoration: BoxDecoration(
-                                  color: blue,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 5,
-                                        spreadRadius: 1,
-                                        offset: Offset(5, 1),
-                                        color: Colors.black12)
-                                  ]),
+                                color: blue,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                               child: Text(
                                 "知道了",
                                 textAlign: TextAlign.center,

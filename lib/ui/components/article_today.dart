@@ -25,7 +25,7 @@ class TodayArticleListTile extends StatefulWidget {
 class _TodayArticleListTileState extends State<TodayArticleListTile> {
   ArticleModel model;
   Image myImage;
-
+  Timer timer;
   @override
   void initState() {
     myImage = Image.asset("assets/jupiter.png");
@@ -50,10 +50,11 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
       EasyLoading.showError("取消下载");
       // 取消下载
       model.downloadValue = 0;
+      timer.cancel();
     } else {
       const timeout = const Duration(milliseconds: 100);
 
-      Timer.periodic(timeout, (timer) {
+      timer = Timer.periodic(timeout, (timer) {
         model.downloadValue += 0.01;
         if (model.downloadValue >= 1) {
           timer.cancel();
@@ -63,6 +64,7 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
       });
     }
     model.isDownloading = !model.isDownloading;
+    setState(() {});
   }
 
   @override
@@ -73,17 +75,14 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
       padding: EdgeInsets.all(20),
       // margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-          // color: blue,
-          gradient: listTileGradient,
-          borderRadius: BorderRadius.circular(20),
-          image: DecorationImage(
-              image: myImage.image,
-              fit: BoxFit.contain,
-              alignment: Alignment.bottomCenter),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey[200], blurRadius: 10, offset: Offset(0, 10))
-          ]),
+        // color: blue,
+        gradient: listTileGradient,
+        borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+            image: myImage.image,
+            fit: BoxFit.contain,
+            alignment: Alignment.bottomCenter),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -202,7 +201,9 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
                                                     .toInt()
                                                     .toString() +
                                                 "%",
-                                            style: TextStyle(fontSize: 22.sp),
+                                            style: TextStyle(
+                                                fontSize: 22.sp,
+                                                color: Colors.black),
                                           ),
                                         ),
                                       )
@@ -224,6 +225,7 @@ class _TodayArticleListTileState extends State<TodayArticleListTile> {
                                 child: Center(
                                   child: Icon(
                                     icon_2.Ionicons.cloud_download_outline,
+                                    color: Colors.black,
                                     size: 36.sp,
                                   ),
                                 ),

@@ -4,7 +4,7 @@ import 'dart:math';
 import '../../../constant/theme_color.dart';
 import '../../../model/article_level.dart';
 import '../../../model/article_model.dart';
-import '../../../provider/theme_provider.dart';
+import '../../../provider/key_provider.dart';
 import '../../../sample_data/data.dart';
 import '../../../ui/animation/fade_animation.dart';
 import '../../../ui/components/article_list_tile.dart';
@@ -134,7 +134,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
               DateTime.now().difference(_lastTime) > Duration(seconds: 1))) {
         //两次点击间隔超过1s重新计时
         _lastTime = DateTime.now();
-        Provider.of<ThemeProvider>(context, listen: false)
+        Provider.of<KeyProvider>(context, listen: false)
             .innerDrawerKey
             .currentState
             .open(direction: InnerDrawerDirection.start);
@@ -159,25 +159,26 @@ class _ArticleListPageState extends State<ArticleListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: GestureDetector(
             onTap: () => {
-              Provider.of<ThemeProvider>(context, listen: false)
+              Provider.of<KeyProvider>(context, listen: false)
                   .innerDrawerKey
                   .currentState
                   .toggle(direction: InnerDrawerDirection.start)
             },
             child: Icon(
               icon_2.Ionicons.menu_outline,
-              color: Colors.black,
+              // color: Colors.black,
             ),
           ),
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).backgroundColor,
           title: Text(
             "素语听力",
-            style: TextStyle(color: Colors.black, fontSize: 30.sp),
+            style: kTitleTextStyle,
             textAlign: TextAlign.center,
           ),
           // Image.asset(
@@ -205,7 +206,6 @@ class _ArticleListPageState extends State<ArticleListPage> {
                     badgeContent: null,
                     child: Icon(
                       icon_2.Ionicons.notifications_outline,
-                      color: Colors.black,
                       size: 40.sp,
                     ),
                   ),
@@ -215,7 +215,6 @@ class _ArticleListPageState extends State<ArticleListPage> {
                 ),
                 Icon(
                   icon_2.Ionicons.cloud_download_outline,
-                  color: Colors.black,
                   size: 40.sp,
                 ),
                 SizedBox(
@@ -230,7 +229,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
               if (f == "首页") {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.home, color: Colors.black),
+                  child: Icon(Icons.home),
                 );
               }
               return Container(
@@ -240,7 +239,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                   child: Text(
                     f,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, color: Colors.black),
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
               );
@@ -252,7 +251,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
             indicatorSize: TabBarIndicatorSize.label,
             isScrollable: true,
             indicatorColor: blue,
-            labelStyle: TextStyle(height: 3.h, color: Colors.white),
+            labelStyle: TextStyle(height: 3.h),
           ),
         ),
         // appBar: AppBar(
@@ -269,10 +268,10 @@ class _ArticleListPageState extends State<ArticleListPage> {
                     return FirstPageWidget(list: list);
                   }
                   return Container(
-                    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                     child: EasyRefresh(
                       header: DeliveryHeader(
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: Theme.of(context).backgroundColor,
                       ),
                       footer: ClassicalFooter(
                         // infoText: "6",

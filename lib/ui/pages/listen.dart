@@ -4,6 +4,8 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+
 import '../../constant/theme_color.dart';
 import '../../provider/listen_provider.dart';
 import '../../ui/components/custom_dialog_box.dart';
@@ -212,15 +214,13 @@ class _ListenPageState extends State<ListenPage> {
                 backgroundColor: blue,
                 elevation: 0,
                 title: Text("Website Helps Students Hoping to Attend College",
-                    style: TextStyle(fontSize: 24.sp)),
+                    style: TextStyle(fontSize: 24.sp, color: Colors.white)),
                 leading: IconButton(
-                  icon: Icon(Icons.arrow_back_ios),
+                  icon: Icon(Icons.arrow_back_ios, color: Colors.white),
                   onPressed: () => popConfirm(),
                 ),
                 actions: [
-                  Icon(
-                    Icons.menu,
-                  ),
+                  Icon(Icons.menu, color: Colors.white),
                   SizedBox(width: 14.w),
                 ],
               ),
@@ -292,8 +292,7 @@ class _ListenPageState extends State<ListenPage> {
                           child: Column(
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  print("?");
+                                onTap: () {                                  
                                   _timerController.start();
                                 },
                                 child: CircularCountDownTimer(
@@ -440,6 +439,9 @@ class _historyWidgetState extends State<historyWidget>
   bool isKeyboardVisible = false;
   @override
   void initState() {
+    // ThemeSwitcher.of(context).changeTheme(theme: lightTheme);
+    // ThemeSwitcher.of(context)
+    //     .changeTheme(theme: lightTheme, reverseAnimation: true);
     historyController = ScrollController();
     _animationController =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
@@ -840,7 +842,7 @@ class _buildInputAreaWidgetState extends State<buildInputAreaWidget> {
           },
           maxLines: 4,
           minLines: 1,
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: TextInputType.name,
           textInputAction: TextInputAction.go,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
@@ -848,12 +850,13 @@ class _buildInputAreaWidgetState extends State<buildInputAreaWidget> {
               icon: Icon(
                 Ionicons.key_outline,
                 size: 26.sp,
+                color: Colors.black,
               ),
               onPressed: () => {
                 CoolAlert.show(
                     context: context,
                     type: CoolAlertType.confirm,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: Colors.white,
                     confirmBtnColor: yellow,
                     confirmBtnTextStyle: TextStyle(color: Colors.black),
                     lottieAsset: "assets/lotties/money.json",
@@ -877,6 +880,7 @@ class _buildInputAreaWidgetState extends State<buildInputAreaWidget> {
             prefixIcon: Icon(
               Icons.edit,
               size: 26.sp,
+              color: Colors.black,
             ),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),

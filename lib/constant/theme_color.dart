@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ///主色调，按钮，特殊需要强调和突出的文字
 const Color yellow = Color.fromRGBO(254, 212, 91, 1);
@@ -70,10 +71,61 @@ Color titleTextColor = Colors.white;
 Color contentTextColor = Color(0xff868686);
 Color mBackgroundColor = Color(0xFFFFFFFF);
 
-List<String> coffeeNames = [
-  'Espresso',
-  'Cappuccino',
-  'Macciato',
-  'Mocha',
-  'Latte',
-];
+const kSpacingUnit = 20;
+
+const kDarkPrimaryColor = Color(0xFF212121);
+const kDarkSecondaryColor = Color(0xFF373737);
+const kLightPrimaryColor = Color(0xFFFFFFFF);
+
+const kLightSecondaryColor = Color(0xffffffff);
+const kAccentColor = yellow;
+
+final kTitleTextStyle = TextStyle(
+  fontSize: (kSpacingUnit.w * 2.5).sp,
+  fontWeight: FontWeight.w600,
+);
+
+final kCaptionTextStyle = TextStyle(
+  fontSize: (kSpacingUnit.w * 2.3).sp,
+  fontWeight: FontWeight.w100,
+);
+
+final kButtonTextStyle = TextStyle(
+  fontSize: (kSpacingUnit.w * 2.3).sp,
+  fontWeight: FontWeight.w400,
+  color: kDarkPrimaryColor,
+);
+
+final darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  fontFamily: 'SFProText',
+  primaryColor: kDarkPrimaryColor,
+  canvasColor: kDarkPrimaryColor,
+  backgroundColor: kDarkSecondaryColor,
+  accentColor: kAccentColor,
+  iconTheme: ThemeData.dark().iconTheme.copyWith(
+        color: kLightSecondaryColor,
+      ),
+  textTheme: ThemeData.dark().textTheme.apply(
+        fontFamily: 'SFProText',
+        bodyColor: kLightSecondaryColor,
+        displayColor: kLightSecondaryColor,
+      ),
+);
+
+final lightTheme = ThemeData(
+  brightness: Brightness.light,
+  fontFamily: 'SFProText',
+  primaryColor: kLightPrimaryColor,
+  canvasColor: kLightPrimaryColor,
+  backgroundColor: kLightSecondaryColor,
+  accentColor: kAccentColor,
+  iconTheme: ThemeData.light().iconTheme.copyWith(
+        color: kDarkSecondaryColor,
+      ),
+  textTheme: ThemeData.light().textTheme.apply(
+        fontFamily: 'SFProText',
+        bodyColor: kDarkSecondaryColor,
+        displayColor: kDarkSecondaryColor,
+      ),
+);

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../theme_switcher.dart';
 import 'menu_item.dart';
 
 class MenuWidget extends StatelessWidget {
@@ -23,7 +24,9 @@ class MenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(gradient: drawerGradient),
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+      ),
       child: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,32 +56,10 @@ class MenuWidget extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Ionicons.flower_outline,
-                            color: Colors.white,
-                            size: 30.sp,
-                          ),
-                          SizedBox(
-                            width: 14.w,
-                          ),
-                          Text(
-                            "13",
-                            style:
-                                TextStyle(fontSize: 30.sp, color: Colors.white),
-                          ),
-                          SizedBox(
-                            width: 14.w,
-                          ),
-                          Text(
-                            "皇甫素素",
-                            textAlign: TextAlign.end,
-                            style:
-                                TextStyle(fontSize: 30.sp, color: Colors.white),
-                          ),
-                        ],
+                      Text(
+                        "皇甫素素",
+                        textAlign: TextAlign.end,
+                        style: kCaptionTextStyle,
                       ),
                     ],
                   ),
@@ -96,71 +77,32 @@ class MenuWidget extends StatelessWidget {
                             transition: TransitionType.fadeIn,
                           )
                         },
-                        child: CircleAvatar(
-                            backgroundColor: silver.withAlpha(200),
-                            radius: 70.h,
-                            child: SvgPicture.string(
-                              getSvg(
-                                randomAvatarOptions(),
-                              ),
-                              height: 70.h * 1.6,
-                            )),
+
+                        child: FluttermojiCircleAvatar(
+                          radius: 70.h,
+                          backgroundColor: silver.withAlpha(200),
+                        ),
+                        // child: CircleAvatar(
+                        //     backgroundColor: silver.withAlpha(200),
+                        //     radius: 70.h,
+                        //     child: SvgPicture.string(
+                        //       "",
+                        //       // getSvg(
+                        //       //   randomAvatarOptions(),
+                        //       // ),
+                        //       height: 70.h * 1.6,
+                        //     )),
                       ),
                       SizedBox(
                         height: 20.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Ionicons.flower_outline,
-                            color: Colors.white,
-                            size: 30.sp,
-                          ),
-                          SizedBox(
-                            width: 14.w,
-                          ),
-                          Text(
-                            "19",
-                            style:
-                                TextStyle(fontSize: 30.sp, color: Colors.white),
-                          ),
-                          SizedBox(
-                            width: 14.w,
-                          ),
-                          Text(
-                            "黄鹏宇",
-                            textAlign: TextAlign.end,
-                            style:
-                                TextStyle(fontSize: 30.sp, color: Colors.white),
-                          ),
-                        ],
-                      ),
+                      Text("黄鹏宇",
+                          textAlign: TextAlign.end, style: kCaptionTextStyle),
                     ],
                   ),
                 ],
               ),
             ),
-            Padding(
-                padding:
-                    const EdgeInsets.only(right: 10.0, left: 10, bottom: 10),
-                child: Row(children: <Widget>[
-                  Expanded(
-                      child: Divider(
-                    color: Colors.white.withAlpha(60),
-                  )),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0, left: 10),
-                    child: Text(
-                      "菜单",
-                      style: TextStyle(color: Colors.white.withAlpha(60)),
-                    ),
-                  ),
-                  Expanded(
-                      child: Divider(
-                    color: Colors.white.withAlpha(60),
-                  )),
-                ])),
             Expanded(
               flex: 2,
               child: Column(
@@ -169,7 +111,7 @@ class MenuWidget extends StatelessWidget {
                 children: [
                   MenuItem(
                       title: "消息",
-                      icon: Ionicons.notifications,
+                      icon: Ionicons.notifications_outline,
                       tapAction: () => {
                             RouterHelper.router.navigateTo(
                               context,
@@ -188,18 +130,18 @@ class MenuWidget extends StatelessWidget {
                         );
                       }),
                   MenuItem(
-                      title: "你的伙伴",
+                      title: "伙伴",
                       icon: Ionicons.cog_outline,
                       tapAction: () => Navigator.push(
                           context,
                           PageRouteBuilder(
                               pageBuilder: (context, a, b) => TempPage()))),
                   MenuItem(
-                      title: "我的",
+                      title: "设置",
                       icon: Ionicons.person_outline,
                       tapAction: () => RouterHelper.router.navigateTo(
                             context,
-                            "/song",
+                            "/setting",
                             transition: TransitionType.inFromRight,
                           )),
                 ],
@@ -210,15 +152,7 @@ class MenuWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                      iconSize: 34.sp,
-                      icon: Icon(Ionicons.information),
-                      color: Colors.white,
-                      onPressed: () => {}),
-                  Text(
-                    "关于我们",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  themeSwitcher,
                 ],
               ),
             ),

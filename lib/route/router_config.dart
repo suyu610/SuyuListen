@@ -1,4 +1,8 @@
+import 'package:SuyuListening/constant/theme_color.dart';
+import 'package:SuyuListening/ui/pages/article/article_detail.dart';
 import 'package:SuyuListening/ui/pages/avatar_setting_page.dart';
+import 'package:SuyuListening/ui/pages/setting_page.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 import '../ui/pages/home_page.dart';
 import '../ui/pages/login/login.dart';
@@ -29,10 +33,18 @@ class RouterConfig {
         handlerFunc: (BuildContext context, Map<String, dynamic> params) {
       return AvatarSettingPage();
     });
-    // var loginPageHandler = Handler(
-    //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-    //   return LoginPage();
-    // });
+
+    var settingPageHandler = Handler(
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      return SettingPage();
+    });
+
+    var articleDetailPageHandler = Handler(
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      ThemeSwitcher.of(context).changeTheme(theme: lightTheme);
+      return ArticleDetailPage();
+    });
+
     // var loginPageHandler = Handler(
     //     handlerFunc: (BuildContext context, Map<String, dynamic> params) {
     //   return LoginPage();
@@ -42,6 +54,8 @@ class RouterConfig {
     router.define("/welcome", handler: welcomePageHandler);
     router.define("/home", handler: homePageHandler);
     router.define("/avatar_setting", handler: avatarSettingPageHandler);
+    router.define("/setting", handler: settingPageHandler);
+    router.define("/articleDetail", handler: articleDetailPageHandler);
 
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {

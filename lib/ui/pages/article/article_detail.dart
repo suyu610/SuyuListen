@@ -549,9 +549,12 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               cardKeys[currentIndex].currentState.toggleCard();
                             });
                           },
-                          icon: Icon(!wordIsTap
-                              ? Ionicons.eye_off
-                              : IconData(0xe68b, fontFamily: "appIconFonts")),
+                          icon: Icon(
+                              !wordIsTap
+                                  ? Ionicons.eye_off
+                                  : IconData(0xe68b,
+                                      fontFamily: "appIconFonts"),
+                              color: Colors.black),
                           gradient: LinearGradient(
                             colors: <Color>[
                               Colors.white,
@@ -572,9 +575,11 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               wordIsBookmark = !wordIsBookmark;
                             });
                           },
-                          icon: Icon(wordIsBookmark
-                              ? Icons.bookmark
-                              : Ionicons.bookmark_outline),
+                          icon: Icon(
+                              wordIsBookmark
+                                  ? Icons.bookmark
+                                  : Ionicons.bookmark_outline,
+                              color: Colors.black),
                           gradient: wordIsBookmark
                               ? kActiveButtonGradient
                               : LinearGradient(

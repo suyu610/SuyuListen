@@ -1,4 +1,6 @@
-import '../../../provider/theme_provider.dart';
+import 'package:SuyuListening/constant/theme_color.dart';
+
+import '../../../provider/key_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +18,7 @@ class MenuItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => {
         tapAction(),
-        Provider.of<ThemeProvider>(context, listen: false)
+        Provider.of<KeyProvider>(context, listen: false)
             .innerDrawerKey
             .currentState
             .toggle(direction: InnerDrawerDirection.start),
@@ -30,7 +32,6 @@ class MenuItem extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: Colors.white,
                 size: 30.sp,
               ),
               SizedBox(width: 60.w),
@@ -39,10 +40,7 @@ class MenuItem extends StatelessWidget {
                 child: Text(
                   title,
                   textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 30.sp,
-                    color: Colors.white,
-                  ),
+                  style: kTitleTextStyle,
                 ),
               )
             ],

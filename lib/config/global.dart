@@ -61,6 +61,7 @@ void firstLauchApp() async {
 
 void initToast() {
   EasyLoading.instance
+    ..textColor = Colors.black
     ..displayDuration = const Duration(milliseconds: 700)
     ..indicatorType = EasyLoadingIndicatorType.hourGlass
     ..loadingStyle = EasyLoadingStyle.custom
@@ -69,8 +70,7 @@ void initToast() {
     ..toastPosition = EasyLoadingToastPosition.bottom
     ..backgroundColor = yellow
     ..indicatorColor = Colors.black
-    ..textColor = Colors.black
-    ..textStyle = TextStyle(fontWeight: FontWeight.w500)
+    ..textStyle = TextStyle(fontWeight: FontWeight.w500, color: Colors.black)
     ..fontSize = 13
     ..contentPadding = EdgeInsets.all(20)
     ..textPadding = EdgeInsets.only(bottom: 20)

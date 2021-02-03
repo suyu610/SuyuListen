@@ -1,4 +1,4 @@
-import '../../provider/theme_provider.dart';
+import '../../provider/key_provider.dart';
 import '../../ui/components/Menu/menu_widget.dart';
 import '../../ui/pages/article/article_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,8 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    Provider.of<ThemeProvider>(context, listen: false).innerDrawerKey =
-        GlobalKey<InnerDrawerState>();
     super.initState();
   }
 
@@ -38,19 +36,20 @@ class _HomePageState extends State<HomePage> {
         return true;
       },
       child: InnerDrawer(
-        key: Provider.of<ThemeProvider>(context).innerDrawerKey,
+        key: Provider.of<KeyProvider>(context).innerDrawerKey,
         leftChild: _buildLeftChild(context),
         scaffold: ArticleListPage(),
         // 一些配置
-        onTapClose: true,        
+        onTapClose: true,
         swipe: true,
-        colorTransitionChild: Colors.grey[900],
-        colorTransitionScaffold: Colors.black45,
-        offset: IDOffset.only(bottom: 0, right: 0, left: 0.3),
+        colorTransitionChild: Colors.white,
+        colorTransitionScaffold: Colors.white.withAlpha(100),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0), blurRadius: 5)
+        ],
         proportionalChildArea: true,
         borderRadius: 0,
         leftAnimationType: InnerDrawerAnimation.linear,
-        backgroundDecoration: BoxDecoration(color: Colors.grey[900]),
         innerDrawerCallback: (a) => {},
       ),
     );
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage> {
 Widget _buildLeftChild(BuildContext context) {
   return GestureDetector(
       onHorizontalDragEnd: (detail) {
-        Provider.of<ThemeProvider>(context, listen: false)
+        Provider.of<KeyProvider>(context, listen: false)
             .innerDrawerKey
             .currentState
             .toggle(direction: InnerDrawerDirection.start);

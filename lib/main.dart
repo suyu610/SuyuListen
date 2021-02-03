@@ -1,7 +1,6 @@
-import 'package:SuyuListening/ui/pages/avatar_setting_page.dart';
-import 'package:SuyuListening/ui/pages/temp/avatar.dart';
+import 'package:SuyuListening/ui/pages/setting_page.dart';
 
-import '.../../provider/theme_provider.dart';
+import 'provider/key_provider.dart';
 import '.../../ui/components/no_splash.dart';
 
 import '.../../ui/pages/splash/splash_screen.dart';
@@ -13,12 +12,12 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart' as temp;
 
 import 'config/global.dart';
 import 'constant/theme_color.dart';
 import 'provider/listen_provider.dart';
 import 'route/router_helper.dart';
-import 'ui/components/app_retain_widget.dart';
 // import 'ui/pages/listen.dart';
 
 void main() async {
@@ -38,8 +37,9 @@ void main() async {
           ListenableProvider<ListenProvider>(
             create: (_) => ListenProvider(),
           ),
-          ListenableProvider<ThemeProvider>(
-              create: (_) => ThemeProvider(LIGHT)),
+          ListenableProvider<KeyProvider>(
+            create: (_) => KeyProvider(),
+          ),
         ], child: MyApp()),
       ));
 }
@@ -67,16 +67,18 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(750, 1334),
       allowFontScaling: true,
-      child: MaterialApp(
-          onGenerateRoute: RouterHelper.router.generator,
-          builder: EasyLoading.init(),
-          debugShowCheckedModeBanner: false,
-          title: '小兔崽听力',
-          theme: ThemeData(
-            primarySwatch: createMaterialColor(colorBlack),
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
-          home: SplashScreen()),
+      child: temp.ThemeProvider(
+        initTheme: lightTheme,
+        child: Builder(builder: (context) {
+          return MaterialApp(
+              onGenerateRoute: RouterHelper.router.generator,
+              builder: EasyLoading.init(),
+              debugShowCheckedModeBanner: false,
+              title: '小兔崽听力',
+              theme: temp.ThemeProvider.of(context),
+              home: SplashScreen());
+        }),
+      ),
     );
   }
 }

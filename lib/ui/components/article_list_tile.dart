@@ -29,7 +29,7 @@ class ArticleListTile extends StatefulWidget {
 class _ArticleListTileState extends State<ArticleListTile>
     with AutomaticKeepAliveClientMixin {
   ArticleModel model;
-
+  Timer timer;
   @override
   bool get wantKeepAlive => true;
 
@@ -50,10 +50,11 @@ class _ArticleListTileState extends State<ArticleListTile>
       EasyLoading.showError("取消下载");
       // 取消下载
       model.downloadValue = 0;
+      timer.cancel();
     } else {
       const timeout = const Duration(milliseconds: 100);
 
-      Timer.periodic(timeout, (timer) {
+      timer = Timer.periodic(timeout, (timer) {
         model.downloadValue += 0.01;
         if (model.downloadValue >= 1) {
           timer.cancel();
@@ -63,6 +64,7 @@ class _ArticleListTileState extends State<ArticleListTile>
       });
     }
     model.isDownloading = !model.isDownloading;
+    setState(() {});
   }
 
   @override
@@ -99,19 +101,14 @@ class _ArticleListTileState extends State<ArticleListTile>
         padding: EdgeInsets.all(18),
         margin: EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
-            // color: blue,
-            gradient: listTileGradient,
-            borderRadius: BorderRadius.circular(20),
-            image: DecorationImage(
-                image: AssetImage(model.imageUrl),
-                fit: BoxFit.contain,
-                alignment: Alignment.bottomCenter),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey[200],
-                  blurRadius: 10,
-                  offset: Offset(0, 10))
-            ]),
+          // color: blue,
+          gradient: listTileGradient,
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(
+              image: AssetImage(model.imageUrl),
+              fit: BoxFit.contain,
+              alignment: Alignment.bottomCenter),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -232,7 +229,9 @@ class _ArticleListTileState extends State<ArticleListTile>
                                                       .toInt()
                                                       .toString() +
                                                   "%",
-                                              style: TextStyle(fontSize: 22.sp),
+                                              style: TextStyle(
+                                                  fontSize: 22.sp,
+                                                  color: Colors.black),
                                             ),
                                           ),
                                         )
@@ -254,6 +253,7 @@ class _ArticleListTileState extends State<ArticleListTile>
                                   child: Center(
                                     child: Icon(
                                       icon_2.Ionicons.cloud_download_outline,
+                                      color: Colors.black,
                                       size: 36.sp,
                                     ),
                                   ),
