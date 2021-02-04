@@ -31,6 +31,15 @@ class _WordDetailPageState extends State<WordDetailPage> {
     super.initState();
   }
 
+  onPageChanged(index) {
+    print(index);
+    _tabController.animateTo(0);
+    // _tabPageViewController.animateToPage(0,
+    //     duration: Duration(milliseconds: 400), curve: Curves.linear);
+    currentTabbarIndex = 0;
+    setState(() {});
+  }
+
   onTapTabbar(index) {
     _tabPageViewController.animateToPage(index,
         duration: Duration(milliseconds: 400), curve: Curves.linear);
@@ -58,6 +67,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
       ),
       body: SafeArea(
         child: PageView.builder(
+            onPageChanged: onPageChanged,
             itemCount: planets.length,
             controller: _pageController,
             physics: BouncingScrollPhysics(),
@@ -119,7 +129,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                   child: Text(
                                     planets[index].name,
                                     style: TextStyle(
-                                      fontFamily: 'Avenir',
+                                      fontFamily: 'SFProText',
                                       fontSize: 70.sp,
                                       color: primaryTextColor,
                                       fontWeight: FontWeight.w500,
@@ -199,7 +209,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                       controller: _tabController,
                       indicatorSize: TabBarIndicatorSize.label,
                       isScrollable: true,
-                      indicatorWeight: 0.6,
+                      indicatorWeight: 1,
                       indicatorColor: blue,
                     ),
                     Container(

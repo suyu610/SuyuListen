@@ -1,7 +1,9 @@
+import 'setting_list_item.dart';
+
 import '../../../constant/theme_color.dart';
 import '../../components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
-import '../setting/profile_list_item.dart';
 import '../../components/theme_switcher.dart';
+
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -115,27 +117,27 @@ class _SettingPageState extends State<SettingPage> {
                 Expanded(
                   child: ListView(
                     children: <Widget>[
-                      ProfileListItem(
+                      SettingListItem(
                         icon: LineAwesomeIcons.user,
                         text: 'Account',
                       ),
-                      ProfileListItem(
+                      SettingListItem(
                         icon: LineAwesomeIcons.speakap,
                         text: 'Greeting Word',
                       ),
-                      ProfileListItem(
+                      SettingListItem(
                         icon: LineAwesomeIcons.question_circle,
                         text: 'Help & Support',
                       ),
-                      ProfileListItem(
+                      SettingListItem(
                         icon: LineAwesomeIcons.cog,
                         text: 'Settings',
                       ),
-                      ProfileListItem(
+                      SettingListItem(
                         icon: LineAwesomeIcons.user_plus,
                         text: 'Invite a Friend',
                       ),
-                      ProfileListItem(
+                      SettingListItem(
                         icon: LineAwesomeIcons.alternate_sign_out,
                         text: 'Logout',
                         hasNavigation: false,

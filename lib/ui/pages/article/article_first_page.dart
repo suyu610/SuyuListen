@@ -282,9 +282,9 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                   child: FlipCard(
                       direction: FlipDirection.VERTICAL,
                       speed: 500,
-                      onFlipDone: (status) {
-                        print(status);
-                      },
+                      // onFlipDone: (status) {
+                      //   print(status);
+                      // },
                       front: FadeAnimation(
                         0,
                         TodayArticleFrontWidget(

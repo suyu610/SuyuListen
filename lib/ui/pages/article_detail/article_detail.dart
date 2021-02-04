@@ -77,7 +77,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               'Word List',
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                fontFamily: 'Avenir',
+                                fontFamily: 'SFProText',
                                 fontSize: 64.sp,
                                 color: const Color(0xffffffff),
                                 fontWeight: FontWeight.w900,
@@ -257,7 +257,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                         child: Text(
                                           planets[index].name,
                                           style: TextStyle(
-                                            fontFamily: 'Avenir',
+                                            fontFamily: 'SFProText',
                                             fontSize: 74.sp,
                                             color: const Color(0xff47455f),
                                             fontWeight: FontWeight.w900,
@@ -273,7 +273,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                           "英 / ˈjʊərənəs /    美 / ˈjʊrənəs /",
                                           maxLines: 4,
                                           style: TextStyle(
-                                            fontFamily: 'Avenir',
+                                            fontFamily: 'SFProText',
                                             fontSize: 30.sp,
                                             color: Colors.black,
                                             fontWeight: FontWeight.w500,
@@ -315,7 +315,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                                 child: Text(
                                                   '详细',
                                                   style: TextStyle(
-                                                    fontFamily: 'Avenir',
+                                                    fontFamily: 'SFProText',
                                                     fontSize: 30.sp,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w500,
@@ -364,6 +364,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             ),
                           ),
                           //数字
+
                           GestureDetector(
                             behavior: HitTestBehavior.translucent,
                             child: Container(
@@ -371,7 +372,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               child: Text(
                                 planets[index].position.toString(),
                                 style: TextStyle(
-                                  fontFamily: 'Avenir',
+                                  fontFamily: 'SFProText',
                                   fontSize: 200.sp,
                                   color: primaryTextColor.withOpacity(0.04),
                                   fontWeight: FontWeight.w900,
@@ -407,7 +408,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                       child: Text(
                                         planets[index].name,
                                         style: TextStyle(
-                                          fontFamily: 'Avenir',
+                                          fontFamily: 'SFProText',
                                           fontSize: 40.sp,
                                           color: const Color(0xff47455f),
                                           fontWeight: FontWeight.w900,
@@ -424,7 +425,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                         "n.火花;火星;电火花;(指品质或感情)一星，丝毫，一丁点\n\nv.引发;触发;冒火花;飞火星;产生电火花",
                                         maxLines: 6,
                                         style: TextStyle(
-                                          fontFamily: 'Avenir',
+                                          fontFamily: 'SFProText',
                                           fontSize: 30.sp,
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,

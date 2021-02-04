@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
-class ProfileListItem extends StatelessWidget {
+class SettingListItem extends StatelessWidget {
   final IconData icon;
   final String text;
   final bool hasNavigation;
 
-  const ProfileListItem({
+  const SettingListItem({
     Key key,
     this.icon,
     this.text,

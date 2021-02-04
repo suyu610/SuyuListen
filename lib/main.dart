@@ -1,4 +1,5 @@
-import 'package:SuyuListening/ui/pages/splash/splash_screen.dart';
+import 'package:SuyuListening/ui/pages/listen/listen_page.dart';
+// import 'package:SuyuListening/ui/pages/splash/splash_screen.dart';
 
 import 'provider/key_provider.dart';
 
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: '小兔崽听力',
               theme: ThemeProvider.of(context),
-              home: SplashScreen());
+              home: ListenPage());
         }),
       ),
     );

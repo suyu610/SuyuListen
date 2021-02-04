@@ -71,6 +71,14 @@ final kButtonTextStyle = TextStyle(
   color: kDarkPrimaryColor,
 );
 
+final List<MaterialColor> confettiColors = [
+  Colors.green,
+  Colors.blue,
+  Colors.pink,
+  Colors.orange,
+  Colors.purple
+];
+
 final darkTheme = ThemeData(
   brightness: Brightness.dark,
   fontFamily: 'SFProText',

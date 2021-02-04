@@ -1,4 +1,5 @@
-import 'package:SuyuListening/ui/pages/listen/keyboard_footer_widget.dart';
+import 'keyboard_footer_widget.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ionicons/ionicons.dart';
