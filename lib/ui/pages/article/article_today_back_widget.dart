@@ -52,7 +52,7 @@ class TodayArticleBackWidget extends StatelessWidget {
                   child: FancyButton(
                     titleColor: Colors.black,
                     onPress: () async {
-                      RouterHelper.router.navigateTo(context, "/articleDetail");
+                      RouterHelper.router.navigateTo(context, "/article_detail");
                     },
                     label: "开始学习",
                     gradient: kActiveButtonGradient,

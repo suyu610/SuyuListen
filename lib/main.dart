@@ -1,19 +1,14 @@
-// import 'package:SuyuListening/ui/pages/listen/listen_page.dart';
-import 'package:SuyuListening/ui/pages/home_page.dart';
-import 'package:SuyuListening/ui/pages/splash/splash_screen.dart';
-// import 'package:SuyuListening/ui/pages/splash/splash_screen.dart';
-
-import 'provider/key_provider.dart';
-
-// import '.../../ui/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'provider/key_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
+import 'ui/pages/splash/splash_screen.dart';
 import 'config/global.dart';
 import 'constant/theme_color.dart';
 import 'provider/listen_provider.dart';

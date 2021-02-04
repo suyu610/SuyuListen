@@ -93,8 +93,12 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
           // 右下角图示
           studyRecordLegend(context),
           // 搜索
-          buildFloatingSearchBar(floatingSearchBarController, isSearchBarFocus,
-              searchBarFocusChange, searchUpdate, searchWordList),
+          buildFloatingSearchBar(
+              floatingSearchBarController,
+              isSearchBarFocus,
+              searchBarFocusChange,
+              searchUpdate,
+              searchWordList),
         ],
       ),
     );

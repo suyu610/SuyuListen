@@ -1,3 +1,4 @@
+import 'package:SuyuListening/ui/pages/word_detail/word_detail_page.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
 import '../ui/pages/article_detail/article_detail.dart';
@@ -52,13 +53,26 @@ class RouterConfig {
       );
     });
 
+    var wordDetailPageHandler = Handler(
+        handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      // 设置成白天模式
+      return ThemeSwitcher(
+        clipper: ThemeSwitcherCircleClipper(),
+        builder: (context) {
+          ThemeSwitcher.of(context).changeTheme(theme: lightTheme);
+          return WordDetailPage();
+        },
+      );
+    });
+
     router.define("/login", handler: loginPageHandler);
     router.define("/splash", handler: splashPageHandler);
     router.define("/welcome", handler: welcomePageHandler);
     router.define("/home", handler: homePageHandler);
     router.define("/avatar_setting", handler: avatarSettingPageHandler);
     router.define("/setting", handler: settingPageHandler);
-    router.define("/articleDetail", handler: articleDetailPageHandler);
+    router.define("/article_detail", handler: articleDetailPageHandler);
+    router.define("/word_detail", handler: wordDetailPageHandler);
 
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {

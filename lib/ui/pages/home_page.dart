@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
+      onWillPop: () async {        
         if (_lastTime == null ||
             DateTime.now().difference(_lastTime) > Duration(seconds: 1)) {
           //两次点击间隔超过1s重新计时
@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
           BoxShadow(color: Colors.black.withOpacity(0), blurRadius: 5)
         ],
         proportionalChildArea: true,
+        tapScaffoldEnabled:false,
         borderRadius: 0,
         leftAnimationType: InnerDrawerAnimation.linear,
         innerDrawerCallback: (a) => {},

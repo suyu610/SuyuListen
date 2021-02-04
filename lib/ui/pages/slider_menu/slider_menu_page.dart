@@ -151,6 +151,13 @@ class MenuWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   themeSwitcher,
+                  SizedBox(
+                    width: 60.w,
+                  ),
+                  Icon(
+                    Ionicons.flash,
+                    size: 30.sp,
+                  )
                 ],
               ),
             ),

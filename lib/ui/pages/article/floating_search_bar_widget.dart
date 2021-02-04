@@ -1,4 +1,7 @@
+import 'package:SuyuListening/route/router_helper.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
@@ -34,8 +37,10 @@ Widget buildFloatingSearchBar(
     transitionCurve: Curves.easeInOut,
     physics: const BouncingScrollPhysics(),
     axisAlignment: 0,
-    hint: "", //
-
+    hint: isSearchBarFocus ? "在这查单词" : "", //
+    hintStyle: isSearchBarFocus
+        ? TextStyle(color: Colors.black.withAlpha(100))
+        : TextStyle(color: Colors.transparent),
     borderRadius: isSearchBarFocus
         ? BorderRadius.circular(8)
         : BorderRadius.only(
@@ -54,6 +59,11 @@ Widget buildFloatingSearchBar(
 
     transition: CircularFloatingSearchBarTransition(),
     actions: [
+      FloatingSearchBarAction.searchToClear(
+        // duration: Duration(milliseconds: 300),
+        showIfClosed: false,
+      ),
+
       FloatingSearchBarAction(
         showIfOpened: false,
         child: CircularButton(
@@ -64,9 +74,9 @@ Widget buildFloatingSearchBar(
           },
         ),
       ),
-      FloatingSearchBarAction.searchToClear(
-        showIfClosed: false,
-      ),
+      // FloatingSearchBarAction.searchToClear(
+      //   showIfClosed: false,
+      // ),
     ],
     builder: (context, transition) {
       return ClipRRect(
@@ -80,12 +90,26 @@ Widget buildFloatingSearchBar(
                 children: (searchWordList?.map((list) {
                       return Container(
                         height: 112.h,
-                        child: ListTile(
-                          title: Text(list.word),
-                          subtitle: Text(
-                            list.translation,
+                        child: GestureDetector(
+                          onTap: () => {
+                            RouterHelper.router.navigateTo(
+                                context, "/word_detail",
+                                transition: TransitionType.fadeIn)
+                          },
+                          child: ListTile(
+                            title: Text(list.word),
+                            subtitle: Text(
+                              list.translation,
+                            ),
+                            trailing: GestureDetector(
+                                onTap: () =>
+                                    {EasyLoading.showSuccess("已加入生词本")},
+                                child: Icon(
+                                  Ionicons.add,
+                                  color: Colors.black,
+                                  size: 30.sp,
+                                )),
                           ),
-                          trailing: Icon(Ionicons.add, color: Colors.black),
                         ),
                       );
                     })?.toList() ??

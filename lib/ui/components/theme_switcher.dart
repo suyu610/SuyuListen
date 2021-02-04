@@ -13,7 +13,7 @@ var themeSwitcher = ThemeSwitcher(
           ? CrossFadeState.showFirst
           : CrossFadeState.showSecond,
       firstChild: GestureDetector(
-        onTap: () => {          
+        onTap: () => {
           ThemeSwitcher.of(context)
               .changeTheme(theme: lightTheme, reverseAnimation: true),
         },
