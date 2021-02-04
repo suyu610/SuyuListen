@@ -1,9 +1,10 @@
+import 'package:SuyuListening/ui/components/keyboard_actions.dart/keyboard_actions.dart';
+
 import 'keyboard_footer_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
 
 List<KeyboardActionsItem> keyboardActionsItem(FocusNode keyboardNode) {
   return [

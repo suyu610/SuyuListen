@@ -1,5 +1,5 @@
+import 'package:SuyuListening/ui/components/keyboard_actions.dart/keyboard_actions.dart';
 import 'package:flutter/material.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
 
 class Content extends StatelessWidget {
   final FocusNode _nodeText7 = FocusNode();

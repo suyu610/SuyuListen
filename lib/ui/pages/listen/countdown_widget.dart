@@ -16,7 +16,7 @@ class _CountdownWidgetState extends State<CountdownWidget> {
   @override
   void initState() {
     _timerController = CountDownController();
-
+    _timerController.start();
     super.initState();
   }
 

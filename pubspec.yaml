@@ -14,7 +14,8 @@ dependencies:
   json_annotation: ^3.0.1
   device_info: ^1.0.0
   get: ^3.24.0
-
+  # 震动
+  vibration: ^1.7.3
   # 检测键盘是否弹出
   keyboard_visibility: ^0.5.6
   
@@ -51,7 +52,7 @@ dependencies:
   # 庆祝动画
   confetti: ^0.5.4+1
   # 自定义键盘上的功能区
-  keyboard_actions: ^3.3.1+1
+  # keyboard_actions: ^3.3.1+1
 
   # 用在头像的自定义
   flutter_svg: ^0.19.1
@@ -100,7 +101,7 @@ dependencies:
   cool_alert: ^1.0.3
   # 用在结束听力后的反馈
   emoji_feedback: ^0.1.0
-
+     
   ###############
   #### icons ####
   ###############

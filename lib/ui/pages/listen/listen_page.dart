@@ -4,6 +4,7 @@ import 'dart:isolate';
 import 'dart:ui';
 
 // 第三方库
+import 'package:SuyuListening/provider/listen_provider.dart';
 import 'package:confetti/confetti.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 // 本包下的库
 import '../../../constant/theme_color.dart';
@@ -33,7 +35,6 @@ class _ListenPageState extends State<ListenPage> {
   /// 定义变量
   ///
   ReceivePort _port = ReceivePort();
-  ConfettiController _confettiController;
 
   /// 生命周期函数
   ///
@@ -51,15 +52,12 @@ class _ListenPageState extends State<ListenPage> {
       setState(() {});
     });
     FlutterDownloader.registerCallback(downloadCallback);
-    _confettiController =
-        ConfettiController(duration: const Duration(seconds: 10));
     super.initState();
   }
 
   @override
   void dispose() {
     IsolateNameServer.removePortNameMapping('downloader_send_port');
-    _confettiController.dispose();
     super.dispose();
   }
 
@@ -74,7 +72,9 @@ class _ListenPageState extends State<ListenPage> {
 
   void onTapFloatingActionButton() {
     //庆祝
-    _confettiController.play();
+    Provider.of<ListenProvider>(context, listen: false)
+        .confettiController
+        .play();
     // child:
     Future.delayed(Duration(seconds: 3), showCompelete);
     // Provider.of<ListenProvider>(context, listen: false)
@@ -168,9 +168,12 @@ class _ListenPageState extends State<ListenPage> {
                 Align(
                   alignment: Alignment.center,
                   child: ConfettiWidget(
-                      confettiController: _confettiController,
+                      confettiController:
+                          Provider.of<ListenProvider>(context, listen: false)
+                              .confettiController,
                       blastDirectionality: BlastDirectionality.explosive,
-                      shouldLoop: true,
+                      shouldLoop: false,
+                      numberOfParticles: 20,
                       colors:
                           confettiColors // manually specify the colors to be used
                       ),

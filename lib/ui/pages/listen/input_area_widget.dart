@@ -1,10 +1,9 @@
-
 import 'package:SuyuListening/constant/theme_color.dart';
+import 'package:SuyuListening/ui/components/keyboard_actions.dart/keyboard_actions.dart';
 import 'package:SuyuListening/utils/check_util.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,6 +11,7 @@ import '../../../provider/listen_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'keyboard_actions.dart';
+
 // ignore: camel_case_types
 class InputAreaWidget extends StatefulWidget {
   InputAreaWidget({Key key}) : super(key: key);
@@ -28,10 +28,10 @@ class _InputAreaWidgetState extends State<InputAreaWidget> {
   KeyboardActionsConfig _buildConfig(BuildContext context) {
     return KeyboardActionsConfig(
       keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
-      keyboardBarColor: silver,
+      keyboardBarColor: Provider.of<ListenProvider>(context, listen: true)
+          .keyboardActionAreaColor,
       nextFocus: false,
-      keyboardSeparatorColor: yellow,
-      
+
       // 键盘上方的功能区
       actions: keyboardActionsItem(keyboardNode),
     );
@@ -63,6 +63,7 @@ class _InputAreaWidgetState extends State<InputAreaWidget> {
               // TODO
               // 检查拼写,如果正确，则清空，并跳转到下一句
               if (outputStr == rightStr) {
+                Provider.of<ListenProvider>(context, listen: false).success();
                 // TODO
                 // 显示原文和翻译
                 EasyLoading.showSuccess("真棒!!!!").then((value) => {

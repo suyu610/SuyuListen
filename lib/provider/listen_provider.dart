@@ -1,7 +1,12 @@
+import 'package:SuyuListening/constant/theme_color.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:vibration/vibration.dart';
 
 class ListenProvider with ChangeNotifier {
+  Color keyboardActionAreaColor = silver;
+  AudioPlayer player;
   bool showCheckText = false;
   String checkText = "";
 
@@ -10,13 +15,22 @@ class ListenProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  ConfettiController _confettiController;
+
+  ConfettiController get confettiController {
+    return _confettiController ??
+        (_confettiController =
+            ConfettiController(duration: const Duration(seconds: 3)));
+  }
+
+  set confettiController(ConfettiController tmp) => _confettiController = tmp;
+
   int progress = 0;
   void setProgress(int progressValue) {
     progress = progressValue;
     notifyListeners();
   }
 
-  AudioPlayer player;
   AudioPlayer getPlayerInstance() {
     if (player == null) {
       player = AudioPlayer();
@@ -34,8 +48,23 @@ class ListenProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void success() async {
+    if (await Vibration.hasVibrator()) {
+      Vibration.vibrate();
+    }
+    confettiController.play();
+    keyboardActionAreaColor = const Color(0xff8fd3f4);
+    notifyListeners();
+  }
+
+  void editing() {
+    keyboardActionAreaColor = silver;
+    notifyListeners();
+  }
+
   void setCheckText(String text) {
     this.checkText = text;
+
     notifyListeners();
   }
 }
