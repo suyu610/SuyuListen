@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import '../../../constant/theme_color.dart';
-import '../../../model/article_model.dart';
+import '../../../model/article_entity.dart';
 import '../../components/animation/fade_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,13 +17,14 @@ class TodayArticleFrontWidget extends StatefulWidget {
     this.model,
     Key key,
   }) : super(key: key);
-  final ArticleModel model;
+  final ArticleEntity model;
   @override
-  _TodayArticleFrontWidgetState createState() => _TodayArticleFrontWidgetState();
+  _TodayArticleFrontWidgetState createState() =>
+      _TodayArticleFrontWidgetState();
 }
 
 class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
-  ArticleModel model;
+  ArticleEntity model;
   Image myImage;
   Timer timer;
   @override
@@ -258,7 +259,7 @@ class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
           FadeAnimation(
               1.3,
               Text(
-                model.learnProgress.toString() + "%",
+                model.studyProgress.toString() + "%",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 60.sp,

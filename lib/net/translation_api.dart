@@ -1,10 +1,8 @@
 // dart库
-import 'dart:async';
-import 'dart:developer';
+import '../model/entities.dart';
 import 'package:SuyuListening/config/youdao_trans_api_config.dart';
-import 'package:SuyuListening/model/word_model/word_meaning.dart';
 import 'package:common_utils/common_utils.dart';
-import 'package:common_utils/common_utils.dart';
+
 import 'package:crypto/crypto.dart' as crypto;
 import 'dart:convert';
 import 'package:convert/convert.dart';
@@ -39,8 +37,9 @@ String generatYoudaoInput(String word) {
   return output;
 }
 
-Future<WordMeaning> getTranslation(String word) async {
-  WordMeaning temp = WordMeaning();
+/// !! you should replace the APP_KEY and SECRET with your own
+
+Future<YouDaoWordEntity> getYouDaoTranslation(String word) async {
   // appid+word+salt+密钥
 
   var salt = ((DateTime.now().millisecondsSinceEpoch)).toString();
@@ -63,7 +62,7 @@ Future<WordMeaning> getTranslation(String word) async {
     'q': word,
     'from': "en",
     'to': "zh-CHS",
-    'appKey': appkey,
+    'appKey': APP_KEY,
     'salt': salt,
     'sign': mySha256Str,
     'signType': "v3",
@@ -74,5 +73,27 @@ Future<WordMeaning> getTranslation(String word) async {
   response = await dio.post("/api", data: formData);
 
   LogUtil.v(response.data.toString());
-  return WordMeaning.fromJson(response.data);
+  return YouDaoWordEntity.fromJson(response.data);
 }
+
+// 通过前缀查找
+Future<List<SimpleWordEntity>> getSimpleWordListByPrefix(
+    String prefix, int limit) async {
+  Response response;
+  Dio dio = new Dio(BaseOptions(
+      baseUrl: "http://192.168.3.11:2222/",
+      contentType: Headers.jsonContentType));
+  response = await dio.post("/dict/getMeaning/prefix/$prefix/$limit");
+  if (response.statusCode == 200) {
+    // print(response.data);
+    HttpResponseListEntity<SimpleWordEntity> result =
+        HttpResponseListEntity<SimpleWordEntity>.fromJson(response.data);
+
+    if (result.code == "0" && result.data.isNotEmpty) {
+      return result.data;
+    }
+  }
+  return null;
+}
+
+// http://192.168.3.11:2222/dict/getMeaning/prefix/aban/20

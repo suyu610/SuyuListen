@@ -1,11 +1,7 @@
 // dart库
 import 'dart:async';
-import 'dart:convert';
 import 'dart:isolate';
 import 'dart:ui';
-import 'package:SuyuListening/model/word_model/word_meaning.dart';
-import 'package:SuyuListening/net/translation_api.dart';
-
 // 第三方库
 import 'package:SuyuListening/provider/listen_provider.dart';
 import 'package:confetti/confetti.dart';
@@ -160,29 +156,6 @@ class _ListenPageState extends State<ListenPage> {
                   color: blue,
                   child: Column(
                     children: [
-                      SingleChildScrollView(
-                        child: FutureBuilder(
-                            future: getTranslation("hello"),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
-                              if (snapshot.hasData) {
-                                // 先从字符串转成json
-                                WordMeaning temp;
-                                if (snapshot.data.runtimeType == WordMeaning) {
-                                  temp = snapshot.data;
-                                }
-                                return Container(
-                                  alignment: Alignment.center,
-                                  child: Text(temp.basic.phonetic),
-                                );
-                              } else {
-                                return Container(
-                                  alignment: Alignment.center,
-                                  child: Text('error'),
-                                );
-                              }
-                            }),
-                      ),
                       Text("hello"),
                       HistoryWidget(),
                       ProgressWidget(),

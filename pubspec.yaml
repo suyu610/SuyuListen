@@ -81,8 +81,9 @@ dependencies:
   fluro: ^1.7.8
   # 正反面切换
   flip_card: ^0.4.4
-  #
+  # 垃圾
   search_page: ^1.4.0
+  material_floating_search_bar: ^0.2.6
   # 日历
   flutter_calendar_carousel: ^1.5.2
   # 椭圆形状shape
@@ -93,7 +94,8 @@ dependencies:
   animated_text_kit: ^3.1.0
   # 聊天气泡
   flutter_chat_bubble: ^1.0.2
-  
+  # loading组件
+  flutter_spinkit: "^4.1.2"
   ##############
   #### 弹窗 ####
   ##############

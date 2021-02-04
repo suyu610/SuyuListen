@@ -1,4 +1,4 @@
-class WordMeaning {
+class YouDaoWordEntity {
   List<dynamic> returnPhrase;
   String errorCode;
   String query;
@@ -11,7 +11,7 @@ class WordMeaning {
   String tSpeakUrl;
   String speakUrl;
 
-  WordMeaning(
+  YouDaoWordEntity(
       {this.returnPhrase,
       this.errorCode,
       this.query,
@@ -24,7 +24,7 @@ class WordMeaning {
       this.tSpeakUrl,
       this.speakUrl});
 
-  WordMeaning.fromJson(Map<String, dynamic> json) {
+  YouDaoWordEntity.fromJson(Map<String, dynamic> json) {
     returnPhrase = json['returnPhrase'];
     errorCode = json['errorCode'];
     query = json['query'];

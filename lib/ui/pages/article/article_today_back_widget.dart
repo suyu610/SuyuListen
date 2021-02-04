@@ -8,14 +8,7 @@ import '../../../constant/theme_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../route/router_helper.dart';
 
-class TodayArticleBackWidget extends StatefulWidget {
-  TodayArticleBackWidget({Key key}) : super(key: key);
-
-  @override
-  _TodayArticleBackWidgetState createState() => _TodayArticleBackWidgetState();
-}
-
-class _TodayArticleBackWidgetState extends State<TodayArticleBackWidget> {
+class TodayArticleBackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

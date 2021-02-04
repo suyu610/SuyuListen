@@ -5,7 +5,7 @@ import 'dart:ui';
 import '../article_detail/article_detail.dart';
 import '../../components/animation/fade_animation.dart';
 import '../../../constant/theme_color.dart';
-import '../../../model/article_model.dart';
+import '../../../model/article_entity.dart';
 
 import 'package:bordered_text/bordered_text.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -21,14 +21,14 @@ class ArticleListTile extends StatefulWidget {
     this.model,
     Key key,
   }) : super(key: key);
-  final ArticleModel model;
+  final ArticleEntity model;
   @override
   _ArticleListTileState createState() => _ArticleListTileState();
 }
 
 class _ArticleListTileState extends State<ArticleListTile>
     with AutomaticKeepAliveClientMixin {
-  ArticleModel model;
+  ArticleEntity model;
   Timer timer;
   @override
   bool get wantKeepAlive => true;
@@ -291,7 +291,7 @@ class _ArticleListTileState extends State<ArticleListTile>
                 strokeWidth: 2.0,
                 strokeColor: Colors.black38,
                 child: Text(
-                  model.learnProgress.toString() + "%",
+                  model.studyProgress.toString() + "%",
                   maxLines: 2,
                   style: TextStyle(
                       decoration: TextDecoration.none,

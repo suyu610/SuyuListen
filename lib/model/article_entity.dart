@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'article_level_enum.dart';
 
-import 'article_level.dart';
-
-class ArticleModel {
+class ArticleEntity {
   String id = UniqueKey().toString();
   String title;
   // 音频的路径
@@ -15,7 +14,7 @@ class ArticleModel {
   int coint;
   //
   TopicLevel level;
-  int learnProgress;
+  int studyProgress;
   bool isDownloading = false;
   // 原文
   String originText;
@@ -26,4 +25,12 @@ class ArticleModel {
   double downloadValue;
   String imageUrl = "assets/jupiter.png";
   bool isMark = false;
+
+  ArticleEntity(
+      {this.title = "title",
+      conit = 30,
+      level = TopicLevel.Easy,
+      studyProgress = 10,
+      downloadValue = 0,
+      imageUrl = "assets/jupiter.png"});
 }

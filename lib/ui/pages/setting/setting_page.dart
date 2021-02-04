@@ -79,7 +79,7 @@ class _SettingPageState extends State<SettingPage> {
             ),
             child: Center(
               child: Text(
-                'Learning records',
+                'Study Records',
                 style: kButtonTextStyle,
               ),
             ),

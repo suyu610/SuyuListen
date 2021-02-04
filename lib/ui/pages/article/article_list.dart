@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import '../../../constant/theme_color.dart';
-import '../../../model/article_level.dart';
-import '../../../model/article_model.dart';
+import '../../../model/article_level_enum.dart';
+import '../../../model/article_entity.dart';
 import '../../../provider/key_provider.dart';
 import '../../../sample_data/data.dart';
 import '../../../ui/components/animation/fade_animation.dart';
@@ -39,7 +39,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
     "assets/saturn.png",
     "assets/uranus.png"
   ];
-  List<ArticleModel> list;
+  List<ArticleEntity> list;
   Future _onRefresh() async {
     double value = 0;
     Timer.periodic(Duration(milliseconds: 10), (timer) {
@@ -53,11 +53,11 @@ class _ArticleListPageState extends State<ArticleListPage> {
         int count = Random().nextInt(10) + 1;
 
         list = List.generate(count, (index) {
-          return new ArticleModel()
+          return new ArticleEntity()
             ..title = "title"
             ..coint = Random().nextInt(10)
             ..level = randomLevel()
-            ..learnProgress = Random().nextInt(100)
+            ..studyProgress = Random().nextInt(100)
             ..downloadValue = 0
             ..imageUrl =
                 coverImageList[Random().nextInt(coverImageList.length)];
@@ -77,11 +77,11 @@ class _ArticleListPageState extends State<ArticleListPage> {
       easyRefreshController.finishLoad(success: false, noMore: true);
     } else {
       await Future.delayed(Duration(milliseconds: 1000), () {
-        list.add(new ArticleModel()
+        list.add(new ArticleEntity()
           ..title = "title"
           ..coint = Random().nextInt(10)
           ..level = randomLevel()
-          ..learnProgress = Random().nextInt(100)
+          ..studyProgress = Random().nextInt(100)
           ..downloadValue = 0
           ..imageUrl = coverImageList[Random().nextInt(coverImageList.length)]);
         setState(() {});
@@ -108,11 +108,11 @@ class _ArticleListPageState extends State<ArticleListPage> {
     easyRefreshController = EasyRefreshController();
 
     list = List.generate(10, (index) {
-      return new ArticleModel()
+      return new ArticleEntity()
         ..title = "title"
         ..coint = Random().nextInt(10)
         ..level = randomLevel()
-        ..learnProgress = Random().nextInt(100)
+        ..studyProgress = Random().nextInt(100)
         ..downloadValue = 0
         ..imageUrl = coverImageList[Random().nextInt(coverImageList.length)];
     });
