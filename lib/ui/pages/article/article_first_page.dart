@@ -1,14 +1,14 @@
-import 'package:SuyuListening/model/entities.dart';
-import 'package:SuyuListening/net/translation_api.dart';
-import 'package:SuyuListening/ui/components/divider_with_text.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-
-import 'package:flip_card/flip_card.dart';
+//  flutter系统库
 import 'package:flutter/material.dart';
+// 第三方库
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+// 自己的
 import 'article.dart';
-import '../../../model/article_entity.dart';
+import '../../../model/entities.dart';
+import '../../../net/translation_api.dart';
+import '../../components/divider_with_text.dart';
 
 class FirstPageWidget extends StatefulWidget {
   const FirstPageWidget({
@@ -50,6 +50,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
   }
 
   searchUpdate(String prefix) async {
+    prefix = prefix.trim();
     if (prefix != "") {
       searchWordList = await getSimpleWordListByPrefix(prefix, 20);
     } else {

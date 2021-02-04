@@ -28,9 +28,9 @@ class ArticleEntity {
 
   ArticleEntity(
       {this.title = "title",
-      conit = 30,
-      level = TopicLevel.Easy,
-      studyProgress = 10,
-      downloadValue = 0,
-      imageUrl = "assets/jupiter.png"});
+      this.coint = 30,
+      this.level = TopicLevel.Easy,
+      this.studyProgress = 10,
+      this.downloadValue = 0,
+      this.imageUrl = "assets/jupiter.png"});
 }

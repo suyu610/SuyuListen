@@ -64,8 +64,6 @@ class _InputAreaWidgetState extends State<InputAreaWidget> {
               // 检查拼写,如果正确，则清空，并跳转到下一句
               if (outputStr == rightStr) {
                 Provider.of<ListenProvider>(context, listen: false).success();
-                // TODO
-                // 显示原文和翻译
                 EasyLoading.showSuccess("真棒!!!!").then((value) => {
                       Provider.of<ListenProvider>(context, listen: false)
                           .setCheckText('''

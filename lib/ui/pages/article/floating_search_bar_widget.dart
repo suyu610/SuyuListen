@@ -1,8 +1,12 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/model/entities.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:styled_text/styled_text.dart';
+
+import '../../../constant/theme_color.dart';
+import '../../../model/entities.dart';
 
 Widget buildFloatingSearchBar(
     FloatingSearchBarController floatingSearchBarController,
@@ -37,6 +41,7 @@ Widget buildFloatingSearchBar(
         : BorderRadius.only(
             topLeft: Radius.circular(45.h),
           ),
+
     openAxisAlignment: 0.0,
     backgroundColor: colorWhite,
     maxWidth: isSearchBarFocus ? 600 : 90.w,
@@ -59,32 +64,44 @@ Widget buildFloatingSearchBar(
           },
         ),
       ),
-      // FloatingSearchBarAction.searchToClear(
-      //   showIfClosed: false,
-      // ),
+      FloatingSearchBarAction.searchToClear(
+        showIfClosed: false,
+      ),
     ],
     builder: (context, transition) {
       return ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Material(
-          color: Colors.white,
-          elevation: 4.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: searchWordList.map((list) {
-              return Container(
-                height: 112.h,
-                child: ListTile(
-                  title: Text(list.word),
-                  subtitle: Text(
-                    list.translation,
-                  ),
-                  // trailing: Text('${list.detail.toString()}'),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
+            color: Colors.white,
+            elevation: 4.0,
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                // 避免called on null
+                children: (searchWordList?.map((list) {
+                      return Container(
+                        height: 112.h,
+                        child: ListTile(
+                          title: Text(list.word),
+                          subtitle: Text(
+                            list.translation,
+                          ),
+                          trailing: Icon(Ionicons.add, color: Colors.black),
+                        ),
+                      );
+                    })?.toList() ??
+                    [
+                      Container(
+                          color: silver,
+                          height: 112.h,
+                          child: Center(
+                            child: StyledText(
+                              text: '<fail/> 未搜索到  ',
+                              styles: {
+                                'fail': IconStyle(Ionicons.analytics),
+                              },
+                            ),
+                          ))
+                    ]))),
       );
     },
   );
