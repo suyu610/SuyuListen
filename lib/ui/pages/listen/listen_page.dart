@@ -131,9 +131,10 @@ class _ListenPageState extends State<ListenPage> {
         cancelBtnText: "退出",
         type: CoolAlertType.confirm,
         onCancelBtnTap: () {
+          // 退出对话框
           Navigator.pop(context);
           // 退回到上一级页面
-          // Navigator.pop(context);
+          Navigator.pop(context);
           return true;
         },
         onConfirmBtnTap: () {
