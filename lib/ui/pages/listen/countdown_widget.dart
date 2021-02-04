@@ -16,7 +16,6 @@ class _CountdownWidgetState extends State<CountdownWidget> {
   @override
   void initState() {
     _timerController = CountDownController();
-    _timerController.start();
     super.initState();
   }
 
@@ -42,6 +41,7 @@ class _CountdownWidgetState extends State<CountdownWidget> {
                 height: 200.h,
                 color: Colors.white.withAlpha(40),
                 fillColor: yellow,
+                autoStart: true,
                 backgroundColor: Colors.transparent,
                 strokeWidth: 15.0.w,
                 strokeCap: StrokeCap.round,
@@ -53,7 +53,6 @@ class _CountdownWidgetState extends State<CountdownWidget> {
                 isReverse: false,
                 isReverseAnimation: false,
                 isTimerTextShown: true,
-                autoStart: false,
                 onStart: () {
                   print('Countdown Started');
                 },

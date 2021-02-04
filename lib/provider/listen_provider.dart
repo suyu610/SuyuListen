@@ -1,6 +1,7 @@
 import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:vibration/vibration.dart';
 
@@ -22,8 +23,6 @@ class ListenProvider with ChangeNotifier {
         (_confettiController =
             ConfettiController(duration: const Duration(seconds: 3)));
   }
-
-  set confettiController(ConfettiController tmp) => _confettiController = tmp;
 
   int progress = 0;
   void setProgress(int progressValue) {
@@ -53,7 +52,6 @@ class ListenProvider with ChangeNotifier {
       Vibration.vibrate();
     }
     confettiController.play();
-    keyboardActionAreaColor = const Color(0xff8fd3f4);
     notifyListeners();
   }
 
