@@ -247,7 +247,7 @@ packages:
     source: hosted
     version: "1.0.3"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       url: "https://pub.flutter-io.cn"
@@ -562,6 +562,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.2"
+  json2entity:
+    dependency: "direct dev"
+    description:
+      name: json2entity
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.6"
   json_annotation:
     dependency: "direct main"
     description:

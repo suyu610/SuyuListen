@@ -30,7 +30,8 @@
 .pub-cache/
 .pub/
 /build/
-
+# youdao Secret Key related
+/lib/config/youdao_trans_api_config.dart
 # Web related
 lib/generated_plugin_registrant.dart
 
