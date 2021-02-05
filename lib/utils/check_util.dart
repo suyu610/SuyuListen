@@ -2,6 +2,11 @@
 // <error></error>
 // <miss></miss>
 // <tense><tense>
+
+///
+/// 听力检查
+///
+
 String checkStr(String originStr, String rightStr) {
   var outputStr = [];
   if (originStr == rightStr) {

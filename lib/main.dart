@@ -1,6 +1,9 @@
+// import 'package:SuyuListening/ui/pages/temp/message.dart';
+// import 'package:SuyuListening/ui/pages/word_book/word_book_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'model/search_model.dart';
 import 'provider/key_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -24,6 +27,9 @@ void main() async {
 
   Global.init().then((value) => runApp(
         MultiProvider(providers: [
+          ListenableProvider<SearchModel>(
+            create: (_) => SearchModel(),
+          ),
           ListenableProvider<ListenProvider>(
             create: (_) => ListenProvider(),
           ),
@@ -39,17 +45,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: Size(750, 1334),
-      allowFontScaling: true,
+      allowFontScaling: false,
       child: ThemeProvider(
         initTheme: lightTheme,
         child: Builder(builder: (context) {
-          return MaterialApp(
-              onGenerateRoute: RouterHelper.router.generator,
-              builder: EasyLoading.init(),
-              debugShowCheckedModeBanner: false,
-              title: '小兔崽听力',
-              theme: ThemeProvider.of(context),
-              home: SplashScreen());
+          return ColorFiltered(
+            colorFilter: ColorFilter.mode(
+                Provider.of<KeyProvider>(context,listen: true).isFocusMode
+                    ? Colors.grey
+                    : Colors.transparent,
+                BlendMode.color),
+            child: MaterialApp(
+                onGenerateRoute: RouterHelper.router.generator,
+                builder: EasyLoading.init(),
+                debugShowCheckedModeBanner: false,
+                title: '小兔崽听力',
+                theme: ThemeProvider.of(context),
+                home: SplashScreen()),
+          );
         }),
       ),
     );

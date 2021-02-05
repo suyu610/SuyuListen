@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // 第三方库
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 // 自己的
 import 'article.dart';
 import '../../../model/entities.dart';
@@ -25,12 +24,10 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
   bool isMeMode = true;
   List<SimpleWordEntity> searchWordList;
   bool isSearchBarFocus = false;
-  FloatingSearchBarController floatingSearchBarController;
 
   @override
   void initState() {
     searchWordList = List<SimpleWordEntity>();
-    floatingSearchBarController = FloatingSearchBarController();
     super.initState();
   }
 
@@ -61,45 +58,44 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
-      height: 1334.h,
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              // 学习进度的日历
-              studyRecordCalendar(
-                  context, handleCalendarChanged, isMeMode, currentMonth),
-              DividerWithText("今日文章"),
+    return SafeArea(
+      child: Container(
+        color: Theme.of(context).backgroundColor,
+        height: 1334.h,
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                // 学习进度的日历
+                studyRecordCalendar(
+                    context, handleCalendarChanged, isMeMode, currentMonth),
 
-              // 今日文章的主体
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0, left: 10),
-                child: Container(
-                  height: 300.h,
-                  width: double.infinity,
-                  child: FlipCard(
-                      direction: FlipDirection.VERTICAL,
-                      speed: 300,
-                      front:
-                          TodayArticleFrontWidget(model: new ArticleEntity()),
-                      back: TodayArticleBackWidget()),
+                DividerWithText("今日文章"),
+
+                // 今日文章的主体
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0, left: 10),
+                  child: Container(
+                    height: 300.h,
+                    width: double.infinity,
+                    child: FlipCard(
+                        direction: FlipDirection.VERTICAL,
+                        speed: 300,
+                        front:
+                            TodayArticleFrontWidget(model: new ArticleEntity()),
+                        back: TodayArticleBackWidget()),
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
 
-          // 右下角图示
-          studyRecordLegend(context),
-          // 搜索
-          buildFloatingSearchBar(
-              floatingSearchBarController,
-              isSearchBarFocus,
-              searchBarFocusChange,
-              searchUpdate,
-              searchWordList),
-        ],
+            // 右下角图示
+            studyRecordLegend(context),
+            // 搜索
+            buildFloatingSearchBar(context, isSearchBarFocus,
+                searchBarFocusChange, searchUpdate, searchWordList),
+          ],
+        ),
       ),
     );
   }

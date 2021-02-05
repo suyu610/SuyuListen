@@ -38,7 +38,6 @@ class FancyButton extends StatelessWidget {
                   style: TextStyle(
                     color: titleColor,
                     fontFamily: 'Varela',
-                    fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
                 )),

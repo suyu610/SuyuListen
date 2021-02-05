@@ -1,3 +1,5 @@
+import 'package:just_audio/just_audio.dart';
+
 import '../../../constant/theme_color.dart';
 import '../../../sample_data/data.dart';
 import '../../components/buttons/fancy_button.dart';
@@ -8,7 +10,6 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_simple_rating_bar/flutter_simple_rating_bar.dart';
 import 'package:ionicons/ionicons.dart';
@@ -24,14 +25,22 @@ class ArticleDetailPage extends StatefulWidget {
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
   bool wordIsTap = false;
   bool wordIsBookmark = false;
+  AudioPlayer player;
   List<GlobalKey<FlipCardState>> cardKeys = [];
   int currentIndex = 0;
   @override
   void initState() {
+    player = AudioPlayer();
     cardKeys =
         List.generate(planets.length, (i) => new GlobalKey<FlipCardState>());
 
     super.initState();
+  }
+
+  void tapPlayAudioButton(String word) async {
+    await player.setAudioSource(AudioSource.uri(
+        Uri.parse("https://dict.youdao.com/dictvoice?audio=$word&type=2)")));
+    player.play();
   }
 
   void onIndexchanged(index) {
@@ -87,7 +96,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                         ),
                         IconButton(
                           icon: Icon(
-                            Ionicons.water,
+                            Ionicons.book_outline,
                             color: Colors.white,
                             size: 32.sp,
                           ),
@@ -118,7 +127,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             height: 20.h,
                           ),
                           Text(
-                            "Learning",
+                            "待学习",
                             style: TextStyle(
                               color: Color(0x7cdbf1ff),
                             ),
@@ -154,7 +163,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             height: 20.h,
                           ),
                           Text(
-                            "Reviewing",
+                            "待复习",
                             style: TextStyle(color: Color(0x7cdbf1ff)),
                           ),
                           SizedBox(
@@ -188,7 +197,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             height: 20.h,
                           ),
                           Text(
-                            "Mastered",
+                            "已掌握",
                             style: TextStyle(color: Color(0x7cdbf1ff)),
                           ),
                           SizedBox(
@@ -217,14 +226,14 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                   itemCount: planets.length,
                   itemWidth: MediaQuery.of(context).size.width - 2 * 55,
                   layout: SwiperLayout.STACK,
-                  pagination: SwiperPagination(
-                    builder: DotSwiperPaginationBuilder(
-                        activeSize: 5,
-                        size: 5,
-                        space: 5.w,
-                        color: Colors.transparent,
-                        activeColor: Colors.transparent),
-                  ),
+                  // pagination: SwiperPagination(
+                  // builder: DotSwiperPaginationBuilder(
+                  // activeSize: 5,
+                  // size: 5,
+                  // space: 5.w,
+                  // color: Colors.transparent,
+                  // activeColor: Colors.transparent),
+                  // ),
                   itemBuilder: (context, index) {
                     return FlipCard(
                       key: cardKeys[index],
@@ -338,7 +347,8 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                                   color: Colors.black),
                                             ),
                                             onTap: () {
-                                              EasyLoading.showToast("播放音频");
+                                              tapPlayAudioButton(
+                                                  planets[index].name);
                                             },
                                           ),
                                         ],

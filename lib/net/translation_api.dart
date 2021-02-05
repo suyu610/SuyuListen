@@ -81,7 +81,7 @@ Future<List<SimpleWordEntity>> getSimpleWordListByPrefix(
     String prefix, int limit) async {
   Response response;
   Dio dio = new Dio(BaseOptions(
-      baseUrl: "http://192.168.3.11:2222/",
+      baseUrl: "https://api-word.qdu.life/",
       contentType: Headers.jsonContentType));
   response = await dio.post("/dict/getMeaning/prefix/$prefix/$limit");
   if (response.statusCode == 200) {

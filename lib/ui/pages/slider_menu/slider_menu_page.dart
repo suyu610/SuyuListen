@@ -1,6 +1,9 @@
+import 'package:SuyuListening/provider/key_provider.dart';
+import 'package:cool_alert/cool_alert.dart';
+import 'package:provider/provider.dart';
+
 import '../../components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
 
-import '../../components/dialog/popup.dart';
 import '../../components/theme_switcher.dart';
 import '../temp/avatar.dart';
 import '../../../constant/theme_color.dart';
@@ -120,13 +123,11 @@ class MenuWidget extends StatelessWidget {
                   MenuItem(
                       title: "单词本",
                       icon: Ionicons.book_outline,
-                      tapAction: () {
-                        showPopup(
-                          context,
-                          printHello,
-                          title: "oh-ooh123",
-                        );
-                      }),
+                      tapAction: () => RouterHelper.router.navigateTo(
+                            context,
+                            "/word_book",
+                            transition: TransitionType.inFromRight,
+                          )),
                   MenuItem(
                       title: "伙伴",
                       icon: Ionicons.cog_outline,
@@ -150,6 +151,24 @@ class MenuWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  GestureDetector(
+                    onTap: () => {
+                      showCupertinoDialog(
+                          builder: (context) {
+                            return CupertinoAlertDialog();
+                          },
+                          context: context),
+                      Provider.of<KeyProvider>(context, listen: false)
+                          .switchFocusMode()
+                    },
+                    child: Icon(
+                      Ionicons.recording_outline,
+                      size: 30.sp,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 60.w,
+                  ),
                   themeSwitcher,
                   SizedBox(
                     width: 60.w,

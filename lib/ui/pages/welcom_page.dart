@@ -32,15 +32,14 @@ class WelcomePage extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Text(
-                    "Welcome",
+                    "欢迎",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   StyledText(
-                    text:
-                        "<normal>©️小兔崽子听力 is an app written by Flutter & Java for my lover susu to use to improve listening skill efficiently</normal>",
+                    text: "<normal>©️小兔崽子听力是一个给我宝贝素素用来练习听力的app</normal>",
                     styles: {
                       'normal': TextStyle(
                           wordSpacing: 2,
@@ -66,7 +65,7 @@ class WelcomePage extends StatelessWidget {
                             transition: TransitionType.inFromRight,
                             clearStack: true);
                       },
-                      label: "Experience without Login",
+                      label: "先随便看看",
                       gradient:
                           LinearGradient(colors: [Colors.white, Colors.white])),
                   SizedBox(
@@ -80,7 +79,7 @@ class WelcomePage extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => LoginPage()));
                       },
-                      label: "Login",
+                      label: "登陆",
                       gradient: kActiveButtonGradient),
                 ],
               )

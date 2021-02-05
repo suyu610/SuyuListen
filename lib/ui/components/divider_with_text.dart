@@ -15,7 +15,10 @@ class DividerWithText extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10.0, left: 10),
             child: Text(
               title,
-              style: textStyle ?? TextStyle(color: Colors.black.withAlpha(60)),
+              style:
+                  textStyle ?? Theme.of(context).brightness == Brightness.dark
+                      ? TextStyle(color: Colors.white.withAlpha(60))
+                      : TextStyle(color: Colors.black.withAlpha(60)),
             ),
           ),
           Expanded(child: Divider()),

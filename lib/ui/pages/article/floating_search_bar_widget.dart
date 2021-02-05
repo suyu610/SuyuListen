@@ -1,3 +1,4 @@
+import 'package:SuyuListening/provider/key_provider.dart';
 import 'package:SuyuListening/route/router_helper.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -6,50 +7,40 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:styled_text/styled_text.dart';
 
 import '../../../constant/theme_color.dart';
 import '../../../model/entities.dart';
 
 Widget buildFloatingSearchBar(
-    FloatingSearchBarController floatingSearchBarController,
+    context,
     bool isSearchBarFocus,
     void searchBarFocusChange(bool focus),
     searchUpdate(String prefix),
     List<SimpleWordEntity> searchWordList) {
   return FloatingSearchBar(
-    controller: floatingSearchBarController,
-    elevation: 2,
-    padding: isSearchBarFocus
-        ? EdgeInsets.only(left: 8.w, right: 8.w)
-        : EdgeInsets.only(right: 0.w, left: 4.w),
+    controller: Provider.of<KeyProvider>(context).floatingSearchBarController,
+    elevation: 0,
+    padding: EdgeInsets.only(left: 8.w, right: 8.w),
     margins: EdgeInsets.only(
-        top: isSearchBarFocus ? 10.h : 1043.5.h,
-        right: isSearchBarFocus ? 10.w : 0,
-        left: isSearchBarFocus ? 10.w : 660.w),
+        top: 10.h, right: 10.w, left: isSearchBarFocus ? 10.w : 800.w),
     onFocusChanged: (v) => {searchBarFocusChange(v)},
-
     scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
     transitionDuration: const Duration(milliseconds: 300),
     implicitDuration: const Duration(milliseconds: 300),
     debounceDelay: const Duration(milliseconds: 300),
-
     transitionCurve: Curves.easeInOut,
     physics: const BouncingScrollPhysics(),
     axisAlignment: 0,
-    hint: isSearchBarFocus ? "在这查单词" : "", //
-    hintStyle: isSearchBarFocus
-        ? TextStyle(color: Colors.black.withAlpha(100))
-        : TextStyle(color: Colors.transparent),
-    borderRadius: isSearchBarFocus
-        ? BorderRadius.circular(8)
-        : BorderRadius.only(
-            topLeft: Radius.circular(45.h),
-          ),
-
+    hint: "在这查单词", //
+    hintStyle: TextStyle(
+      color: Colors.black.withAlpha(100),
+    ),
+    borderRadius: BorderRadius.circular(8),
     openAxisAlignment: 0.0,
     backgroundColor: colorWhite,
-    maxWidth: isSearchBarFocus ? 600 : 90.w,
+    maxWidth: 750.w,
 
     onQueryChanged: (query) {
       searchUpdate(query);
@@ -57,26 +48,11 @@ Widget buildFloatingSearchBar(
 
     textInputType: TextInputType.name,
 
-    transition: CircularFloatingSearchBarTransition(),
+    transition: SlideFadeFloatingSearchBarTransition(),
     actions: [
       FloatingSearchBarAction.searchToClear(
-        // duration: Duration(milliseconds: 300),
         showIfClosed: false,
       ),
-
-      FloatingSearchBarAction(
-        showIfOpened: false,
-        child: CircularButton(
-          size: 10.sp,
-          icon: const Icon(Icons.search),
-          onPressed: () {
-            floatingSearchBarController.open();
-          },
-        ),
-      ),
-      // FloatingSearchBarAction.searchToClear(
-      //   showIfClosed: false,
-      // ),
     ],
     builder: (context, transition) {
       return ClipRRect(
@@ -121,7 +97,7 @@ Widget buildFloatingSearchBar(
                             child: StyledText(
                               text: '<fail/> 未搜索到  ',
                               styles: {
-                                'fail': IconStyle(Ionicons.analytics),
+                                'fail': IconStyle(Ionicons.skull_outline),
                               },
                             ),
                           ))
