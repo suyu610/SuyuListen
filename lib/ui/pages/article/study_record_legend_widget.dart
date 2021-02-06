@@ -1,12 +1,10 @@
 import 'package:SuyuListening/config/global.dart';
 import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/provider/key_provider.dart';
 import 'package:SuyuListening/route/router_helper.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:provider/provider.dart';
 import 'package:superellipse_shape/superellipse_shape.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

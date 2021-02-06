@@ -6,7 +6,6 @@ import 'package:SuyuListening/config/global.dart';
 import '../../../constant/theme_color.dart';
 import '../../../entity/article_level_enum.dart';
 import '../../../entity/article_entity.dart';
-import '../../../provider/key_provider.dart';
 import '../../../sample_data/data.dart';
 import '../../../ui/components/animation/fade_animation.dart';
 import 'article_list_tile.dart';
@@ -17,7 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart' as icon_2;
 

@@ -2,12 +2,10 @@ import 'package:SuyuListening/config/global.dart';
 
 import 'slider_menu/slider_menu_page.dart';
 
-import '../../provider/key_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
-import 'package:provider/provider.dart';
 
 import 'article/article_list.dart';
 

@@ -1,13 +1,7 @@
 import 'dart:async';
 
 import 'package:SuyuListening/controller/splash_controller.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
-import '../../../provider/key_provider.dart';
-import 'package:flutter_inner_drawer/inner_drawer.dart';
-import 'package:provider/provider.dart';
-
 import '../../../route/router_helper.dart';
 import '../../components/animation/my_fade_animation.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
