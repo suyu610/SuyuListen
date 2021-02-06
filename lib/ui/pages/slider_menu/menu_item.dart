@@ -1,9 +1,9 @@
+import 'package:SuyuListening/config/global.dart';
+
 import '../../../constant/theme_color.dart';
-import '../../../provider/key_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class MenuItem extends StatelessWidget {
@@ -17,9 +17,7 @@ class MenuItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => {
         tapAction(),
-        Provider.of<KeyProvider>(context, listen: false)
-            .innerDrawerKey
-            .currentState
+        Global.innerDrawerKey.currentState
             .toggle(direction: InnerDrawerDirection.start),
       },
       child: Container(

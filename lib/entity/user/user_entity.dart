@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'friend_request_state_enum.dart';
 
 class UserEntity {
-  // id  - 从服务端传过来 
-  final int userId; 
+  /////// [属性] ///////
+
+  // id  - 从服务端传过来
+  final int userId;
   // 账号
   final String username;
   // 昵称
@@ -21,6 +23,16 @@ class UserEntity {
   double coint;
   // 最新文章的时间戳 - (秒)
   int latestArticleTimestampInSecond;
+
+  /////// [方法] ///////
+  ///
+  /// [login] 登陆
+  /// [register] 注册
+  /// 
+  bool login() {
+    return true;
+  }
+
   UserEntity({
     @required this.userId,
     @required this.nickname,

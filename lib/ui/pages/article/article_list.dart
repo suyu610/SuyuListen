@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:SuyuListening/config/global.dart';
+
 import '../../../constant/theme_color.dart';
-import '../../../model/article_level_enum.dart';
-import '../../../model/article_entity.dart';
+import '../../../entity/article_level_enum.dart';
+import '../../../entity/article_entity.dart';
 import '../../../provider/key_provider.dart';
 import '../../../sample_data/data.dart';
 import '../../../ui/components/animation/fade_animation.dart';
@@ -133,9 +135,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
               DateTime.now().difference(_lastTime) > Duration(seconds: 1))) {
         //两次点击间隔超过1s重新计时
         _lastTime = DateTime.now();
-        Provider.of<KeyProvider>(context, listen: false)
-            .innerDrawerKey
-            .currentState
+        Global.innerDrawerKey.currentState
             .open(direction: InnerDrawerDirection.start);
       }
     });
@@ -163,9 +163,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
           automaticallyImplyLeading: false,
           leading: GestureDetector(
             onTap: () => {
-              Provider.of<KeyProvider>(context, listen: false)
-                  .innerDrawerKey
-                  .currentState
+              Global.innerDrawerKey.currentState
                   .toggle(direction: InnerDrawerDirection.start)
             },
             child: Icon(

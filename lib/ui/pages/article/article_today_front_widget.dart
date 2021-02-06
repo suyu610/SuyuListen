@@ -10,7 +10,7 @@ import 'package:ionicons/ionicons.dart' as icon_2;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constant/theme_color.dart';
-import '../../../model/article_entity.dart';
+import '../../../entity/article_entity.dart';
 
 class TodayArticleFrontWidget extends StatefulWidget {
   const TodayArticleFrontWidget({
@@ -80,6 +80,7 @@ class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
           // color: blue,
           gradient: listTileGradient,
           borderRadius: BorderRadius.circular(20),
+
           image: DecorationImage(
               image: myImage.image,
               fit: BoxFit.contain,
@@ -88,7 +89,7 @@ class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: BackdropFilter(
-            filter: new ImageFilter.blur(sigmaX: 4.0, sigmaY: 3.0),
+            filter: new ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.0),
@@ -164,7 +165,7 @@ class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
                                 onRatingCallback: (double value,
                                     ValueNotifier<bool> isIndicator) {
                                   print('Number of stars-->  $value');
-                                  //change the isIndicator from false  to true ,the       RatingBar cannot support touch event;
+                                  //change the isIndicator from false  to true ,the RatingBar cannot support touch event;
                                   isIndicator.value = true;
                                 },
                               ),

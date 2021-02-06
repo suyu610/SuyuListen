@@ -1,11 +1,15 @@
 import 'dart:async';
 
+import 'package:SuyuListening/controller/splash_controller.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import '../../../provider/key_provider.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../../../route/router_helper.dart';
-import '../../../ui/components/animation/my_fade_animation.dart';
+import '../../components/animation/my_fade_animation.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +20,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  SplashController splashController;
+
+  Future<bool> isLogin;
   @override
   void initState() {
-    Provider.of<KeyProvider>(context, listen: false).innerDrawerKey =
-        new GlobalKey<InnerDrawerState>();
-    Future.delayed(Duration(milliseconds: 1800), () {
-      RouterHelper.router.navigateTo(context, "/welcome",
-          transition: TransitionType.fadeIn, clearStack: true);
-    });
+    splashController = SplashController(context);
+
     super.initState();
   }
 
@@ -78,6 +81,37 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 50,
+            ),
+            FutureBuilder(
+                future: splashController.checkLogin(),
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data == true) {
+                      Future.delayed(Duration.zero, () {
+                        RouterHelper.router.navigateTo(context, "/home",
+                            transition: TransitionType.fadeIn,
+                            clearStack: true);
+                      });
+                    } else {
+                      Future.delayed(Duration.zero, () {
+                        RouterHelper.router.navigateTo(context, "/welcome",
+                            transition: TransitionType.fadeIn,
+                            clearStack: true);
+                      });
+                    }
+                    return SpinKitFadingCircle(
+                      color: Colors.black,
+                      size: 30.0,
+                    );
+                  } else {
+                    return SpinKitFadingCircle(
+                      color: Colors.black,
+                      size: 30.0,
+                    );
+                  }
+                }),
           ],
         ),
       ),

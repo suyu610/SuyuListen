@@ -4,26 +4,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 
-import 'model/search_model.dart';
+import 'entity/search_model.dart';
 import 'provider/key_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
-import 'ui/pages/splash/splash_screen.dart';
+import 'ui/pages/splash/splash_page.dart';
 import 'config/global.dart';
 import 'constant/theme_color.dart';
 import 'provider/listen_provider.dart';
 import 'route/router_helper.dart';
 
+// 从一个区间向另一个区间映射
+double mapIntervaltoAnother(
+    double value, int upper, int lower, int toUpper, int toLower) {
+  if (value <= lower) return 0;
+  if (value >= upper) return 1;
+  // 处在中间
+  return value =
+      toLower + ((toUpper - toLower) / (upper - lower)) * (value - lower);
+}
+
 void main() async {
   // 状态栏颜色
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(
-      // optional: set false to disable printing logs to console
-      debug: true);
+  await FlutterDownloader.initialize(debug: true);
 
   Global.init().then((value) => runApp(
         MultiProvider(providers: [
@@ -46,12 +54,12 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(750, 1334),
       allowFontScaling: false,
-      builder: ()=> ThemeProvider(
+      builder: () => ThemeProvider(
         initTheme: lightTheme,
         child: Builder(builder: (context) {
           return ColorFiltered(
             colorFilter: ColorFilter.mode(
-                Provider.of<KeyProvider>(context,listen: true).isFocusMode
+                Provider.of<KeyProvider>(context, listen: true).isFocusMode
                     ? Colors.grey
                     : Colors.transparent,
                 BlendMode.color),

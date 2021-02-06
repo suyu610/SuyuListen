@@ -1,14 +1,16 @@
+import 'package:SuyuListening/controller/login_controller.dart';
+
 import '../../../constant/theme_color.dart';
 import '../../components/animation/fade_animation.dart';
 import 'signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../home_page.dart';
-
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final LoginController loginController = new LoginController(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -87,10 +89,7 @@ class LoginPage extends StatelessWidget {
                             minWidth: double.infinity,
                             height: 60.h,
                             onPressed: () {
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return HomePage();
-                              }));
+                              loginController.jumpToHomePage();
                             },
                             color: yellow,
                             elevation: 0,

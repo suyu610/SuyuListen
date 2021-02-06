@@ -5,7 +5,7 @@ import 'dart:ui';
 import '../article_detail/article_detail.dart';
 import '../../components/animation/fade_animation.dart';
 import '../../../constant/theme_color.dart';
-import '../../../model/article_entity.dart';
+import '../../../entity/article_entity.dart';
 
 import 'package:bordered_text/bordered_text.dart';
 import 'package:cool_alert/cool_alert.dart';

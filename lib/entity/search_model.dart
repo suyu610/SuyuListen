@@ -1,4 +1,4 @@
-import 'package:SuyuListening/model/entities.dart';
+import 'package:SuyuListening/entity/entities.dart';
 import 'package:SuyuListening/net/translation_api.dart';
 import 'package:flutter/material.dart';
 

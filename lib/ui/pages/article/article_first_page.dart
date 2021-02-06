@@ -5,7 +5,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // 自己的
 import 'article.dart';
-import '../../../model/entities.dart';
+import '../../../entity/entities.dart';
 import '../../../net/translation_api.dart';
 import '../../components/divider_with_text.dart';
 

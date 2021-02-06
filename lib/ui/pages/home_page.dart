@@ -1,3 +1,5 @@
+import 'package:SuyuListening/config/global.dart';
+
 import 'slider_menu/slider_menu_page.dart';
 
 import '../../provider/key_provider.dart';
@@ -38,7 +40,7 @@ class _HomePageState extends State<HomePage> {
         return true;
       },
       child: InnerDrawer(
-        key: Provider.of<KeyProvider>(context).innerDrawerKey,
+        key: Global.innerDrawerKey,
         leftChild: _buildLeftChild(context),
         scaffold: ArticleListPage(),
         // 一些配置
@@ -63,13 +65,9 @@ Widget _buildLeftChild(BuildContext context) {
   return GestureDetector(
       onHorizontalDragEnd: (detail) {
         // 同时也关掉search bar
-        Provider.of<KeyProvider>(context, listen: false)
-            .floatingSearchBarController
-            .close();
+        Global.floatingSsearchBarKey.currentState.close();
         print("??");
-        Provider.of<KeyProvider>(context, listen: false)
-            .innerDrawerKey
-            .currentState
+        Global.innerDrawerKey.currentState
             .toggle(direction: InnerDrawerDirection.start);
       },
       child: MenuWidget());

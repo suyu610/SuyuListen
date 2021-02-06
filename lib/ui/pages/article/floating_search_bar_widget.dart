@@ -1,4 +1,4 @@
-import 'package:SuyuListening/provider/key_provider.dart';
+import 'package:SuyuListening/config/global.dart';
 import 'package:SuyuListening/route/router_helper.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +7,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:styled_text/styled_text.dart';
 
 import '../../../constant/theme_color.dart';
-import '../../../model/entities.dart';
+import '../../../entity/entities.dart';
 
 Widget buildFloatingSearchBar(
     context,
@@ -20,7 +19,7 @@ Widget buildFloatingSearchBar(
     searchUpdate(String prefix),
     List<SimpleWordEntity> searchWordList) {
   return FloatingSearchBar(
-    controller: Provider.of<KeyProvider>(context).floatingSearchBarController,
+    key: Global.floatingSsearchBarKey,
     elevation: 0,
     padding: EdgeInsets.only(left: 8.w, right: 8.w),
     margins: EdgeInsets.only(

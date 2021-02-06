@@ -175,3 +175,29 @@ class CounterKeyboard extends StatelessWidget
     );
   }
 }
+  GlobalKey<_ChildWidgetState> childKey;
+
+class ChildWidget extends StatefulWidget {
+  ChildWidget({Key key}) : super(key: key) {
+    print(2);
+  }
+  @override
+  _ChildWidgetState createState() => _ChildWidgetState();
+}
+
+class _ChildWidgetState extends State<ChildWidget> {
+  void childFunc() {
+    print("子组件函数");
+  }
+
+  _ChildWidgetState() {
+    print("_ChildWidgetState构造函数");
+  }
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      child: Text("自己调用函数"),
+      onPressed: () => {childFunc()},
+    );
+  }
+}

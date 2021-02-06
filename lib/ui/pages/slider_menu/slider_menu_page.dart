@@ -1,5 +1,4 @@
-import 'package:SuyuListening/provider/key_provider.dart';
-import 'package:cool_alert/cool_alert.dart';
+import '../../../provider/key_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 

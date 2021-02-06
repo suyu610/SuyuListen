@@ -5,7 +5,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:fluro/fluro.dart';
 
 import '../ui/pages/article_detail/article_detail.dart';
-import '../ui/pages/splash/splash_screen.dart';
+import '../ui/pages/splash/splash_page.dart';
 import '../ui/pages/avatar_setting/avatar_setting_page.dart';
 import '../ui/pages/setting/setting_page.dart';
 import '../ui/pages/home_page.dart';

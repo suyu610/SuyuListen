@@ -1,3 +1,4 @@
+import 'package:SuyuListening/config/global.dart';
 import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/provider/key_provider.dart';
 import 'package:SuyuListening/route/router_helper.dart';
@@ -223,18 +224,14 @@ Widget studyRecordLegend(context) => Positioned(
             },
           ),
           IconButton(
-            padding: EdgeInsets.zero,
-            icon: Icon(
-              Ionicons.search_outline,
-              color: Colors.black.withAlpha(70),
-              size: 30.sp,
-            ),
-            onPressed: () => {
-              Provider.of<KeyProvider>(context, listen: false)
-                  .floatingSearchBarController
-                  .open()
-            },
-          ),
+              padding: EdgeInsets.zero,
+              icon: Icon(
+                Ionicons.search_outline,
+                color: Colors.black.withAlpha(70),
+                size: 30.sp,
+              ),
+              onPressed: () =>
+                  {Global.floatingSsearchBarKey.currentState.open()}),
         ],
       ),
     );

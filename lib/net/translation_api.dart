@@ -1,5 +1,5 @@
 // dart库
-import '../model/entities.dart';
+import '../entity/entities.dart';
 import 'package:SuyuListening/config/youdao_trans_api_config.dart';
 import 'package:common_utils/common_utils.dart';
 

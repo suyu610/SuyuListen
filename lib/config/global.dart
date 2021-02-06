@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:flutter_inner_drawer/inner_drawer.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+
 import '../constant/theme_color.dart';
 import '../route/router_config.dart';
 import '../route/router_helper.dart';
@@ -12,6 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Global {
   static String userID;
+  static GlobalKey<InnerDrawerState> innerDrawerKey =
+      new GlobalKey<InnerDrawerState>();
+  static GlobalKey<FloatingSearchBarState> floatingSsearchBarKey =
+      new GlobalKey<FloatingSearchBarState>();
 
   //初始化全局信息，会在APP启动时执行
   static Future init() async {
