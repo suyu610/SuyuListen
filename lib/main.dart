@@ -2,12 +2,12 @@
 // import 'package:SuyuListening/ui/pages/word_book/word_book_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/screenutil_init.dart';
 
 import 'model/search_model.dart';
 import 'provider/key_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(750, 1334),
       allowFontScaling: false,
-      child: ThemeProvider(
+      builder: ()=> ThemeProvider(
         initTheme: lightTheme,
         child: Builder(builder: (context) {
           return ColorFiltered(

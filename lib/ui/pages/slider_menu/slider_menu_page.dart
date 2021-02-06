@@ -1,5 +1,6 @@
 import 'package:SuyuListening/provider/key_provider.dart';
 import 'package:cool_alert/cool_alert.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
@@ -152,19 +153,44 @@ class MenuWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () => {
-                      showCupertinoDialog(
-                          builder: (context) {
-                            return CupertinoAlertDialog();
-                          },
-                          context: context),
-                      Provider.of<KeyProvider>(context, listen: false)
-                          .switchFocusMode()
-                    },
                     child: Icon(
-                      Ionicons.recording_outline,
-                      size: 30.sp,
+                      Ionicons.skull_outline,
+                      size: 35.sp,
                     ),
+                    onTap: () => {
+                      Provider.of<KeyProvider>(context, listen: false)
+                              .isFocusMode
+                          ? {
+                              Provider.of<KeyProvider>(context, listen: false)
+                                  .switchFocusMode(),
+                              EasyLoading.showSuccess("已关闭专注模式")
+                            }
+                          : showCupertinoDialog(
+                              builder: (context) {
+                                return CupertinoAlertDialog(
+                                  title: Icon(Ionicons.skull_outline),
+                                  content: Text('\n要开启黑白专注模式吗?'),
+                                  actions: <Widget>[
+                                    CupertinoDialogAction(
+                                      child: Text('确认'),
+                                      onPressed: () {
+                                        Provider.of<KeyProvider>(context,
+                                                listen: false)
+                                            .switchFocusMode();
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    CupertinoDialogAction(
+                                      child: Text('取消'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                              context: context),
+                    },
                   ),
                   SizedBox(
                     width: 60.w,

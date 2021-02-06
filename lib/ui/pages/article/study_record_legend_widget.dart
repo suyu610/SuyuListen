@@ -20,7 +20,19 @@ Widget studyRecordLegend(context) => Positioned(
           IconButton(
             padding: EdgeInsets.zero,
             icon: Icon(
-              Ionicons.information_outline,
+              Ionicons.receipt_outline,
+              color: Colors.black.withAlpha(70),
+              size: 28.sp,
+            ),
+            onPressed: () =>
+                {RouterHelper.router.navigateTo(context, "/records_detail")},
+          ),
+          IconButton(
+            padding: EdgeInsets.zero,
+            icon: Icon(
+              Ionicons.information_circle_outline,
+              color: Colors.black.withAlpha(70),
+              size: 34.sp,
             ),
             onPressed: () => {
               showMaterialModalBottomSheet(
@@ -213,16 +225,8 @@ Widget studyRecordLegend(context) => Positioned(
           IconButton(
             padding: EdgeInsets.zero,
             icon: Icon(
-              Ionicons.ellipsis_vertical_sharp,
-              size: 30.sp,
-            ),
-            onPressed: () =>
-                {RouterHelper.router.navigateTo(context, "/records_detail")},
-          ),
-          IconButton(
-            padding: EdgeInsets.zero,
-            icon: Icon(
-              Ionicons.search,
+              Ionicons.search_outline,
+              color: Colors.black.withAlpha(70),
               size: 30.sp,
             ),
             onPressed: () => {

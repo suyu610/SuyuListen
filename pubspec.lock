@@ -439,7 +439,7 @@ packages:
       name: flutter_screenutil
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.0.2+8"
+    version: "4.0.3+1"
   flutter_simple_rating_bar:
     dependency: "direct main"
     description:
@@ -447,6 +447,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.3"
+  flutter_sparkline:
+    dependency: "direct main"
+    description:
+      name: flutter_sparkline
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.0"
   flutter_spinkit:
     dependency: "direct main"
     description:
