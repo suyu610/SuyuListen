@@ -57,6 +57,13 @@ class _BubbleWidgetState extends State<BubbleWidget>
   }
 
   @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CanvasTouchDetector(builder: (context) {
       return CustomPaint(
