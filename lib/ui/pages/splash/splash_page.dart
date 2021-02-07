@@ -64,8 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   speed: Duration(milliseconds: 200),
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
-                      fontSize: 32.0,
-                      fontFamily: 'logoFonts',
+                      fontSize: 28.0,
                       fontWeight: FontWeight.w200,
                       color: Colors.black),
                   text: [

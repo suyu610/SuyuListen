@@ -63,7 +63,7 @@ Widget _buildLeftChild(BuildContext context) {
   return GestureDetector(
       onHorizontalDragEnd: (detail) {
         // 同时也关掉search bar
-        Global.floatingSsearchBarKey.currentState.close();
+        Global.floatingSearchBarKey.currentState.close();
         print("??");
         Global.innerDrawerKey.currentState
             .toggle(direction: InnerDrawerDirection.start);

@@ -23,7 +23,9 @@ class ArticleEntity {
   String desc;
   // 下载进度
   double downloadValue;
+  
   String imageUrl = "assets/jupiter.png";
+  // 是否要保存
   bool isMark = false;
 
   ArticleEntity(

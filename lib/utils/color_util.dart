@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
@@ -22,4 +23,9 @@ MaterialColor createMaterialColor(Color color) {
     );
   });
   return MaterialColor(color.value, swatch);
+}
+
+// 获取颜色的随机透明度方法
+Color getRandomOpacityColor(Random random, {Color color = Colors.white}) {
+  return color.withAlpha(random.nextInt(200));
 }

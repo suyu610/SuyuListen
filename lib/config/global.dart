@@ -17,8 +17,10 @@ class Global {
   static String userID;
   static GlobalKey<InnerDrawerState> innerDrawerKey =
       new GlobalKey<InnerDrawerState>();
-  static GlobalKey<FloatingSearchBarState> floatingSsearchBarKey =
+  static GlobalKey<FloatingSearchBarState> floatingSearchBarKey =
       new GlobalKey<FloatingSearchBarState>();
+  static GlobalKey<FloatingSearchAppBarState> wordbookSearchBarKey =
+      new GlobalKey<FloatingSearchAppBarState>();
 
   //初始化全局信息，会在APP启动时执行
   static Future init() async {

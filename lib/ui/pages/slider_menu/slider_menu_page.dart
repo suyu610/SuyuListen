@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../components/avatar/custom_avatar/fluttermojiCircleAvatar.dart';
 
 import '../../components/theme_switcher.dart';
-import '../temp/avatar.dart';
 import '../../../constant/theme_color.dart';
 import '../../../route/router_helper.dart';
 import 'package:fluro/fluro.dart';
@@ -18,9 +17,6 @@ import 'menu_item.dart';
 
 class MenuWidget extends StatelessWidget {
   const MenuWidget({Key key}) : super(key: key);
-  void printHello() {
-    print("hello");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +106,7 @@ class MenuWidget extends StatelessWidget {
                             )
                           }),
                   MenuItem(
-                      title: "单词本",
+                      title: "单词",
                       icon: Ionicons.book_outline,
                       tapAction: () => RouterHelper.router.navigateTo(
                             context,

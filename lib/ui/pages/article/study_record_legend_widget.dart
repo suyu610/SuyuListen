@@ -229,7 +229,7 @@ Widget studyRecordLegend(context) => Positioned(
                 size: 30.sp,
               ),
               onPressed: () =>
-                  {Global.floatingSsearchBarKey.currentState.open()}),
+                  {Global.floatingSearchBarKey.currentState.open()}),
         ],
       ),
     );

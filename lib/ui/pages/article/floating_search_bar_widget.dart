@@ -19,8 +19,9 @@ Widget buildFloatingSearchBar(
     searchUpdate(String prefix),
     List<SimpleWordEntity> searchWordList) {
   return FloatingSearchBar(
-    key: Global.floatingSsearchBarKey,
+    key: Global.floatingSearchBarKey,
     elevation: 0,
+    
     padding: EdgeInsets.only(left: 8.w, right: 8.w),
     margins: EdgeInsets.only(
         top: 10.h, right: 10.w, left: isSearchBarFocus ? 10.w : 800.w),
@@ -40,7 +41,7 @@ Widget buildFloatingSearchBar(
     openAxisAlignment: 0.0,
     backgroundColor: colorWhite,
     maxWidth: 750.w,
-
+    
     onQueryChanged: (query) {
       searchUpdate(query);
     },

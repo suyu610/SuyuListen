@@ -15,9 +15,11 @@ class CustomDialogBox extends StatefulWidget {
   final Widget contentWidget;
   final Widget headWidget;
   final Function onTapButton;
+  final Color backgroundColor;
   const CustomDialogBox(
       {Key key,
       this.title,
+      this.backgroundColor = Colors.white,
       this.contentWidget,
       this.onTapButton,
       this.text,
@@ -55,7 +57,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           margin: EdgeInsets.only(top: Constants.avatarRadius),
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
-              color: Colors.white,
+              color: widget.backgroundColor,
               borderRadius: BorderRadius.circular(Constants.padding),
               boxShadow: [
                 // BoxShadow(

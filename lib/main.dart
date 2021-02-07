@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 
+import 'controller/wordbook_controller.dart';
 import 'entity/search_model.dart';
 import 'provider/key_provider.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -18,16 +19,6 @@ import 'constant/theme_color.dart';
 import 'provider/listen_provider.dart';
 import 'route/router_helper.dart';
 
-// 从一个区间向另一个区间映射
-double mapIntervaltoAnother(
-    double value, int upper, int lower, int toUpper, int toLower) {
-  if (value <= lower) return 0;
-  if (value >= upper) return 1;
-  // 处在中间
-  return value =
-      toLower + ((toUpper - toLower) / (upper - lower)) * (value - lower);
-}
-
 void main() async {
   // 状态栏颜色
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +26,8 @@ void main() async {
 
   Global.init().then((value) => runApp(
         MultiProvider(providers: [
+          ListenableProvider<WordBookController>(
+              create: (_) => WordBookController()),
           ListenableProvider<SearchModel>(
             create: (_) => SearchModel(),
           ),

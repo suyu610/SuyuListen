@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:SuyuListening/ui/components/bubble/bubble_entity.dart';
+import 'package:SuyuListening/utils/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:touchable/touchable.dart';
 
@@ -11,18 +12,15 @@ class BubbleWidget extends StatefulWidget {
   _BubbleWidgetState createState() => _BubbleWidgetState();
 }
 
-// 获取颜色的方法
-Color getRandomOpacityColor(Random random) {
-  return Color.fromARGB(random.nextInt(200), 255, 255, 255);
-}
-
 class _BubbleWidgetState extends State<BubbleWidget>
     with SingleTickerProviderStateMixin {
   List<BubbleEntity> _list = [];
   // 随机数
   Random _random = new Random(DateTime.now().microsecondsSinceEpoch);
   // 最大速度
-  double _maxSpeed = 0.9;
+  double _maxSpeed = 0.8;
+  double _minSpeed = 0.1;
+
   // 最大半径
   double _maxRadius = 80;
   // 最大角度
@@ -38,7 +36,7 @@ class _BubbleWidgetState extends State<BubbleWidget>
         ..color = getRandomOpacityColor(_random)
         // 位置
         ..position = Offset(-1, -1)
-        ..speed = _random.nextDouble() * _maxSpeed
+        ..speed = _random.nextDouble() * _maxSpeed + _minSpeed
         ..radius = _random.nextDouble() * _maxRadius
         ..theta = _random.nextDouble() * _maxTheta;
       _list.add(bubbleEntity);
@@ -114,7 +112,6 @@ class CustomMyPainter extends CustomPainter {
 
       element.position = Offset(dx, dy);
     });
-
     // 绘制
     list.forEach((element) {
       //修改画笔的颜色
@@ -122,10 +119,8 @@ class CustomMyPainter extends CustomPainter {
       //绘制圆
 
       myCanvas.drawCircle(element.position, element.radius, _paint,
-          onTapDown: (tapdetail) {
-        element.color = Colors.transparent;
-        print("被按了");
-        list.remove(element);
+          onPanUpdate: (detail) {
+        element.position = detail.globalPosition;
       });
     });
   }

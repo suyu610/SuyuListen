@@ -1,5 +1,3 @@
-import 'package:common_utils/common_utils.dart';
-
 class UserApi {
   //单例
   factory UserApi() => _getInstance();
@@ -19,7 +17,6 @@ class UserApi {
   }
 
   bool tokenIsValid(String token) {
-
     return true;
   }
 }

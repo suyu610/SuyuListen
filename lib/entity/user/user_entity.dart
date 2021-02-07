@@ -13,10 +13,12 @@ class UserEntity {
   String nickname;
   // 朋友账号
   String friendUsername;
-  // 密码的
+  // 密码的加密字符串
   String pswMd5;
   // token
   String token;
+  // 头像
+  String avatarJson;
   // 好友请求状态
   FriendRequestState friendRequestState;
   // 积分
@@ -28,7 +30,7 @@ class UserEntity {
   ///
   /// [login] 登陆
   /// [register] 注册
-  /// 
+  ///
   bool login() {
     return true;
   }
