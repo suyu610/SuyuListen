@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
@@ -11,7 +12,6 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Global {
   static String userID;
@@ -22,40 +22,36 @@ class Global {
 
   //初始化全局信息，会在APP启动时执行
   static Future init() async {
+    // 配置日志
+    LogUtil.init(isDebug: true, maxLen: 20);
     // 创建必要的文件夹
-    createFolder("audios");
-    // 初始化配置toast
+    createFolders();
+    // 初始化配置EasyLoading
     initToast();
     // 初始化路由
-    final router = FluroRouter();
-    RouterConfig.configureRoutes(router);
-    RouterHelper.router = router;
-
+    initRoute();
     // 强制竖屏
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-    // 如果是第一次启动app
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    if (prefs.get("firstLauch") == null) {
-      firstLauchApp();
-    }
-
-    // 检查token
-
     if (Platform.isAndroid) {
-      SystemUiOverlayStyle systemUiOverlayStyle =
-          SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.transparent);
+
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
   }
 }
 
-// 当第一次打开app时，应该进行的流程
-void firstLauchApp() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setString("firstLauch", "");
+void initRoute() {
+  final router = FluroRouter();
+  RouterConfig.configureRoutes(router);
+  RouterHelper.router = router;
+}
+
+void createFolders() {
+  createFolder("audios");
 }
 
 void initToast() {

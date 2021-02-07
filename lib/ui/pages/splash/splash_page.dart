@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:SuyuListening/controller/splash_controller.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../route/router_helper.dart';
 import '../../components/animation/my_fade_animation.dart';
@@ -60,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 32,
                 width: 1000,
                 child: WavyAnimatedTextKit(
-                  speed: Duration(milliseconds: 300),
+                  speed: Duration(milliseconds: 200),
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
                       fontSize: 32.0,
@@ -79,26 +80,21 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 50,
             ),
             FutureBuilder(
-                future: splashController.checkLogin(),
-                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                future: splashController.decideWhereNeedGo(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
                   if (snapshot.hasData) {
-                    if (snapshot.data == true) {
-                      Future.delayed(Duration.zero, () {
-                        RouterHelper.router.navigateTo(context, "/home",
-                            transition: TransitionType.fadeIn,
-                            clearStack: true);
-                      });
-                    } else {
-                      Future.delayed(Duration.zero, () {
-                        RouterHelper.router.navigateTo(context, "/welcome",
-                            transition: TransitionType.fadeIn,
-                            clearStack: true);
-                      });
-                    }
-                    return SpinKitFadingCircle(
-                      color: Colors.black,
-                      size: 30.0,
-                    );
+                    print(snapshot.data);
+                    SchedulerBinding.instance.addPostFrameCallback((_) {
+                      Future.delayed(
+                          Duration(milliseconds: 1500),
+                          () => RouterHelper.router.navigateTo(
+                              context, snapshot.data,
+                              transitionDuration: Duration(seconds: 1),
+                              clearStack: true,
+                              transition: TransitionType.fadeIn));
+                    });
+                    return Text("欢迎回来");
                   } else {
                     return SpinKitFadingCircle(
                       color: Colors.black,

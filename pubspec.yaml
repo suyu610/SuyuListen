@@ -11,6 +11,8 @@ dependencies:
   #################
   #### 系统相关 ####
   #################
+  # 使canvas能感知触摸
+  touchable: ^0.2.0
   json_annotation: ^3.0.1
   device_info: ^1.0.0
   get: ^3.24.0
@@ -72,6 +74,9 @@ dependencies:
   bordered_text: ^1.0.1
   # 给text打标签
   styled_text: ^1.0.3+3
+
+  # onboarding页面
+  introduction_screen: ^1.0.9
 
   #权限申请
   permission_handler: ^4.4.0

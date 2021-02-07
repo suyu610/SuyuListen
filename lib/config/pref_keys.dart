@@ -1,7 +1,10 @@
 ///
 /// 设置项对应的shared_preference的key
 ///
-class Keys {
+class PrefKeys {
+  static final String isNotFirstLauch = "is_not_first_lauch";
+  static final String token = "token";
+
   static final String currentLanguageCode = "current_language_code";
   static final String currentLanguage = "current_language";
   static final String currentNavHeader = "current_nav_header";
@@ -31,7 +34,6 @@ class Keys {
   static final String currentTransparency = "current_transparency";
   static final String enableCardPageOpacity = "enable_card_page_opacity";
   static final String lastSuggestTime = "last_suggest_time";
-  static final String token = "token";
   static final String hasLogged = "has_logged";
   static final String hasSavedDefaultIcons = "has_saved_default_icons";
   static final String currentAccountBackground = "current_account_background";

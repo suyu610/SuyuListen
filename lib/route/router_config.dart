@@ -1,8 +1,13 @@
+import 'package:SuyuListening/ui/pages/listen/listen_page.dart';
+import 'package:SuyuListening/ui/pages/on_boarding_page.dart';
 import 'package:SuyuListening/ui/pages/records_detail/records_detail_page.dart';
+import 'package:SuyuListening/ui/pages/route_error_page.dart';
+import 'package:SuyuListening/ui/pages/test_page.dart';
 import 'package:SuyuListening/ui/pages/word_book/word_book_page.dart';
 import 'package:SuyuListening/ui/pages/word_detail/word_detail_page.dart';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
 
 import '../ui/pages/article_detail/article_detail.dart';
 import '../ui/pages/splash/splash_page.dart';
@@ -66,6 +71,22 @@ class RouterConfig {
       },
     );
 
+    var listenPageHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+        return ListenPage();
+      },
+    );
+    var onboardingPageHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+        return OnBoardingPage();
+      },
+    );
+    var testPageHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+        return TestPage();
+      },
+    );
+
     var wordDetailPageHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, dynamic> params) {
       // 设置成白天模式
@@ -88,12 +109,13 @@ class RouterConfig {
     router.define("/word_detail", handler: wordDetailPageHandler);
     router.define("/word_book", handler: wordBookPageHandler);
     router.define("/records_detail", handler: recordsDetailPageHandler);
+    router.define("/listen", handler: listenPageHandler);
+    router.define("/onBoarding", handler: onboardingPageHandler);
+    router.define("/test", handler: testPageHandler);
 
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      return Container(
-        child: Text("正在开发中...."),
-      );
+      return RouteErrorPage();
     });
   }
 }

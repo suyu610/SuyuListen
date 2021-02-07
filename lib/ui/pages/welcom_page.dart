@@ -16,14 +16,14 @@ class WelcomePage extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
         elevation: 0,
-        backgroundColor: silver,
+        backgroundColor: colorWhite,
         brightness: Brightness.light,
       ),
       body: SafeArea(
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          color: silver,
+          color: colorWhite,
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,10 +51,10 @@ class WelcomePage extends StatelessWidget {
                 ],
               ),
               Container(
-                height: MediaQuery.of(context).size.height / 3,
+                height: MediaQuery.of(context).size.height / 3.9,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/images/Illustration.png'))),
+                        image: AssetImage('assets/images/popup/success.JPG'))),
               ),
               Column(
                 children: <Widget>[

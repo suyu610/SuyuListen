@@ -1,7 +1,6 @@
 // import 'package:SuyuListening/ui/pages/temp/message.dart';
 // import 'package:SuyuListening/ui/pages/word_book/word_book_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 
 import 'entity/search_model.dart';
@@ -29,7 +28,6 @@ double mapIntervaltoAnother(
 
 void main() async {
   // 状态栏颜色
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: true);
 

@@ -78,21 +78,10 @@ class MenuWidget extends StatelessWidget {
                             transition: TransitionType.fadeIn,
                           )
                         },
-
                         child: FluttermojiCircleAvatar(
                           radius: 70.h,
                           backgroundColor: silver.withAlpha(200),
                         ),
-                        // child: CircleAvatar(
-                        //     backgroundColor: silver.withAlpha(200),
-                        //     radius: 70.h,
-                        //     child: SvgPicture.string(
-                        //       "",
-                        //       // getSvg(
-                        //       //   randomAvatarOptions(),
-                        //       // ),
-                        //       height: 70.h * 1.6,
-                        //     )),
                       ),
                       SizedBox(
                         height: 20.h,
@@ -111,12 +100,12 @@ class MenuWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   MenuItem(
-                      title: "消息",
+                      title: "消息/test",
                       icon: Ionicons.notifications_outline,
                       tapAction: () => {
                             RouterHelper.router.navigateTo(
                               context,
-                              "/avatar_setting",
+                              "/test",
                               transition: TransitionType.fadeIn,
                             )
                           }),
@@ -129,18 +118,21 @@ class MenuWidget extends StatelessWidget {
                             transition: TransitionType.inFromRight,
                           )),
                   MenuItem(
-                      title: "伙伴",
+                      title: "伙伴/error",
                       icon: Ionicons.cog_outline,
-                      tapAction: () => Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (context, a, b) => TempPage()))),
+                      tapAction: () => RouterHelper.router.navigateTo(
+                            context,
+                            "/error",
+                            transitionDuration: Duration(milliseconds: 300),
+                            transition: TransitionType.fadeIn,
+                          )),
                   MenuItem(
                       title: "设置",
                       icon: Ionicons.person_outline,
                       tapAction: () => RouterHelper.router.navigateTo(
                             context,
                             "/setting",
+                            transitionDuration: Duration(seconds: 1),
                             transition: TransitionType.inFromRight,
                           )),
                 ],
