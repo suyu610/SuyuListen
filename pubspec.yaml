@@ -11,6 +11,8 @@ dependencies:
   #################
   #### 系统相关 ####
   #################
+  # 极光推送
+  jpush_flutter: 0.6.3
   # 使canvas能感知触摸
   touchable: ^0.2.0
   json_annotation: ^3.0.1
