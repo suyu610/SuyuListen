@@ -7,7 +7,7 @@ import '../../../constant/theme_color.dart';
 import '../../../entity/article_level_enum.dart';
 import '../../../entity/article_entity.dart';
 import '../../../sample_data/data.dart';
-import '../../../ui/components/animation/fade_animation.dart';
+import '../../components/animation/fade_animation.dart';
 import 'article_list_tile.dart';
 import 'article_first_page.dart';
 import 'package:badges/badges.dart';
@@ -165,7 +165,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
                   .toggle(direction: InnerDrawerDirection.start)
             },
             child: Icon(
-              icon_2.Ionicons.menu_outline,
+              Icons.menu,
               // color: Colors.black,
             ),
           ),

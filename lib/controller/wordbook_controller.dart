@@ -1,6 +1,10 @@
-import 'package:SuyuListening/constant/theme_color.dart';
-import 'package:SuyuListening/entity/entities.dart';
-import 'package:SuyuListening/ui/components/dialog/custom_dialog_box.dart';
+import 'package:SuyuListening/ui/pages/word_book/first_wordbook_page.dart';
+
+import '../entity/entities.dart';
+import '../route/router_helper.dart';
+import '../ui/pages/word_book/check_deifinition_dialog.dart';
+
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
@@ -13,68 +17,93 @@ class WordBookController extends ChangeNotifier implements MyPageController {
   WordBookController() {
     initController();
   }
-
-  TextEditingController _textEditingController;
-  DefinitinoEnum _showDefinitionMode = DefinitinoEnum.BOTH;
-
-  DefinitinoEnum get showDefinitionMode => _showDefinitionMode;
-
-  List<SimpleWordEntity> wordList;
+  GlobalKey<FirstWordBookPageState> booklistKey;
+  ScrollController scrollController;
   FloatingSearchBarController floatingSearchBarController;
+  TextEditingController textEditingController;
+  DefinitinoEnum _showDefinitionMode = DefinitinoEnum.BOTH;
+  DefinitinoEnum get showDefinitionMode => _showDefinitionMode;
+  List<UserWordEntity> wordBookList;
+  UserWordEntity currentWordEntity;
+  int _pageIndex = 0;
+  DateTime _lastTime; //上次滑动的时间
+  int get pageIndex => _pageIndex;
+  int _currentWordIndexOnTap = -1;
 
-  int _index = 0;
-  int get index => _index;
+  Future<List<UserWordEntity>> loadWordLisk() async {
+    await Future.delayed(Duration(seconds: 1));
+
+    return [
+      UserWordEntity(word: "hello", definition: "你好你好你好你好你好你好你好你好"),
+      UserWordEntity(word: "abandon", definition: "抛弃抛弃抛弃抛弃抛弃"),
+      UserWordEntity(word: "abc", definition: "英语顺序英语顺序英语顺序英语顺序英语顺序"),
+      UserWordEntity(word: "hello", definition: "你好"),
+      UserWordEntity(word: "abandon", definition: "抛弃"),
+      UserWordEntity(word: "abc", definition: "英语顺序"),
+      UserWordEntity(word: "hello", definition: "你好"),
+      UserWordEntity(word: "abandon", definition: "抛弃"),
+      UserWordEntity(word: "abc", definition: "英语顺序")
+    ];
+  }
+
+  // 在时间内，应该只让他监听一次
+  scrollControllerListener() {
+    if ((scrollController.position.pixels < -40) &&
+        (_lastTime == null ||
+            DateTime.now().difference(_lastTime) > Duration(seconds: 1))) {
+      _lastTime = DateTime.now();
+      if (!floatingSearchBarController.isOpen) {
+        floatingSearchBarController.open();
+      }
+    }
+  }
+
+  //当滚动时，收起搜索框
+  onUpdateScroll(ScrollMetrics metrics) {
+    if (scrollController.position.pixels > 0) {
+      if (floatingSearchBarController.isOpen) {
+        floatingSearchBarController.close();
+      }
+    }
+  }
+
+  // 检查是否正确
+  void checkDefinition(context) {
+    if (textEditingController.text ==
+        wordBookList[_currentWordIndexOnTap].word) {
+      Navigator.pop(context);
+      EasyLoading.showSuccess("真棒!\n拼写正确");
+      textEditingController.text = "";
+      // ignore: invalid_use_of_protected_member
+      booklistKey.currentState.setState(() {
+        wordBookList[_currentWordIndexOnTap].tempIsCompelete = true;
+      });
+    } else {
+      EasyLoading.showError("拼写错误");
+    }
+  }
 
   void onTapListTile(int index, BuildContext context) {
+    _currentWordIndexOnTap = index;
+    currentWordEntity = wordBookList[index];
     switch (_showDefinitionMode) {
       // 如果是英语模式 ，则出现他的中文意思
       case DefinitinoEnum.ENG:
-        EasyLoading.showToast("抛弃放弃");
+        EasyLoading.showToast(wordBookList[index].definition);
         break;
       // 如果是中文模式， 则出来一个对话框，让用户写单词
       case DefinitinoEnum.CH:
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return CustomDialogBox(
-                  backgroundColor: silver,
-                  contentWidget: Container(
-                      width: 200,
-                      child: TextField(
-                        controller: _textEditingController,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          labelStyle: TextStyle(color: Color(0x99000000)),
-                          hintText: '输入单词',
-                          hintMaxLines: 2,
-                          enabledBorder: new UnderlineInputBorder(
-                            // 不是焦点的时候颜色
-                            borderSide:
-                                BorderSide(color: Colors.black, width: 1),
-                          ),
-                          focusedBorder: new UnderlineInputBorder(
-                            // 焦点集中的时候颜色
-                            borderSide: BorderSide(color: yellow, width: 2),
-                          ),
-                        ),
-                        maxLines: 1,
-                      )),
-                  title: "抛弃；放弃；遗弃",
-                  text: "检查",
-                  onTapButton: () {
-                    // 检查是否正确
-                    if (_textEditingController.text == "abandon") {
-                      Navigator.pop(context);
-                      EasyLoading.showSuccess("真棒!\n拼写正确");
-                      _textEditingController.text = "";
-                    } else {
-                      EasyLoading.showError("拼写错误");
-                    }
-                  });
+              return CheckDefinitionDialogWidget();
             });
         break;
       // 如果是both模式，则跳转到单词详情页
       default:
+        RouterHelper.router.navigateTo(context, '/word_detail',
+            transition: TransitionType.inFromRight,
+            transitionDuration: Duration(milliseconds: 300));
     }
   }
 
@@ -97,18 +126,29 @@ class WordBookController extends ChangeNotifier implements MyPageController {
     0 == value
         ? floatingSearchBarController.show()
         : floatingSearchBarController.hide();
-    _index = value;
+    _pageIndex = value;
     notifyListeners();
   }
 
   @override
-  Future disposeController() async{
+  Future disposeController() async {
     floatingSearchBarController.dispose();
   }
 
   @override
   Future initController() async {
-    _textEditingController = TextEditingController();
+    booklistKey = GlobalKey<FirstWordBookPageState>();
+    textEditingController = TextEditingController();
+
+    scrollController = new ScrollController();
+
+    scrollController.addListener(() {
+      scrollControllerListener();
+    });
+
+    // 加载用户单词
+    wordBookList = await loadWordLisk();
+
     floatingSearchBarController = new FloatingSearchBarController();
   }
 }

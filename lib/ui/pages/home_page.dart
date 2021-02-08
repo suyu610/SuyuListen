@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_inner_drawer/inner_drawer.dart';
 
-import 'article/article_list.dart';
+import 'article/article_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -64,7 +64,6 @@ Widget _buildLeftChild(BuildContext context) {
       onHorizontalDragEnd: (detail) {
         // 同时也关掉search bar
         Global.floatingSearchBarKey.currentState.close();
-        print("??");
         Global.innerDrawerKey.currentState
             .toggle(direction: InnerDrawerDirection.start);
       },

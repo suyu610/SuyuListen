@@ -78,8 +78,7 @@ class _WordBookPageState extends State<WordBookPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyBackButton: false,
-        controller: Provider.of<WordBookController>(context, listen: false)
-            .floatingSearchBarController,
+        controller: wordBookController.floatingSearchBarController,
         clearQueryOnClose: true,
         hint: '',
         iconColor: Colors.black,
@@ -91,8 +90,7 @@ class _WordBookPageState extends State<WordBookPage> {
         leadingActions: [
           OutlineButton.icon(
             onPressed: () {
-              Provider.of<WordBookController>(context, listen: false)
-                  .toggleShowDefinition();
+              wordBookController.toggleShowDefinition();
             },
             label: Row(children: [
               AnimatedOpacity(
@@ -152,11 +150,14 @@ class _WordBookPageState extends State<WordBookPage> {
       children: [
         Expanded(
           child: IndexedStack(
-            index: Provider.of<WordBookController>(context, listen: true).index,
+            index: Provider.of<WordBookController>(context, listen: true)
+                .pageIndex,
             children: [
               // 第一页
               new FirstWordBookPage(
-                  wordBookController.floatingSearchBarController),
+                wordBookController.floatingSearchBarController,
+                key: wordBookController.booklistKey,
+              ),
               // 第二页
               SecondWordBookPage(),
             ],
@@ -176,7 +177,7 @@ class _WordBookPageState extends State<WordBookPage> {
       child: BottomNavigationBar(
         onTap: (value) => wordBookController.index = value,
         currentIndex:
-            Provider.of<WordBookController>(context, listen: true).index,
+            Provider.of<WordBookController>(context, listen: true).pageIndex,
         elevation: 0,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,

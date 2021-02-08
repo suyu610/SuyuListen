@@ -92,23 +92,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// Future _validateLogin() async {
-//   Future<dynamic> future = Future(() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     return prefs.getString("loginToken");
-//   });
-//   future.then((val) {
-//     if (val == null) {
-//       setState(() {
-//         loginState = 0;
-//       });
-//     } else {
-//       setState(() {
-//         loginState = 1;
-//       });
-//     }
-//   }).catchError((_) {
-//     print("catchError");
-//   });
-// }

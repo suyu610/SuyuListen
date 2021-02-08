@@ -66,10 +66,14 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
-                widget.title,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  widget.title,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                ),
               ),
+              Divider(),
               SizedBox(
                 height: 50,
               ),

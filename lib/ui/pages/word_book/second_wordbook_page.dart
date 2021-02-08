@@ -11,6 +11,12 @@ class SecondWordBookPage extends StatelessWidget {
       children: [
         Container(
           color: silver,
+          child: Center(
+            child: Text(
+              "开发中",
+              style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
         buildBackground(),
       ],
@@ -18,9 +24,12 @@ class SecondWordBookPage extends StatelessWidget {
   }
 
   Widget buildBackground() {
-    return Image.asset(
-      'assets/earth.png',
-      fit: BoxFit.contain,
+    return Opacity(
+      opacity: 0.2,
+      child: Image.asset(
+        'assets/earth.png',
+        fit: BoxFit.contain,
+      ),
     );
   }
 }
