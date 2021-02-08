@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ///主色调
-const Color yellow = Color.fromRGBO(254, 212, 91, 1);
-const Color blue = Color(0xFF00a7f0);
-const Color silver = Color(0xfff2f5fc);
-const Color darkSilver = Color(0xffe7eefb);
+const Color yellow = Color(0xffffe18c);//#ffe18c
+const Color red = Color(0xfffa6064);//#fa6064
+const Color blue = Color(0xff789aee);//#789aee
+const Color orange = Color(0xffff9360);//#ff9360
+const Color green = Color(0xff00e5b9);//#00e5b9
 
-///正文，副标题以及可点击区域的主要文字和图标
-///弱化信息，提示性文字信息，不可点击状态
-///弱化信息，提示性文字信息
-///背景区域划分，分割线
+const Color silver = Color(0xffd9f0f1);//#d9f0f1
+const Color darkSilver = Color(0xffe7eefb);//#e7eefb
+const Color white = Color(0xffffffff);//#ffffff
+const Color black = Color(0xff000000);
 
-///纯白色
-const Color colorWhite = Color.fromARGB(255, 255, 255, 255);
 
-///纯黑色
-const Color colorBlack = Color.fromARGB(255, 0, 0, 0);
 const listTileGradient = LinearGradient(
   stops: [0.4, 0.83],
   colors: <Color>[

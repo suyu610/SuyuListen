@@ -45,6 +45,7 @@ dependencies:
   ### 动画增强
   simple_animations: ^1.3.3
   lottie: ^0.7.0+1
+  auto_animated: ^2.1.0
 
   ##############
   #### 组件 ####
@@ -140,7 +141,7 @@ flutter:
     - assets/images/popup/
     - assets/lotties/
     - assets/icons/
-    - assets/icons/customAvatarIcons/
+    - assets/icons/custom_avatarIcons/
   fonts:
     - family: appIconFonts
       fonts:

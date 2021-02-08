@@ -27,6 +27,7 @@ class _WordBookPageState extends State<WordBookPage> {
   void initState() {
     wordBookController =
         Provider.of<WordBookController>(context, listen: false);
+    wordBookController.initController();
     super.initState();
   }
 
@@ -155,7 +156,6 @@ class _WordBookPageState extends State<WordBookPage> {
             children: [
               // 第一页
               new FirstWordBookPage(
-                wordBookController.floatingSearchBarController,
                 key: wordBookController.booklistKey,
               ),
               // 第二页

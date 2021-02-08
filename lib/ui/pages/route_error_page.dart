@@ -39,7 +39,7 @@ class RouteErrorPage extends StatelessWidget {
               ),
               OutlineButton.icon(
                 highlightColor: yellow,
-                highlightedBorderColor: colorBlack,
+                highlightedBorderColor: black,
                 borderSide: BorderSide(width: 2),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),

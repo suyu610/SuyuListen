@@ -174,7 +174,7 @@ Widget studyRecordLegend(context) => Positioned(
                                     child: Icon(
                                       Icons.star,
                                       // IconData(0xe600, fontFamily: "appIconFonts"),
-                                      color: colorWhite,
+                                      color: white,
                                       size: 34.sp,
                                     ),
                                   ),

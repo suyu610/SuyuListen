@@ -39,7 +39,7 @@ Widget buildFloatingSearchBar(
     ),
     borderRadius: BorderRadius.circular(8),
     openAxisAlignment: 0.0,
-    backgroundColor: colorWhite,
+    backgroundColor: white,
     maxWidth: 750.w,
     
     onQueryChanged: (query) {

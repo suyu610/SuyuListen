@@ -94,7 +94,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 'normal': TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.normal,
-                  color: colorWhite, //color(0xffffefa4),
+                  color: white, //color(0xffffefa4),
                 ),
                 'bold': TextStyle(
                   fontSize: 28,
@@ -123,10 +123,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       skip: const Text('至尾'),
       next: const Icon(Icons.arrow_forward),
       done: const Text('冲呀',
-          style: TextStyle(fontWeight: FontWeight.w600, color: colorWhite)),
+          style: TextStyle(fontWeight: FontWeight.w600, color: white)),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
-        color: colorBlack,
+        color: white,
         activeColor: yellow,
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(

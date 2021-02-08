@@ -16,14 +16,14 @@ class WelcomePage extends StatelessWidget {
       appBar: AppBar(
         toolbarHeight: 0,
         elevation: 0,
-        backgroundColor: colorWhite,
+        backgroundColor: white,
         brightness: Brightness.light,
       ),
       body: SafeArea(
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          color: colorWhite,
+          color: white,
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,4 +1,5 @@
 import 'package:SuyuListening/ui/pages/word_book/first_wordbook_page.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../entity/entities.dart';
 import '../route/router_helper.dart';
@@ -14,9 +15,8 @@ import 'page_controller.dart';
 enum DefinitinoEnum { ENG, CH, BOTH }
 
 class WordBookController extends ChangeNotifier implements MyPageController {
-  WordBookController() {
-    initController();
-  }
+  AudioPlayer player;
+
   GlobalKey<FirstWordBookPageState> booklistKey;
   ScrollController scrollController;
   FloatingSearchBarController floatingSearchBarController;
@@ -31,18 +31,16 @@ class WordBookController extends ChangeNotifier implements MyPageController {
   int _currentWordIndexOnTap = -1;
 
   Future<List<UserWordEntity>> loadWordLisk() async {
-    await Future.delayed(Duration(seconds: 1));
-
     return [
-      UserWordEntity(word: "hello", definition: "你好你好你好你好你好你好你好你好"),
-      UserWordEntity(word: "abandon", definition: "抛弃抛弃抛弃抛弃抛弃"),
-      UserWordEntity(word: "abc", definition: "英语顺序英语顺序英语顺序英语顺序英语顺序"),
-      UserWordEntity(word: "hello", definition: "你好"),
-      UserWordEntity(word: "abandon", definition: "抛弃"),
-      UserWordEntity(word: "abc", definition: "英语顺序"),
-      UserWordEntity(word: "hello", definition: "你好"),
-      UserWordEntity(word: "abandon", definition: "抛弃"),
-      UserWordEntity(word: "abc", definition: "英语顺序")
+      UserWordEntity(word: "0", definition: "皇甫素素", tempIsCompelete: true),
+      UserWordEntity(word: "1", definition: "抛弃抛弃抛弃抛弃抛弃"),
+      UserWordEntity(word: "2", definition: "英语顺序英语顺序英语顺序英语顺序英语顺序"),
+      UserWordEntity(word: "3", definition: "你好"),
+      UserWordEntity(word: "4", definition: "抛弃"),
+      UserWordEntity(word: "5", definition: "英语顺序"),
+      UserWordEntity(word: "6", definition: "你好"),
+      UserWordEntity(word: "7", definition: "抛弃"),
+      UserWordEntity(word: "8", definition: "英语顺序")
     ];
   }
 
@@ -67,20 +65,41 @@ class WordBookController extends ChangeNotifier implements MyPageController {
     }
   }
 
+  void onDeleteWord(BuildContext context, int index) {
+    print(index);
+    wordBookList.removeAt(index);
+    Navigator.pop(context);
+    EasyLoading.showSuccess("删除成功");
+    print("========================");
+    wordBookList.forEach((element) {
+      print(element.word);
+    });
+    print("========================");
+    notifyListeners();
+    setState();
+    wordBookList.forEach((element) {
+      print(element.word);
+    });
+    print("========================");
+  }
+
   // 检查是否正确
   void checkDefinition(context) {
     if (textEditingController.text ==
         wordBookList[_currentWordIndexOnTap].word) {
       Navigator.pop(context);
       EasyLoading.showSuccess("真棒!\n拼写正确");
+      wordBookList[_currentWordIndexOnTap].tempIsCompelete = true;
       textEditingController.text = "";
-      // ignore: invalid_use_of_protected_member
-      booklistKey.currentState.setState(() {
-        wordBookList[_currentWordIndexOnTap].tempIsCompelete = true;
-      });
+      setState();
     } else {
       EasyLoading.showError("拼写错误");
     }
+  }
+
+  void setState() {
+    // ignore: invalid_use_of_protected_member
+    booklistKey.currentState.setState(() {});
   }
 
   void onTapListTile(int index, BuildContext context) {
@@ -130,17 +149,27 @@ class WordBookController extends ChangeNotifier implements MyPageController {
     notifyListeners();
   }
 
+  // 播放音频
+  void tapPlayAudioButton(String word) async {
+    await player.setAudioSource(AudioSource.uri(
+        Uri.parse("https://dict.youdao.com/dictvoice?audio=$word&type=2)")));
+    player.play();
+  }
+
   @override
   Future disposeController() async {
     floatingSearchBarController.dispose();
   }
 
   @override
-  Future initController() async {
+  Future<bool> initController() async {
+    player = AudioPlayer();
+
     booklistKey = GlobalKey<FirstWordBookPageState>();
     textEditingController = TextEditingController();
-
+    textEditingController.addListener(() {});
     scrollController = new ScrollController();
+    floatingSearchBarController = new FloatingSearchBarController();
 
     scrollController.addListener(() {
       scrollControllerListener();
@@ -149,6 +178,6 @@ class WordBookController extends ChangeNotifier implements MyPageController {
     // 加载用户单词
     wordBookList = await loadWordLisk();
 
-    floatingSearchBarController = new FloatingSearchBarController();
+    return true;
   }
 }

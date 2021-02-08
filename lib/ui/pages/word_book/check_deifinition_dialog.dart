@@ -33,6 +33,7 @@ class _CheckDefinitionDialogWidgetState
             child: TextField(
               controller: wordBookController.textEditingController,
               textAlign: TextAlign.center,
+              autofocus: true,
               decoration: InputDecoration(
                 labelStyle: TextStyle(color: Color(0x99000000)),
                 hintText: '输入单词',

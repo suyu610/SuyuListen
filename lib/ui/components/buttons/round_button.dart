@@ -17,7 +17,7 @@ class RoundButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(36),
       ),
-      color: colorWhite,
+      color: white,
       onPressed: press,
       child: Container(
         width: double.infinity,
