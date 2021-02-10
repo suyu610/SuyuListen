@@ -1,4 +1,4 @@
-import 'package:SuyuListening/config/pref_keys.dart';
+import '../../config/pref_keys.dart';
 import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/route/router_helper.dart';
 import 'package:SuyuListening/utils/shared_util.dart';
@@ -13,11 +13,8 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
-  final introKey = GlobalKey<IntroductionScreenState>();
-
   void _onIntroEnd(context) {
     SharedUtil().saveBoolean(PrefKeys.isNotFirstLauch, true);
-
     // 将不是第一次启动的值，设置为true
     RouterHelper.router.navigateTo(context, "/welcome",
         transition: TransitionType.fadeIn,
@@ -48,7 +45,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
 
     return IntroductionScreen(
-      key: introKey,
       pages: [
         PageViewModel(
           title: "",
@@ -126,7 +122,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           style: TextStyle(fontWeight: FontWeight.w600, color: white)),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
-        color: white,
+        color: black,
         activeColor: yellow,
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(

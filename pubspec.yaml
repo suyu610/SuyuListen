@@ -45,7 +45,6 @@ dependencies:
   ### 动画增强
   simple_animations: ^1.3.3
   lottie: ^0.7.0+1
-  auto_animated: ^2.1.0
 
   ##############
   #### 组件 ####
@@ -146,6 +145,9 @@ flutter:
     - family: appIconFonts
       fonts:
         - asset: assets/icons/iconfont.ttf
+    - family: gta5Fonts
+      fonts:
+        - asset: assets/fonts/gta5.ttf        
     - family: logoFonts
       fonts:
         - asset: assets/fonts/logo.ttf              

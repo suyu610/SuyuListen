@@ -1,10 +1,12 @@
+import 'package:SuyuListening/route/router_helper.dart';
+import 'package:fluro/fluro.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../../constant/theme_color.dart';
 import '../../../sample_data/data.dart';
 import '../../components/buttons/fancy_button.dart';
 import '../listen/listen_page.dart';
-import '../word_detail/word_detail_page.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/gestures.dart';
@@ -226,14 +228,6 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                   itemCount: planets.length,
                   itemWidth: MediaQuery.of(context).size.width - 2 * 55,
                   layout: SwiperLayout.STACK,
-                  // pagination: SwiperPagination(
-                  // builder: DotSwiperPaginationBuilder(
-                  // activeSize: 5,
-                  // size: 5,
-                  // space: 5.w,
-                  // color: Colors.transparent,
-                  // activeColor: Colors.transparent),
-                  // ),
                   itemBuilder: (context, index) {
                     return FlipCard(
                       key: cardKeys[index],
@@ -299,16 +293,26 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                                         children: <Widget>[
                                           InkWell(
                                             onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  PageRouteBuilder(
-                                                    pageBuilder:
-                                                        (context, a, b) =>
-                                                            WordDetailPage(
-                                                      planetInfo:
-                                                          planets[index],
-                                                    ),
-                                                  ));
+                                              showDialog(
+                                                context: context,
+                                                builder: (ctx) {
+                                                  return Center(
+                                                      child: SpinKitHourGlass(
+                                                          color: white));
+                                                },
+                                              );
+
+                                              // 关闭上面的弹窗
+                                              Navigator.pop(context);
+                                              return RouterHelper.router
+                                                  .navigateTo(
+                                                context,
+                                                "/word_detail?wordList=abandon,abortion,caption",
+                                                transition:
+                                                    TransitionType.fadeIn,
+                                                transitionDuration:
+                                                    Duration(milliseconds: 300),
+                                              );
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(

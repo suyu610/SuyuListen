@@ -44,8 +44,9 @@ class SearchModel extends ChangeNotifier {
 }
 
 List<SimpleWordEntity> history = [
-  SimpleWordEntity(word: "abandon", translation: "放弃"),
-  SimpleWordEntity(word: "abandon", translation: "放弃"),
-  SimpleWordEntity(word: "abandon", translation: "放弃"),
-  SimpleWordEntity(word: "abandon", translation: "放弃"),
+  SimpleWordEntity(word: "abandon", translation: "抛弃放弃"),
+  SimpleWordEntity(word: "main", translation: "主要的"),
+  SimpleWordEntity(word: "system", translation: "系统"),
+  SimpleWordEntity(
+      word: "light", translation: "光;光线;光亮;(具有某种颜色和特性的)光;发光体;光源;(尤指)电灯"),
 ];

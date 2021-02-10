@@ -14,13 +14,8 @@ class CheckDefinitionDialogWidget extends StatefulWidget {
 
 class _CheckDefinitionDialogWidgetState
     extends State<CheckDefinitionDialogWidget> {
-  WordBookController wordBookController;
-
   @override
   void initState() {
-    wordBookController =
-        Provider.of<WordBookController>(context, listen: false);
-
     super.initState();
   }
 
@@ -31,7 +26,9 @@ class _CheckDefinitionDialogWidgetState
         contentWidget: Container(
             width: 200,
             child: TextField(
-              controller: wordBookController.textEditingController,
+              controller:
+                  Provider.of<WordBookController>(context, listen: false)
+                      .textEditingController,
               textAlign: TextAlign.center,
               autofocus: true,
               decoration: InputDecoration(
@@ -49,10 +46,13 @@ class _CheckDefinitionDialogWidgetState
               ),
               maxLines: 1,
             )),
-        title: wordBookController.currentWordEntity.definition,
+        title: Provider.of<WordBookController>(context, listen: true)
+            .currentWordEntity
+            .definition,
         text: "检查",
         onTapButton: () {
-          wordBookController.checkDefinition(context);
+          Provider.of<WordBookController>(context, listen: false)
+              .checkDefinition(context);
         });
   }
 }

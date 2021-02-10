@@ -1,6 +1,7 @@
 import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/controller/wordbook_controller.dart';
 import 'package:SuyuListening/ui/pages/word_book/second_wordbook_page.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:ionicons/ionicons.dart';
 import '../../../entity/entities.dart';
 import '../../../entity/search_model.dart';
@@ -21,41 +22,64 @@ class WordBookPage extends StatefulWidget {
 }
 
 class _WordBookPageState extends State<WordBookPage> {
-  WordBookController wordBookController;
-
+  WordBookController cFalse;
+  WordBookController cTrue;
   @override
   void initState() {
-    wordBookController =
-        Provider.of<WordBookController>(context, listen: false);
-    wordBookController.initController();
+    cFalse = Provider.of<WordBookController>(context, listen: false);
+    cTrue = Provider.of<WordBookController>(context, listen: false);
+
+    cFalse.initController();
+    cFalse.scrollController.addListener(() {
+      cFalse.scrollControllerListener();
+    });
+
     super.initState();
   }
 
   @override
   void dispose() {
-    wordBookController.disposeController();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-        leading: Icon(
-          Icons.arrow_back,
-          color: Colors.white,
+        appBar: AppBar(
+          toolbarHeight: 0,
+          leading: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          title: Text(
+            "单词本",
+            style: TextStyle(color: Colors.white),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          brightness: Brightness.dark,
         ),
-        title: Text(
-          "单词本",
-          style: TextStyle(color: Colors.white),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(child: buildSearchBar()),
-    );
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+            child: FutureBuilder(
+                future: Provider.of<WordBookController>(context, listen: false)
+                    .loadWordList(),
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  if (snapshot.hasData) {
+                    return buildSearchBar();
+                  } else {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SpinKitFadingCircle(
+                          color: Colors.black,
+                          size: 30.0,
+                        ),
+                        Text("加载中"),
+                      ],
+                    );
+                  }
+                })));
   }
 
   Widget buildSearchBar() {
@@ -65,7 +89,7 @@ class _WordBookPageState extends State<WordBookPage> {
         child: CircularButton(
           icon: const Icon(Icons.search),
           onPressed: () {
-            wordBookController.floatingSearchBarController.open();
+            cFalse.floatingSearchBarController.open();
           },
         ),
       ),
@@ -79,7 +103,7 @@ class _WordBookPageState extends State<WordBookPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyBackButton: false,
-        controller: wordBookController.floatingSearchBarController,
+        controller: cFalse.floatingSearchBarController,
         clearQueryOnClose: true,
         hint: '',
         iconColor: Colors.black,
@@ -91,7 +115,7 @@ class _WordBookPageState extends State<WordBookPage> {
         leadingActions: [
           OutlineButton.icon(
             onPressed: () {
-              wordBookController.toggleShowDefinition();
+              cFalse.toggleShowDefinition();
             },
             label: Row(children: [
               AnimatedOpacity(
@@ -124,8 +148,22 @@ class _WordBookPageState extends State<WordBookPage> {
               color: Colors.black,
               size: 34.sp,
             ),
+            borderSide: BorderSide(width: 1, color: black.withOpacity(0.3)),
+          ),
+          OutlineButton.icon(
+            onPressed: () {
+              // cFalse.toggleShowDefinition();
+            },
+            // label: Text(""),
+            label: Text(
+                "共有${Provider.of<WordBookController>(context, listen: true).wordBookList.length}个"),
+            icon: Icon(
+              Ionicons.bar_chart_outline,
+              color: Colors.black,
+              size: 34.sp,
+            ),
             borderSide: BorderSide(width: 1, color: Colors.transparent),
-          )
+          ),
         ],
         height: 100.h,
         maxWidth: 500,
@@ -139,7 +177,7 @@ class _WordBookPageState extends State<WordBookPage> {
         onQueryChanged: model.onQueryChanged,
         scrollPadding: EdgeInsets.all(20.w),
         transition: CircularFloatingSearchBarTransition(),
-        builder: (context, _) => buildExpandableBody(model),
+        builder: (context, _) => buildSearchBody(model),
         body: buildBody(),
       ),
     );
@@ -155,9 +193,7 @@ class _WordBookPageState extends State<WordBookPage> {
                 .pageIndex,
             children: [
               // 第一页
-              new FirstWordBookPage(
-                key: wordBookController.booklistKey,
-              ),
+              new FirstWordBookPage(),
               // 第二页
               SecondWordBookPage(),
             ],
@@ -175,14 +211,14 @@ class _WordBookPageState extends State<WordBookPage> {
         topRight: Radius.circular(25),
       ),
       child: BottomNavigationBar(
-        onTap: (value) => wordBookController.index = value,
+        onTap: (value) => cFalse.index = value,
         currentIndex:
             Provider.of<WordBookController>(context, listen: true).pageIndex,
         elevation: 0,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         backgroundColor: silver,
-        selectedItemColor: Colors.black,
+        selectedItemColor: blue,
         selectedFontSize: 11.5,
         unselectedFontSize: 11.5,
         unselectedItemColor: Colors.black.withOpacity(0.4),
@@ -200,7 +236,8 @@ class _WordBookPageState extends State<WordBookPage> {
     );
   }
 
-  Widget buildExpandableBody(SearchModel model) {
+// 搜索框
+  Widget buildSearchBody(SearchModel model) {
     return Material(
       color: Colors.white,
       elevation: 4.0,
@@ -214,20 +251,21 @@ class _WordBookPageState extends State<WordBookPage> {
         itemBuilder: (context, animation, word, i) {
           return SizeFadeTransition(
             animation: animation,
-            child: buildItem(context, word),
+            child: buildSearchItem(context, word),
           );
         },
         updateItemBuilder: (context, animation, place) {
           return FadeTransition(
             opacity: animation,
-            child: buildItem(context, place),
+            child: buildSearchItem(context, place),
           );
         },
       ),
     );
   }
 
-  Widget buildItem(BuildContext context, SimpleWordEntity word) {
+  // 搜索项
+  Widget buildSearchItem(BuildContext context, SimpleWordEntity word) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
@@ -277,6 +315,21 @@ class _WordBookPageState extends State<WordBookPage> {
                     ],
                   ),
                 ),
+                model.suggestions != history
+                    ? GestureDetector(
+                        onTap: () {
+                          if (word.word == "Not Found" &&
+                              word.translation == "未搜索到") {
+                          } else {
+                            cTrue.addToWordBook(word);
+                          }
+                        },
+                        child: Icon(Icons.add),
+                      )
+                    : GestureDetector(
+                        onTap: () {},
+                        child: Icon(Ionicons.trash_outline),
+                      ),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:SuyuListening/constant/theme_color.dart';
 import 'package:SuyuListening/ui/components/bubble/bubble_entity.dart';
 import 'package:SuyuListening/utils/color_util.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class _BubbleWidgetState extends State<BubbleWidget>
     for (int i = 0; i < 20; i++) {
       BubbleEntity bubbleEntity = new BubbleEntity()
         // 颜色
-        ..color = getRandomOpacityColor(_random)
+        ..color = getRandomOpacityColor(_random, color: white)
         // 位置
         ..position = Offset(-1, -1)
         ..speed = _random.nextDouble() * _maxSpeed + _minSpeed

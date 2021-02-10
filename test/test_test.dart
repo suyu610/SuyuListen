@@ -2,6 +2,10 @@ import 'package:SuyuListening/utils/check_util.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
+  test('lrc util', () {
+
+
+  });
   test('checkStr function', () {
     var originStr = "hello";
     var rightStr = "hello my name is";
@@ -18,10 +22,6 @@ main() {
         checkStr(originStr, rightStr),
         equals(
             "  <normal>hello</normal>  <error>miss</error>  <miss>name</miss>  <miss>is</miss>"));
-  });
-  test('checkStr function', () {
-    var originStr = "hello";
-    expect(checkStr(originStr, originStr), equals(originStr));
   });
 
   test('trim function', () {

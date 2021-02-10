@@ -1,4 +1,4 @@
-import 'package:SuyuListening/ui/pages/word_book/first_wordbook_page.dart';
+import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../entity/entities.dart';
@@ -17,31 +17,73 @@ enum DefinitinoEnum { ENG, CH, BOTH }
 class WordBookController extends ChangeNotifier implements MyPageController {
   AudioPlayer player;
 
-  GlobalKey<FirstWordBookPageState> booklistKey;
-  ScrollController scrollController;
-  FloatingSearchBarController floatingSearchBarController;
+  ScrollController _scrollController;
+  FloatingSearchBarController _floatingSearchBarController;
   TextEditingController textEditingController;
   DefinitinoEnum _showDefinitionMode = DefinitinoEnum.BOTH;
   DefinitinoEnum get showDefinitionMode => _showDefinitionMode;
-  List<UserWordEntity> wordBookList;
+  List<UserWordEntity> _wordBookList;
   UserWordEntity currentWordEntity;
   int _pageIndex = 0;
   DateTime _lastTime; //上次滑动的时间
   int get pageIndex => _pageIndex;
   int _currentWordIndexOnTap = -1;
 
-  Future<List<UserWordEntity>> loadWordLisk() async {
-    return [
-      UserWordEntity(word: "0", definition: "皇甫素素", tempIsCompelete: true),
-      UserWordEntity(word: "1", definition: "抛弃抛弃抛弃抛弃抛弃"),
-      UserWordEntity(word: "2", definition: "英语顺序英语顺序英语顺序英语顺序英语顺序"),
-      UserWordEntity(word: "3", definition: "你好"),
-      UserWordEntity(word: "4", definition: "抛弃"),
-      UserWordEntity(word: "5", definition: "英语顺序"),
-      UserWordEntity(word: "6", definition: "你好"),
-      UserWordEntity(word: "7", definition: "抛弃"),
-      UserWordEntity(word: "8", definition: "英语顺序")
-    ];
+  Future<bool> loadWordList() async {
+    // 模拟从数据库中拿数据
+    await Future.delayed(Duration(seconds: 1));
+    if (_wordBookList == null) {
+      _wordBookList = [
+        UserWordEntity(word: "hfss", definition: "皇甫素素", tempIsCompelete: true),
+        UserWordEntity(word: "abandon", definition: "抛弃;抛弃 "),
+        UserWordEntity(
+            word: "abc", definition: "字母表（尤指儿童学习的全部字母）;（某学科的）基础知识，入门"),
+        UserWordEntity(word: "hello", definition: "你好"),
+        UserWordEntity(word: "sun", definition: "太阳"),
+        UserWordEntity(word: "moon", definition: "月亮"),
+        UserWordEntity(word: "lol", definition: "英雄联盟"),
+        UserWordEntity(word: "girl", definition: "女孩"),
+        UserWordEntity(word: "play", definition: "玩")
+      ];
+    }
+    return true;
+  }
+
+  void addToWordBook(SimpleWordEntity word) {
+    
+    UserWordEntity userWordEntity = UserWordEntity(
+        word: word.word ?? "null", definition: word.translation ?? "");
+    _wordBookList.insert(0, userWordEntity);
+    EasyLoading.showSuccess("添加成功");
+    _floatingSearchBarController.close();
+    notifyListeners();
+  }
+
+  get wordBookList {
+    if (_wordBookList == null) {
+      loadWordList();
+      return _wordBookList;
+    } else {
+      return _wordBookList;
+    }
+  }
+
+  get scrollController {
+    if (_scrollController == null) {
+      _scrollController = new ScrollController();
+      return _scrollController;
+    } else {
+      return _scrollController;
+    }
+  }
+
+  get floatingSearchBarController {
+    if (_floatingSearchBarController == null) {
+      _floatingSearchBarController = new FloatingSearchBarController();
+      return _floatingSearchBarController;
+    } else {
+      return _floatingSearchBarController;
+    }
   }
 
   // 在时间内，应该只让他监听一次
@@ -66,49 +108,33 @@ class WordBookController extends ChangeNotifier implements MyPageController {
   }
 
   void onDeleteWord(BuildContext context, int index) {
-    print(index);
-    wordBookList.removeAt(index);
+    _wordBookList.removeAt(index);
     Navigator.pop(context);
     EasyLoading.showSuccess("删除成功");
-    print("========================");
-    wordBookList.forEach((element) {
-      print(element.word);
-    });
-    print("========================");
     notifyListeners();
-    setState();
-    wordBookList.forEach((element) {
-      print(element.word);
-    });
-    print("========================");
   }
 
   // 检查是否正确
   void checkDefinition(context) {
     if (textEditingController.text ==
-        wordBookList[_currentWordIndexOnTap].word) {
+        _wordBookList[_currentWordIndexOnTap].word) {
       Navigator.pop(context);
       EasyLoading.showSuccess("真棒!\n拼写正确");
-      wordBookList[_currentWordIndexOnTap].tempIsCompelete = true;
+      _wordBookList[_currentWordIndexOnTap].tempIsCompelete = true;
       textEditingController.text = "";
-      setState();
+      notifyListeners();
     } else {
       EasyLoading.showError("拼写错误");
     }
   }
 
-  void setState() {
-    // ignore: invalid_use_of_protected_member
-    booklistKey.currentState.setState(() {});
-  }
-
   void onTapListTile(int index, BuildContext context) {
     _currentWordIndexOnTap = index;
-    currentWordEntity = wordBookList[index];
+    currentWordEntity = _wordBookList[index];
     switch (_showDefinitionMode) {
       // 如果是英语模式 ，则出现他的中文意思
       case DefinitinoEnum.ENG:
-        EasyLoading.showToast(wordBookList[index].definition);
+        EasyLoading.showToast(_wordBookList[index].definition);
         break;
       // 如果是中文模式， 则出来一个对话框，让用户写单词
       case DefinitinoEnum.CH:
@@ -146,6 +172,13 @@ class WordBookController extends ChangeNotifier implements MyPageController {
         ? floatingSearchBarController.show()
         : floatingSearchBarController.hide();
     _pageIndex = value;
+
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent, //全局设置透明
+        statusBarIconBrightness: Brightness.light);
+
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+
     notifyListeners();
   }
 
@@ -162,22 +195,10 @@ class WordBookController extends ChangeNotifier implements MyPageController {
   }
 
   @override
-  Future<bool> initController() async {
-    player = AudioPlayer();
-
-    booklistKey = GlobalKey<FirstWordBookPageState>();
-    textEditingController = TextEditingController();
-    textEditingController.addListener(() {});
-    scrollController = new ScrollController();
-    floatingSearchBarController = new FloatingSearchBarController();
-
-    scrollController.addListener(() {
-      scrollControllerListener();
-    });
-
+  Future<WordBookController> initController() async {
     // 加载用户单词
-    wordBookList = await loadWordLisk();
-
-    return true;
+    player = AudioPlayer();
+    textEditingController = TextEditingController();
+    return this;
   }
 }

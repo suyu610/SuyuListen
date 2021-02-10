@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
@@ -14,10 +15,9 @@ class CustomCardShapePainter extends CustomPainter {
 
     var paint = Paint();
     paint.shader = ui.Gradient.linear(
-        Offset(0, 0), Offset(size.width, size.height), [
-      HSLColor.fromColor(startColor).withLightness(0.8).toColor(),
-      endColor
-    ]);
+        Offset(0, 0),
+        Offset(size.width, size.height),
+        [HSLColor.fromColor(startColor).withAlpha(0.6).toColor(), endColor]);
 
     var path = Path()
       ..moveTo(0, size.height)

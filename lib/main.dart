@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 
+import 'controller/word_detail_controller.dart';
 import 'controller/wordbook_controller.dart';
 import 'entity/search_model.dart';
 import 'provider/key_provider.dart';
@@ -26,6 +27,8 @@ void main() async {
 
   Global.init().then((value) => runApp(
         MultiProvider(providers: [
+          ListenableProvider<WordDetailController>(
+              create: (_) => WordDetailController()),
           ListenableProvider<WordBookController>(
               create: (_) => WordBookController()),
           ListenableProvider<SearchModel>(
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
       production: false,
       debug: true, // 设置是否打印 debug 日志
     );
+    jpush.setBadge(0);
 
     jpush.addEventHandler(
       // 接收通知回调方法。

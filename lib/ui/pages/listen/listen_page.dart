@@ -156,7 +156,6 @@ class _ListenPageState extends State<ListenPage> {
                   color: blue,
                   child: Column(
                     children: [
-                      Text("hello"),
                       HistoryWidget(),
                       ProgressWidget(),
                       ControllerAreaWidget(),

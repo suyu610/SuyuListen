@@ -64,13 +64,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.17.3"
-  auto_animated:
-    dependency: "direct main"
-    description:
-      name: auto_animated
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.0"
   auto_size_text:
     dependency: transitive
     description:
@@ -1141,13 +1134,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.6.2"
-  visibility_detector:
-    dependency: transitive
-    description:
-      name: visibility_detector
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.5"
   watcher:
     dependency: transitive
     description:

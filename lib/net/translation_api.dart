@@ -96,4 +96,52 @@ Future<List<SimpleWordEntity>> getSimpleWordListByPrefix(
   return null;
 }
 
+// 查找一群单词
+
+// 通过单词查找
+Future<SimpleWordEntity> getSimpleWordByWord(List<String> word) async {
+  Response response;
+  Dio dio = new Dio(BaseOptions(
+      baseUrl: "https://api-word.qdu.life/",
+      contentType: Headers.jsonContentType));
+  response = await dio.post("/dict/getMeaning/$word");
+  if (response.statusCode == 200) {
+    // print(response.data);
+    HttpResponseEntity<SimpleWordEntity> result =
+        HttpResponseEntity<SimpleWordEntity>.fromJson(response.data);
+
+    if (result.code == "0" && result.data != null) {
+      return result.data;
+    }
+  }
+  return null;
+}
+
+// 通过单词查找
+Future<List<SimpleWordEntity>> getSimpleWordList(List<String> words) async {
+  Response response;
+  String wordParameter = "";
+  words.forEach((element) {
+    wordParameter += element;
+  });
+
+  print(wordParameter);
+  Dio dio = new Dio(BaseOptions(
+      baseUrl: "https://api-word.qdu.life/",
+      contentType: Headers.jsonContentType));
+  response = await dio.post("/dict/getMeaning/i/simple?words=$wordParameter");
+  if (response.statusCode == 200) {
+    // print(response.data);
+    HttpResponseListEntity<SimpleWordEntity> result =
+        HttpResponseListEntity<SimpleWordEntity>.fromJson(response.data);
+
+    if (result.code == "0") {
+      return result.data;
+    } else {
+      throw Exception("${result.msg}");
+    }
+  }
+  return null;
+}
+
 // http://192.168.3.11:2222/dict/getMeaning/prefix/aban/20

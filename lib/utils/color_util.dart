@@ -27,5 +27,5 @@ MaterialColor createMaterialColor(Color color) {
 
 // 获取颜色的随机透明度方法
 Color getRandomOpacityColor(Random random, {Color color = Colors.white}) {
-  return color.withAlpha(random.nextInt(200));
+  return color.withAlpha(random.nextInt(150));
 }

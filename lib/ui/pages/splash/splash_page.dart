@@ -58,14 +58,15 @@ class _SplashScreenState extends State<SplashScreen> {
               1.5,
               1000,
               SizedBox(
-                height: 32,
+                height: 50,
                 width: 1000,
                 child: WavyAnimatedTextKit(
                   speed: Duration(milliseconds: 200),
                   textAlign: TextAlign.center,
                   textStyle: TextStyle(
                       fontSize: 28.0,
-                      fontWeight: FontWeight.w200,
+                      // fontFamily: 'logoFonts',
+                      fontWeight: FontWeight.bold,
                       color: Colors.black),
                   text: [
                     "小兔崽听力",

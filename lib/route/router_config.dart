@@ -1,5 +1,5 @@
 import 'package:SuyuListening/ui/pages/listen/listen_page.dart';
-import 'package:SuyuListening/ui/pages/on_boarding_page.dart';
+import 'package:SuyuListening/ui/pages/onboarding_page.dart';
 import 'package:SuyuListening/ui/pages/records_detail/records_detail_page.dart';
 import 'package:SuyuListening/ui/pages/route_error_page.dart';
 import 'package:SuyuListening/ui/pages/test_page.dart';
@@ -89,12 +89,15 @@ class RouterConfig {
 
     var wordDetailPageHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+      List<String> temp = params["wordList"];
       // 设置成白天模式
       return ThemeSwitcher(
         clipper: ThemeSwitcherCircleClipper(),
         builder: (context) {
           ThemeSwitcher.of(context).changeTheme(theme: lightTheme);
-          return WordDetailPage();
+          return WordDetailPage(
+            wordList: temp,
+          );
         },
       );
     });
