@@ -16,16 +16,10 @@ class PlanetInfo {
 
 List<String> columnList = [
   "首页",
+  "对局信息",
   "已完成",
-  "Technology Report",
-  "This is America",
-  "Science in the News",
-  "Health Report",
-  "Education Report",
-  "Economics Report",
-  "American Mosaic",
-  "In the News",
-  "American Stories"
+  "VOA",
+  "四六级",
 ];
 List<PlanetInfo> planets = [
   PlanetInfo(0,

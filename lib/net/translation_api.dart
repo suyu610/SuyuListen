@@ -54,6 +54,7 @@ Future<YouDaoWordEntity> getYouDaoTranslation(String word) async {
   String mySha256Str = generatSha256(str1);
 
   Response response;
+
   Dio dio = new Dio(BaseOptions(
       baseUrl: "https://openapi.youdao.com/",
       contentType: Headers.jsonContentType));
@@ -120,18 +121,21 @@ Future<SimpleWordEntity> getSimpleWordByWord(List<String> word) async {
 // 通过单词查找
 Future<List<SimpleWordEntity>> getSimpleWordList(List<String> words) async {
   Response response;
-  String wordParameter = "";
-  words.forEach((element) {
-    wordParameter += element;
-  });
 
+  words.remove("");
+
+  String wordParameter = "";
+  wordParameter = words.join(",");
+
+  wordParameter = wordParameter.trim();
+  print("========getSimpleWordList========");
   print(wordParameter);
+  print("================================");
   Dio dio = new Dio(BaseOptions(
       baseUrl: "https://api-word.qdu.life/",
       contentType: Headers.jsonContentType));
   response = await dio.post("/dict/getMeaning/i/simple?words=$wordParameter");
   if (response.statusCode == 200) {
-    // print(response.data);
     HttpResponseListEntity<SimpleWordEntity> result =
         HttpResponseListEntity<SimpleWordEntity>.fromJson(response.data);
 
@@ -141,6 +145,9 @@ Future<List<SimpleWordEntity>> getSimpleWordList(List<String> words) async {
       throw Exception("${result.msg}");
     }
   }
+
+  print("========getSimpleWordList========");
+
   return null;
 }
 

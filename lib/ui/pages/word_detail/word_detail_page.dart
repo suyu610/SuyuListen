@@ -241,7 +241,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                   SizedBox(height: 10.h),
                                 ] +
                                 splitWrapStr(wordList[index].translation,
-                                    TextStyle(fontSize: 28.sp)),
+                                    TextStyle(fontSize: 28.sp), TextAlign.left),
                           )),
                     ),
                     Padding(

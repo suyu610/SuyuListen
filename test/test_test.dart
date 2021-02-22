@@ -2,10 +2,7 @@ import 'package:SuyuListening/utils/check_util.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
-  test('lrc util', () {
-
-
-  });
+  // test('lrc util', () async {});
   test('checkStr function', () {
     var originStr = "hello";
     var rightStr = "hello my name is";

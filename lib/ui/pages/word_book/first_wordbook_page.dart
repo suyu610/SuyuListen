@@ -27,13 +27,12 @@ class FirstWordBookPageState extends State<FirstWordBookPage> {
     super.initState();
   }
 
-  var colorItems = [
-    RandomGradientColor(Color(0xff6DC8F3), Color(0xff73A1F9)),
-    RandomGradientColor(Color(0xffFFB157), Color(0xffFFA057)),
-    RandomGradientColor(Color(0xffFF5B95), Color(0xffF8556D)),
+  List<RandomGradientColor> colorItems = [
+    RandomGradientColor(Color(0xfffff3d2), Color(0xfffff3d2)),
+    RandomGradientColor(Color(0xffbdefed), Color(0xffbdefed)),
   ];
 
-  var colorList = [yellow, red, blue, orange, green];
+  // var colorList = [yellow, red, blue, orange, green];
 
   @override
   Widget build(BuildContext context) {

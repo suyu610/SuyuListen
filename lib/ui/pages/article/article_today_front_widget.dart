@@ -1,6 +1,7 @@
 // ignore: must_be_immutable
 import 'dart:async';
 import 'dart:ui';
+import 'package:SuyuListening/entity/article/user_article_entity.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -10,21 +11,20 @@ import 'package:ionicons/ionicons.dart' as icon_2;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constant/theme_color.dart';
-import '../../../entity/article_entity.dart';
 
 class TodayArticleFrontWidget extends StatefulWidget {
   const TodayArticleFrontWidget({
     this.model,
     Key key,
   }) : super(key: key);
-  final ArticleEntity model;
+  final UserArticleEntity model;
   @override
   _TodayArticleFrontWidgetState createState() =>
       _TodayArticleFrontWidgetState();
 }
 
 class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
-  ArticleEntity model;
+  UserArticleEntity model;
   Image myImage;
   Timer timer;
   @override
@@ -109,7 +109,7 @@ class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
                           children: <Widget>[
                             // 标题
                             Text(
-                              model.title,
+                              model.articleEntity.title,
                               maxLines: 2,
                               style: TextStyle(
                                   shadows: [
@@ -139,7 +139,7 @@ class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
                                     width: 10.w,
                                   ),
                                   Text(
-                                    model.coint.toString(),
+                                    model.articleEntity.coins.toString(),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 34.sp),
                                   ),
@@ -150,7 +150,7 @@ class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: RatingBar(
-                                rating: model.level.index.toDouble(),
+                                rating: model.articleEntity.level.index.toDouble(),
                                 icon: Icon(
                                   Icons.star,
                                   size: 30.sp,

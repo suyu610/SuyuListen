@@ -15,6 +15,9 @@ class HttpResponseListEntity<T> {
     }
     msg = json['msg'];
   }
+
+
+  
 }
 
 class HttpResponseEntity<T> {

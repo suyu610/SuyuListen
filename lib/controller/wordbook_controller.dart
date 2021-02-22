@@ -29,33 +29,45 @@ class WordBookController extends ChangeNotifier implements MyPageController {
   int get pageIndex => _pageIndex;
   int _currentWordIndexOnTap = -1;
 
+  // 记录按了几次help按钮
+  int _helpBtnTapCount = 0;
+  // 不记得了单词了，怎么办，按一下，如果你之前输入的是对的，那么就在你的基础上，再新放出来一个字母
+  // 如果你是错的，那么把你清空，并给你一个新的字母
+  helpWhenEditing() {
+    String correctWord = currentWordEntity.word;
+    if (_helpBtnTapCount < correctWord.length) {
+      _helpBtnTapCount++;
+    }
+    textEditingController.text = correctWord.substring(0, _helpBtnTapCount);
+    textEditingController.selection =
+        TextSelection.collapsed(offset: textEditingController.text.length);
+  }
+
   Future<bool> loadWordList() async {
     // 模拟从数据库中拿数据
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: 300));
     if (_wordBookList == null) {
       _wordBookList = [
-        UserWordEntity(word: "hfss", definition: "皇甫素素", tempIsCompelete: true),
-        UserWordEntity(word: "abandon", definition: "抛弃;抛弃 "),
-        UserWordEntity(
-            word: "abc", definition: "字母表（尤指儿童学习的全部字母）;（某学科的）基础知识，入门"),
-        UserWordEntity(word: "hello", definition: "你好"),
-        UserWordEntity(word: "sun", definition: "太阳"),
-        UserWordEntity(word: "moon", definition: "月亮"),
-        UserWordEntity(word: "lol", definition: "英雄联盟"),
-        UserWordEntity(word: "girl", definition: "女孩"),
-        UserWordEntity(word: "play", definition: "玩")
+        // UserWordEntity(word: "hfss", definition: "皇甫素素", tempIsCompelete: true),
+        // UserWordEntity(word: "abandon", definition: "抛弃;抛弃 "),
+        // UserWordEntity(
+        //     word: "abc", definition: "字母表（尤指儿童学习的全部字母）;（某学科的）基础知识，入门"),
+        // UserWordEntity(word: "hello", definition: "你好"),
+        // UserWordEntity(word: "sun", definition: "太阳"),
+        // UserWordEntity(word: "moon", definition: "月亮"),
+        // UserWordEntity(word: "girl", definition: "女孩"),
+        // UserWordEntity(word: "play", definition: "玩")
       ];
     }
     return true;
   }
 
   void addToWordBook(SimpleWordEntity word) {
-    
     UserWordEntity userWordEntity = UserWordEntity(
         word: word.word ?? "null", definition: word.translation ?? "");
     _wordBookList.insert(0, userWordEntity);
     EasyLoading.showSuccess("添加成功");
-    _floatingSearchBarController.close();
+    // _floatingSearchBarController.close();
     notifyListeners();
   }
 
@@ -138,6 +150,8 @@ class WordBookController extends ChangeNotifier implements MyPageController {
         break;
       // 如果是中文模式， 则出来一个对话框，让用户写单词
       case DefinitinoEnum.CH:
+        _helpBtnTapCount = 0;
+        textEditingController.text = "";
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -146,7 +160,8 @@ class WordBookController extends ChangeNotifier implements MyPageController {
         break;
       // 如果是both模式，则跳转到单词详情页
       default:
-        RouterHelper.router.navigateTo(context, '/word_detail',
+        RouterHelper.router.navigateTo(
+            context, '/word_detail?wordList=${currentWordEntity.word}',
             transition: TransitionType.inFromRight,
             transitionDuration: Duration(milliseconds: 300));
     }

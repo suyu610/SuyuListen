@@ -12,12 +12,11 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_rating_bar/flutter_simple_rating_bar.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:ionicons/ionicons.dart' as icon_2;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ArticleListTile extends StatefulWidget {
-  const ArticleListTile({
+class ArticleFinishListTile extends StatefulWidget {
+  const ArticleFinishListTile({
     this.model,
     Key key,
   }) : super(key: key);
@@ -26,7 +25,7 @@ class ArticleListTile extends StatefulWidget {
   _ArticleListTileState createState() => _ArticleListTileState();
 }
 
-class _ArticleListTileState extends State<ArticleListTile>
+class _ArticleListTileState extends State<ArticleFinishListTile>
     with AutomaticKeepAliveClientMixin {
   UserArticleEntity model;
   Timer timer;
@@ -72,9 +71,8 @@ class _ArticleListTileState extends State<ArticleListTile>
     super.build(context);
     return GestureDetector(
       onTap: () => {
-        print(model.articleEntity),
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return ArticleDetailPage(articleEntity: model.articleEntity);
+          return ArticleDetailPage();
         }))
       },
       onLongPress: () => {
@@ -138,33 +136,65 @@ class _ArticleListTileState extends State<ArticleListTile>
                             ),
                           ),
                           SizedBox(
-                            height: 20.h,
+                            height: 30.h,
                           ),
                           // 积分
                           FadeAnimation(
                               1.1,
                               Container(
                                 // padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
-                                width: 100.w,
+                                width: 200.w,
                                 // color: Colors.black38,
                                 child: Row(
                                   children: [
                                     Icon(
-                                      icon_2.Ionicons.flower,
+                                      icon_2.Ionicons.time_outline,
                                       size: 30.sp,
                                       color: Colors.white,
                                     ),
                                     SizedBox(
                                       width: 10.w,
                                     ),
+
+                                    // 用时
                                     Text(
-                                      model.articleEntity.coins.toString(),
+                                      "10' 13''",
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 34.sp),
+                                          color: Colors.white, fontSize: 24.sp),
                                     ),
                                   ],
                                 ),
                               )),
+
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          // 完成时间
+                          FadeAnimation(
+                            1.3,
+                            Row(
+                              children: [
+                                Icon(
+                                  icon_2.Ionicons.calendar_outline,
+                                  size: 30.sp,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Text(
+                                  "2020-2-13",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           // 难度
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
@@ -196,130 +226,21 @@ class _ArticleListTileState extends State<ArticleListTile>
                         ],
                       ),
                     ),
-                    FadeAnimation(
-                        1.2,
-                        Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () => tapDownloadingButton(),
-                              child: model.isDownloading
-                                  ? Container(
-                                      margin: EdgeInsets.only(left: 10),
-                                      height: 55.h,
-                                      width: 55.h,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: model.downloadValue < 1
-                                              ? Colors.white
-                                              : yellow),
-                                      child: model.downloadValue < 1
-                                          ? Center(
-                                              child:
-                                                  LiquidCircularProgressIndicator(
-                                                value: model
-                                                    .downloadValue, // Defaults to 0.5.
-                                                valueColor: AlwaysStoppedAnimation(
-                                                    yellow), // Defaults to the current Theme's accentColor.
-                                                backgroundColor: Colors
-                                                    .transparent, // Defaults to the current Theme's backgroundColor.
-                                                direction: Axis
-                                                    .vertical, // The direction the liquid moves (Axis.vertical = bottom to top, Axis.horizontal = left to right). Defaults to Axis.vertical.
-                                                center: Text(
-                                                  (model.downloadValue * 100)
-                                                          .toInt()
-                                                          .toString() +
-                                                      "%",
-                                                  style: TextStyle(
-                                                      fontSize: 22.sp,
-                                                      color: Colors.black),
-                                                ),
-                                              ),
-                                            )
-                                          : Center(
-                                              child: Icon(
-                                                icon_2.Ionicons.checkmark,
-                                                color: Colors.black,
-                                                size: 36.sp,
-                                              ),
-                                            ),
-                                    )
-                                  : Container(
-                                      margin: EdgeInsets.only(left: 10),
-                                      width: 55.h,
-                                      height: 55.h,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white),
-                                      child: Center(
-                                        child: Icon(
-                                          icon_2
-                                              .Ionicons.cloud_download_outline,
-                                          color: Colors.black,
-                                          size: 36.sp,
-                                        ),
-                                      ),
-                                    ),
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            GestureDetector(
-                              onTap: () => tapBookMark(),
-                              child: Container(
-                                width: 55.h,
-                                height: 55.h,
-                                margin: EdgeInsets.only(left: 10),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color:
-                                        model.isMark ? yellow : Colors.white),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.bookmark_border_rounded,
-                                    color: Colors.black,
-                                    size: 36.sp,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ))
                   ],
-                ),
-                // 进度
-                FadeAnimation(
-                  1.3,
-                  BorderedText(
-                    strokeWidth: 2.0,
-                    strokeColor: Colors.black38,
-                    child: Text(
-                      model.studyProgress.toString() + "%",
-                      maxLines: 2,
-                      style: TextStyle(
-                          decoration: TextDecoration.none,
-                          decorationColor: Colors.red,
-                          color: Colors.white,
-                          fontSize: 60.sp,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
                 ),
               ],
             ),
             Positioned(
-              right: 90.w,
+              right: 0,
               bottom: 0,
-              child: Opacity(
-                opacity: 0.3,
-                child: Container(
-                  height: 200.h,
-                  width: 200.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(75.w),
-                    image: DecorationImage(
-                      alignment: Alignment.bottomRight,
-                      image: NetworkImage(model.articleEntity.imageUrl),
-                    ),
+              child: Container(
+                height: 300.h,
+                width: 150.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(75.w),
+                  image: DecorationImage(
+                    alignment: Alignment.bottomRight,
+                    image: NetworkImage(model.articleEntity.imageUrl),
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 //  flutter系统库
+import 'package:SuyuListening/entity/article/user_article_entity.dart';
 import 'package:flutter/material.dart';
 // 第三方库
 import 'package:flip_card/flip_card.dart';
@@ -14,7 +15,7 @@ class FirstPageWidget extends StatefulWidget {
     this.list,
     Key key,
   }) : super(key: key);
-  final List<ArticleEntity> list;
+  final List<UserArticleEntity> list;
   @override
   _FirstPageWidgetState createState() => _FirstPageWidgetState();
 }
@@ -82,7 +83,7 @@ class _FirstPageWidgetState extends State<FirstPageWidget> {
                         direction: FlipDirection.VERTICAL,
                         speed: 300,
                         front:
-                            TodayArticleFrontWidget(model: new ArticleEntity()),
+                            TodayArticleFrontWidget(model: widget.list.first),
                         back: TodayArticleBackWidget()),
                   ),
                 ),

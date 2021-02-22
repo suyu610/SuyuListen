@@ -1,13 +1,17 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:ui';
 
 import 'package:SuyuListening/config/global.dart';
+import 'package:SuyuListening/entity/article/user_article_entity.dart';
+import 'package:SuyuListening/ui/components/bubble/bubble_widget.dart';
+import 'package:bordered_text/bordered_text.dart';
+import 'package:grouped_list/grouped_list.dart';
 
 import '../../../constant/theme_color.dart';
-import '../../../entity/article_level_enum.dart';
-import '../../../entity/article_entity.dart';
+import '../../../entity/article/article_entity.dart';
 import '../../../sample_data/data.dart';
 import '../../components/animation/fade_animation.dart';
+import 'article_finish_list_tile.dart';
 import 'article_list_tile.dart';
 import 'article_first_page.dart';
 import 'package:badges/badges.dart';
@@ -20,8 +24,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart' as icon_2;
 
 class ArticleListPage extends StatefulWidget {
-  ArticleListPage({Key key}) : super(key: key);
-
+  ArticleListPage(this.list, {Key key}) : super(key: key);
+  final List<ArticleEntity> list;
   @override
   _ArticleListPageState createState() => _ArticleListPageState();
 }
@@ -39,7 +43,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
     "assets/saturn.png",
     "assets/uranus.png"
   ];
-  List<ArticleEntity> list;
+  List<UserArticleEntity> list;
   Future _onRefresh() async {
     double value = 0;
     Timer.periodic(Duration(milliseconds: 10), (timer) {
@@ -49,19 +53,19 @@ class _ArticleListPageState extends State<ArticleListPage> {
         //     status: '加载中...', maskType: EasyLoadingMaskType.black);
       } else {
         timer.cancel();
-        list.clear();
-        int count = Random().nextInt(10) + 1;
-
-        list = List.generate(count, (index) {
-          return new ArticleEntity()
-            ..title = "title"
-            ..coint = Random().nextInt(10)
-            ..level = randomLevel()
-            ..studyProgress = Random().nextInt(100)
-            ..downloadValue = 0
-            ..imageUrl =
-                coverImageList[Random().nextInt(coverImageList.length)];
-        });
+        // list.clear();
+        // int count = Random().nextInt(10) + 1;
+        // list = List.generate(count, (index) {
+        //   return new UserArticleEntity()
+        //     ..studyProgress = Random().nextInt(100)
+        //     ..downloadValue = 0
+        //     ..articleEntity = new ArticleEntity(
+        //         title: "title",
+        //         coins: Random().nextInt(10),
+        //         level: randomLevel(),
+        //         imageUrl:
+        //             coverImageList[Random().nextInt(coverImageList.length)]);
+        // });
         EasyLoading.showSuccess("加载完成");
         setState(() {});
         easyRefreshController.resetLoadState();
@@ -69,28 +73,7 @@ class _ArticleListPageState extends State<ArticleListPage> {
     });
   }
 
-  Future _onLoading() async {
-    // EasyLoading.showProgress(0,
-    //     status: "加载中", maskType: EasyLoadingMaskType.black);
-    if (list.length >= 15) {
-      // EasyLoading.showError("已经加载全部");
-      easyRefreshController.finishLoad(success: false, noMore: true);
-    } else {
-      await Future.delayed(Duration(milliseconds: 1000), () {
-        list.add(new ArticleEntity()
-          ..title = "title"
-          ..coint = Random().nextInt(10)
-          ..level = randomLevel()
-          ..studyProgress = Random().nextInt(100)
-          ..downloadValue = 0
-          ..imageUrl = coverImageList[Random().nextInt(coverImageList.length)]);
-        setState(() {});
-        easyRefreshController.finishLoad(success: true);
-      });
-    }
-
-    // EasyLoading.dismiss();
-  }
+  Future _onLoading() async {}
 
   void _changeTab(int index) {
     _pageController.animateToPage(index,
@@ -105,18 +88,13 @@ class _ArticleListPageState extends State<ArticleListPage> {
   @override
   void initState() {
     super.initState();
+    list = [];
     easyRefreshController = EasyRefreshController();
 
-    list = List.generate(10, (index) {
-      return new ArticleEntity()
-        ..title = "title"
-        ..coint = Random().nextInt(10)
-        ..level = randomLevel()
-        ..studyProgress = Random().nextInt(100)
-        ..downloadValue = 0
-        ..imageUrl = coverImageList[Random().nextInt(coverImageList.length)];
-    });
     _scrollController = new ScrollController();
+    widget.list.forEach((element) {
+      list.add(UserArticleEntity(articleEntity: element));
+    });
 
     _pageController = PageController();
 
@@ -227,6 +205,12 @@ class _ArticleListPageState extends State<ArticleListPage> {
                   child: Icon(Icons.home),
                 );
               }
+              if (f == "对局信息") {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.person),
+                );
+              }
               return Container(
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -253,33 +237,20 @@ class _ArticleListPageState extends State<ArticleListPage> {
         // ),
         body: Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: PageView.builder(
-                itemCount: columnList.length,
+            child: PageView(
                 onPageChanged: _onPageChanged,
                 controller: _pageController,
                 physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return FirstPageWidget(list: list);
-                  }
-                  return Container(
+                children: [
+                  FirstPageWidget(list: list),
+                  Container(
+                    child: Center(
+                      child: Text("对局信息"),
+                    ),
+                  ),
+                  Container(
                     padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                    child: EasyRefresh(
-                      header: DeliveryHeader(
-                        backgroundColor: Theme.of(context).backgroundColor,
-                      ),
-                      footer: ClassicalFooter(
-                        // infoText: "6",
-                        noMoreText: "没有",
-                        loadFailedText: "失败",
-                        loadedText: "加载完成",
-                        // noMoreText: "4",
-                        loadingText: "加载中...",
-                        // loadReadyText: "1",
-                        // loadText: "2",
-                      ),
-                      onRefresh: _onRefresh,
-                      onLoad: _onLoading,
+                    child: SingleChildScrollView(
                       child: ListView.builder(
                         itemCount: list.length,
                         physics: NeverScrollableScrollPhysics(),
@@ -289,14 +260,141 @@ class _ArticleListPageState extends State<ArticleListPage> {
                         itemBuilder: (BuildContext context, int index) {
                           return FadeAnimation(
                             0,
-                            ArticleListTile(
+                            ArticleFinishListTile(
                               model: list[index],
                             ),
                           );
                         },
                       ),
                     ),
-                  );
-                })));
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                    child: EasyRefresh(
+                      header: DeliveryHeader(
+                        backgroundColor: Theme.of(context).backgroundColor,
+                      ),
+                      footer: ClassicalFooter(
+                        noMoreText: "没有",
+                        loadFailedText: "失败",
+                        loadedText: "加载完成",
+                        loadingText: "加载中...",
+                      ),
+                      onRefresh: _onRefresh,
+                      onLoad: _onLoading,
+                      child: GroupedListView<dynamic, String>(
+                        elements: list,
+                        groupBy: (element) => element.articleEntity.topic,
+                        shrinkWrap: true,
+                        groupSeparatorBuilder: (String groupByValue) => Center(
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 8),
+                            decoration: BoxDecoration(
+                                color: yellow,
+                                borderRadius: BorderRadius.circular(4)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, right: 8, top: 5, bottom: 5),
+                              child: Text(
+                                "话题:  " + groupByValue,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ),
+                        ),
+                        indexedItemBuilder:
+                            (context, dynamic element, int index) =>
+                                FadeAnimation(
+                          0,
+                          ArticleListTile(
+                            model: list[index],
+                          ),
+                        ),
+                        itemComparator: (item1, item2) => item1
+                            .articleEntity.topic
+                            .compareTo(item2.articleEntity.topic), // optional
+                        useStickyGroupSeparators: false, // optional
+                        floatingHeader: false, // optional
+                        order: GroupedListOrder.ASC, // optional
+                      ),
+                    ),
+                  ),
+                  Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      buildBackground(),
+                      buildBlurWidget(),
+                      Container(
+                        color: Colors.transparent,
+                        child: Center(
+                            child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            BorderedText(
+                              strokeColor: black,
+                              strokeWidth: 6.0,
+                              child: Text(
+                                'under',
+                                style: TextStyle(
+                                  color: white,
+                                  fontFamily: 'gta5Fonts',
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.normal,
+                                  // letterSpacing: 2,
+                                  decoration: TextDecoration.none,
+                                  decorationStyle: TextDecorationStyle.wavy,
+                                  decorationColor: Colors.red,
+                                ),
+                              ),
+                            ),
+                            BorderedText(
+                              strokeColor: black,
+                              strokeWidth: 6.0,
+                              child: Text(
+                                'Development',
+                                style: TextStyle(
+                                  color: Color(0xfff2001b),
+                                  fontSize: 50,
+                                  fontFamily: 'gta5Fonts',
+                                  fontWeight: FontWeight.normal,
+                                  // letterSpacing: 2,
+                                  decoration: TextDecoration.none,
+                                  decorationStyle: TextDecorationStyle.wavy,
+                                  decorationColor: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                            // child: BorderedText(
+                            //   child:Text("开发中"),
+                            //   style: TextStyle(
+                            //       color: black, fontSize: 60, fontWeight: FontWeight.bold),
+                            // ),
+                            ),
+                      ),
+                      BubbleWidget(),
+                    ],
+                  )
+                ])));
   }
+
+  buildBackground() => Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+              Color(0xffffa289), //#ffa289
+              Color(0xffd07923), //#d07923
+              Color(0xffaa2b25), //#aa2b25
+            ])),
+      );
+  buildBlurWidget() => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 0.3, sigmaY: 0.3),
+        child: Container(
+          color: Colors.white.withOpacity(0.1),
+        ),
+      );
 }

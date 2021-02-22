@@ -4,6 +4,30 @@
 // <tense><tense>
 
 ///
+/// 单词检查
+///
+String checkWord(String originStr, String rightStr,int count) {
+  var outputStr = [];
+  if (originStr == rightStr) {
+    return rightStr;
+  } else {
+    var originArr = originStr.split('');
+    var rightArr = rightStr.split('');
+    // 选一个更长的
+    rightArr.asMap().forEach((index, value) => {
+          // 未超出
+          if (index > originArr.length - 1)
+            {outputStr.add("  <miss>" + value + "</miss>")}
+          else if (originArr[index] == value)
+            {outputStr.add("  <normal>" + value + "</normal>")}
+          else
+            {outputStr.add("  <error>" + originArr[index] + "</error>")}
+        });
+    return outputStr.join('');
+  }
+}
+
+///
 /// 听力检查
 ///
 

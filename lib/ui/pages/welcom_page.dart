@@ -1,3 +1,5 @@
+
+
 import '../../constant/theme_color.dart';
 import '../../route/router_helper.dart';
 import '../../ui/components/buttons/fancy_button.dart';
@@ -10,6 +12,8 @@ import 'package:styled_text/styled_text.dart';
 import 'login/login_page.dart';
 
 class WelcomePage extends StatelessWidget {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,7 +1,10 @@
 import 'package:SuyuListening/config/global.dart';
+import 'package:SuyuListening/net/post_api.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'slider_menu/slider_menu_page.dart';
-
+import 'package:SuyuListening/db/dao/article_dao.dart';
+import 'package:SuyuListening/entity/entities.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,8 +20,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  ArticleDAO articleDAO;
+  List<ArticleEntity> list;
+  void getList() async {}
+
+  Future<List<ArticleEntity>> getUpdate() async {
+    PostApi postApi = PostApi.instance;
+    list = await postApi.getUpdateAPI(1613010188308);
+
+    // 插到数据库中
+    list.forEach((element) {
+      articleDAO.insert(element);
+    });
+
+    return list;
+  }
+
   @override
   void initState() {
+    articleDAO = new ArticleDAO();
+    // print(articleDAO.deleteAllArticle());
+    // getUpdate();
+    // getList();
     super.initState();
   }
 
@@ -40,7 +63,20 @@ class _HomePageState extends State<HomePage> {
       child: InnerDrawer(
         key: Global.innerDrawerKey,
         leftChild: _buildLeftChild(context),
-        scaffold: ArticleListPage(),
+
+        scaffold: FutureBuilder(
+            future: getUpdate(),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ArticleEntity>> snapshot) {
+              if (snapshot.hasData) {
+                return ArticleListPage(snapshot.data);
+              } else {
+                return SpinKitFadingCircle(
+                  color: Colors.black,
+                  size: 30.0,
+                );
+              }
+            }),
         // 一些配置
         onTapClose: true,
         swipe: true,

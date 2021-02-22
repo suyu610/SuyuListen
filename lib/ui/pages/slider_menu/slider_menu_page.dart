@@ -187,7 +187,7 @@ class MenuWidget extends StatelessWidget {
                     width: 60.w,
                   ),
                   Icon(
-                    Ionicons.flash,
+                    Ionicons.flash_outline,
                     size: 30.sp,
                   )
                 ],
