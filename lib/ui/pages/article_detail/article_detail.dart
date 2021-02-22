@@ -104,7 +104,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               width: 20.w,
                             ),
                             Text(
-                              'Word List',
+                              '赛前热身',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: 'SFProText',
