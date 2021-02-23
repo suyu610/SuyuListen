@@ -50,7 +50,7 @@ class RouteErrorPage extends StatelessWidget {
                       : RouterHelper.router
                           .navigateTo(context, "/splash", clearStack: true);
                 },
-                label: Text("刷新".toUpperCase()),
+                label: Text("返回".toUpperCase()),
                 icon: Icon(Icons.refresh),
               ),
               SizedBox(

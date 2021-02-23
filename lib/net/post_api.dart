@@ -20,16 +20,14 @@ class PostApi {
 
   Future<List<ArticleEntity>> getUpdateAPI(int timeStamp) async {
     Response response;
-
     Dio dio = new Dio(BaseOptions(
         baseUrl: "https://api-word.qdu.life/",
         contentType: Headers.jsonContentType));
     response = await dio.post("post/getUpdate/$timeStamp");
     if (response.statusCode == 200) {
-      // print(response.data);
+      print(response.data);
       HttpResponseListEntity<ArticleEntity> result =
           HttpResponseListEntity<ArticleEntity>.fromJson(response.data);
-
       if (result.code == "0") {
         return result.data;
       } else {

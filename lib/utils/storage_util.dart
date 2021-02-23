@@ -20,6 +20,11 @@ Future<String> getAudiosFolderPath() async {
   return "${dir.path}/audios";
 }
 
+Future<String> getLrcFolderPath() async {
+  final dir = await getExternalStorageDirectory();
+  return "${dir.path}/lrc";
+}
+
 Future<int> getFileLength(String fileNameWithPath) async {
   var file = File(fileNameWithPath);
   if ((await file.exists())) {

@@ -9,7 +9,7 @@ class EntityFactory {
     } else if (T.toString() == "YouDaoWordEntity") {
       return YouDaoWordEntity.fromJson(json) as T;
     } else if (T.toString() == "ArticleEntity") {
-      return ArticleEntity.fromJson(json) as T;
+      return ArticleEntity.fromMap(json) as T;
     } else {
       return null;
     }

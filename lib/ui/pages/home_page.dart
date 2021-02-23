@@ -22,15 +22,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ArticleDAO articleDAO;
   List<ArticleEntity> list;
-  void getList() async {}
-
+  void getList() async {}  
   Future<List<ArticleEntity>> getUpdate() async {
     PostApi postApi = PostApi.instance;
     list = await postApi.getUpdateAPI(1613010188308);
 
     // 插到数据库中
     list.forEach((element) {
-      articleDAO.insert(element);
+      print(element);
+      //   articleDAO.insert(element);
     });
 
     return list;
@@ -39,9 +39,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     articleDAO = new ArticleDAO();
-    // print(articleDAO.deleteAllArticle());
-    // getUpdate();
-    // getList();
     super.initState();
   }
 
@@ -63,18 +60,24 @@ class _HomePageState extends State<HomePage> {
       child: InnerDrawer(
         key: Global.innerDrawerKey,
         leftChild: _buildLeftChild(context),
-
         scaffold: FutureBuilder(
             future: getUpdate(),
             builder: (BuildContext context,
                 AsyncSnapshot<List<ArticleEntity>> snapshot) {
-              if (snapshot.hasData) {
-                return ArticleListPage(snapshot.data);
-              } else {
-                return SpinKitFadingCircle(
-                  color: Colors.black,
-                  size: 30.0,
-                );
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return new Text('Press button to start');
+                case ConnectionState.waiting:
+                  return SpinKitFadingCircle(
+                    color: Colors.black,
+                    size: 30.0,
+                  );
+
+                default:
+                  if (snapshot.hasError)
+                    return new Text('Error: ${snapshot.error}');
+                  else //若_calculation执行正常完成
+                    return ArticleListPage(snapshot.data);
               }
             }),
         // 一些配置

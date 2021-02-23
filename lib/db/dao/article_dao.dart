@@ -48,7 +48,7 @@ class ArticleDAO extends BaseDBProvider {
     // 判断如果没有该title,则插入，否则不插入
     bool isExist = await isExistByTitle(articleEntity.title);
     if (!isExist) {
-      return await db.insert(name, articleEntity.toJson());
+      return await db.insert(name, articleEntity.toMap());
     }
   }
 
@@ -61,7 +61,7 @@ class ArticleDAO extends BaseDBProvider {
     List<Map<String, dynamic>> maps =
         await db.query(name, where: "id=?", whereArgs: [id]);
     if (maps.length > 0) {
-      ArticleEntity articleEntity = ArticleEntity.fromJson(maps.first);
+      ArticleEntity articleEntity = ArticleEntity.fromMap(maps.first);
       return articleEntity;
     }
     return null;
@@ -90,7 +90,7 @@ class ArticleDAO extends BaseDBProvider {
     List<Map<String, dynamic>> maps = await db.query(name);
     if (maps.length > 0) {
       List<ArticleEntity> list =
-          maps.map((e) => ArticleEntity.fromJson(e)).toList();
+          maps.map((e) => ArticleEntity.fromMap(e)).toList();
       return list;
     }
     return null;

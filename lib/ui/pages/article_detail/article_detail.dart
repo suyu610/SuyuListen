@@ -40,6 +40,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
   List<GlobalKey<FlipCardState>> cardKeys = [];
   int currentIndex = 0;
   List<SimpleWordEntity> wordlist;
+  var _futureBuilderFuture;
 
   Future<List<SimpleWordEntity>> getWordList() async {
     wordlist =
@@ -53,7 +54,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
     player = AudioPlayer();
     cardKeys =
         List.generate(planets.length, (i) => new GlobalKey<FlipCardState>());
-
+    _futureBuilderFuture = getWordList();
     super.initState();
   }
 
@@ -108,9 +109,9 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: 'SFProText',
-                                fontSize: 64.sp,
+                                fontSize: 44.sp,
                                 color: const Color(0xffffffff),
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ],
@@ -121,7 +122,10 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
                             color: Colors.white,
                             size: 32.sp,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            RouterHelper.router
+                                .navigateTo(context, "/word_book");
+                          },
                         ),
                       ],
                     ),
@@ -239,342 +243,9 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
               ),
               SizedBox(height: 40.h),
               FutureBuilder(
-                  future: getWordList(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<SimpleWordEntity>> snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.none:
-                        return new Text(
-                            'Press button to start'); //如果_calculation未执行则提示：请点击开始
-                      case ConnectionState.waiting:
-                        return Container(
-                          height: 600.h,
-                          child: SpinKitFadingCircle(
-                            color: Colors.black,
-                            size: 30.0,
-                          ),
-                        );
-                      //如果_calculation正在执行则提示：加载中
-                      default:
-                        if (snapshot.hasError) //若_calculation执行出现异常
-                          return new Text('Error: ${snapshot.error}');
-                        else //若_calculation执行正常完成
-                          return Container(
-                            height: 600.h,
-                            color: Colors.transparent,
-                            padding: const EdgeInsets.only(left: 32),
-                            child: Swiper(
-                              onIndexChanged: (index) => onIndexchanged(index),
-                              itemCount: snapshot.data.length,
-                              itemWidth:
-                                  MediaQuery.of(context).size.width - 2 * 55,
-                              layout: SwiperLayout.STACK,
-                              itemBuilder: (context, index) {
-                                return FlipCard(
-                                  key: cardKeys[index],
-                                  speed: 350,
-                                  direction: FlipDirection.VERTICAL,
-                                  front: Stack(
-                                    children: <Widget>[
-                                      Column(
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 60.h,
-                                          ),
-                                          Card(
-                                            elevation: 8,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(32),
-                                            ),
-                                            color: Colors.white,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(20.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  SizedBox(height: 50.h),
-                                                  Text(
-                                                    wordlist[index].word,
-                                                    style: TextStyle(
-                                                      fontFamily: 'SFProText',
-                                                      fontSize: 74.sp,
-                                                      color: const Color(
-                                                          0xff47455f),
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                    ),
-                                                    textAlign: TextAlign.right,
-                                                  ),
-                                                  SizedBox(height: 20.h),
-                                                  // 音标
-                                                  Container(
-                                                    height: 120.h,
-                                                    child: Text(
-                                                      "/ ${wordlist[index].phonetic} /",
-                                                      style: TextStyle(
-                                                        fontFamily: 'SFProText',
-                                                        fontSize: 30.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                      textAlign: TextAlign.left,
-                                                    ),
-                                                  ),
-
-                                                  //标签
-                                                  Row(
-                                                      children: wordlist[index]
-                                                                  .tag ==
-                                                              ""
-                                                          ? [
-                                                              Container(
-                                                                height: 50.h,
-                                                              )
-                                                            ]
-                                                          : wordlist[index]
-                                                              .tag
-                                                              .split(" ")
-                                                              .map((element) {
-                                                              return Container(
-                                                                  height: 50.h,
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        right:
-                                                                            8.0),
-                                                                    child: Text(
-                                                                      wordTagSwitch(
-                                                                          element),
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontFamily:
-                                                                            'SFProText',
-                                                                        fontSize:
-                                                                            24.sp,
-                                                                        color: Colors
-                                                                            .grey[300],
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                      ),
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                    ),
-                                                                  ));
-                                                            }).toList()),
-                                                  SizedBox(height: 10.h),
-
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      InkWell(
-                                                        onTap: () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (ctx) {
-                                                              return Center(
-                                                                  child: SpinKitHourGlass(
-                                                                      color:
-                                                                          white));
-                                                            },
-                                                          );
-
-                                                          // 关闭上面的弹窗
-                                                          Navigator.pop(
-                                                              context);
-                                                          return RouterHelper
-                                                              .router
-                                                              .navigateTo(
-                                                            context,
-                                                            "/word_detail?wordList=abandon,abortion,caption",
-                                                            transition:
-                                                                TransitionType
-                                                                    .fadeIn,
-                                                            transitionDuration:
-                                                                Duration(
-                                                                    milliseconds:
-                                                                        300),
-                                                          );
-                                                        },
-                                                        child: Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              color: blue),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    top: 10.0,
-                                                                    bottom:
-                                                                        10.0,
-                                                                    left: 20,
-                                                                    right: 20),
-                                                            child: Text(
-                                                              '详细',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'SFProText',
-                                                                fontSize: 30.sp,
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 80.w,
-                                                      ),
-                                                      GestureDetector(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(12.0),
-                                                          child: Icon(
-                                                              Icons
-                                                                  .headset_mic_rounded,
-                                                              size: 44.sp,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                        onTap: () {
-                                                          tapPlayAudioButton(
-                                                              wordlist[index]
-                                                                  .word);
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-
-                                      //顶部头像
-                                      Positioned(
-                                        top: 10.h,
-                                        right: 0.w,
-                                        child: Hero(
-                                          tag: wordlist[index].word,
-                                          child: Image(
-                                            width: 220.w,
-                                            fit: BoxFit.fill,
-                                            image: AssetImage(
-                                                planets[index].iconImage),
-                                          ),
-                                        ),
-                                      ),
-                                      //数字
-
-                                      GestureDetector(
-                                        behavior: HitTestBehavior.translucent,
-                                        child: Container(
-                                          margin: EdgeInsets.only(
-                                              top: 200.h, left: 390.w),
-                                          //右下角的数字
-                                          child: Text(
-                                            (index + 1).toString(),
-                                            style: TextStyle(
-                                              fontFamily: 'SFProText',
-                                              fontSize: 200.sp,
-                                              color: primaryTextColor
-                                                  .withOpacity(0.04),
-                                              fontWeight: FontWeight.w900,
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  back: Stack(children: [
-                                    Column(
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: 60.h,
-                                        ),
-                                        Card(
-                                          elevation: 8,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(32),
-                                          ),
-                                          color: Colors.white,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(20.0),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(height: 50.h),
-                                                Text(
-                                                  wordlist[index].word,
-                                                  style: TextStyle(
-                                                    fontFamily: 'SFProText',
-                                                    fontSize: 40.sp,
-                                                    color:
-                                                        const Color(0xff47455f),
-                                                    fontWeight: FontWeight.w900,
-                                                  ),
-                                                  textAlign: TextAlign.right,
-                                                ),
-                                                SizedBox(height: 30.h),
-                                                // 详细
-                                                Container(
-                                                  width: double.infinity,
-                                                  height: 180.h,
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: splitWrapStr(
-                                                        wordlist[index]
-                                                            .translation,
-                                                        TextStyle(
-                                                          fontFamily:
-                                                              'SFProText',
-                                                          fontSize: 30.sp,
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                        TextAlign.left),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 90.h,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ]),
-                                );
-                              },
-                            ),
-                          );
-                    }
-                  }),
+                future: _futureBuilderFuture,
+                builder: _buildFuture,
+              ),
 
               //控制区域
               Container(
@@ -789,7 +460,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
               GestureDetector(
                 onTap: () => {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ListenPage();
+                    return ListenPage(articleEntity: widget.articleEntity);
                   }))
                 },
                 child: Container(
@@ -823,5 +494,285 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
             ])),
       ),
     );
+  }
+
+  Widget _buildFuture(
+      BuildContext context, AsyncSnapshot<List<SimpleWordEntity>> snapshot) {
+    switch (snapshot.connectionState) {
+      case ConnectionState.none:
+        return new Text('Press button to start'); //如果_calculation未执行则提示：请点击开始
+      case ConnectionState.waiting:
+        return Container(
+          height: 600.h,
+          child: SpinKitWanderingCubes(
+            color: Colors.white,
+            size: 30.0,
+          ),
+        );
+      //如果_calculation正在执行则提示：加载中
+      default:
+        if (snapshot.hasError) //若_calculation执行出现异常
+          return new Text('Error: ${snapshot.error}');
+        else //若_calculation执行正常完成
+          return Container(
+            height: 600.h,
+            color: Colors.transparent,
+            padding: const EdgeInsets.only(left: 32),
+            child: Swiper(
+              onIndexChanged: (index) => onIndexchanged(index),
+              itemCount: snapshot.data.length,
+              itemWidth: MediaQuery.of(context).size.width - 2 * 55,
+              layout: SwiperLayout.STACK,
+              itemBuilder: (context, index) {
+                return FlipCard(
+                  key: cardKeys[index],
+                  speed: 350,
+                  direction: FlipDirection.VERTICAL,
+                  front: Stack(
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 60.h,
+                          ),
+                          Card(
+                            elevation: 8,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  SizedBox(height: 50.h),
+                                  Text(
+                                    wordlist[index].word,
+                                    style: TextStyle(
+                                      fontFamily: 'SFProText',
+                                      fontSize: 74.sp,
+                                      color: const Color(0xff47455f),
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                  SizedBox(height: 20.h),
+                                  // 音标
+                                  Container(
+                                    height: 120.h,
+                                    child: Text(
+                                      "/ ${wordlist[index].phonetic} /",
+                                      style: TextStyle(
+                                        fontFamily: 'SFProText',
+                                        fontSize: 30.sp,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+
+                                  //标签
+                                  Row(
+                                      children: wordlist[index].tag == ""
+                                          ? [
+                                              Container(
+                                                height: 50.h,
+                                              )
+                                            ]
+                                          : wordlist[index]
+                                              .tag
+                                              .split(" ")
+                                              .map((element) {
+                                              return Container(
+                                                  height: 50.h,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 8.0),
+                                                    child: Text(
+                                                      wordTagSwitch(element),
+                                                      style: TextStyle(
+                                                        fontFamily: 'SFProText',
+                                                        fontSize: 24.sp,
+                                                        color: Colors.grey[300],
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      textAlign: TextAlign.left,
+                                                    ),
+                                                  ));
+                                            }).toList()),
+                                  SizedBox(height: 10.h),
+
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (ctx) {
+                                              return Center(
+                                                  child: SpinKitHourGlass(
+                                                      color: white));
+                                            },
+                                          );
+
+                                          // 关闭上面的弹窗
+                                          Navigator.pop(context);
+                                          return RouterHelper.router.navigateTo(
+                                            context,
+                                            "/word_detail?wordList=abandon,abortion,caption",
+                                            transition: TransitionType.fadeIn,
+                                            transitionDuration:
+                                                Duration(milliseconds: 300),
+                                          );
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: blue),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10.0,
+                                                bottom: 10.0,
+                                                left: 20,
+                                                right: 20),
+                                            child: Text(
+                                              '详细',
+                                              style: TextStyle(
+                                                fontFamily: 'SFProText',
+                                                fontSize: 30.sp,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              textAlign: TextAlign.left,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 80.w,
+                                      ),
+                                      GestureDetector(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Icon(Icons.headset_mic_rounded,
+                                              size: 44.sp, color: Colors.black),
+                                        ),
+                                        onTap: () {
+                                          tapPlayAudioButton(
+                                              wordlist[index].word);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      //顶部头像
+                      Positioned(
+                        top: 10.h,
+                        right: 0.w,
+                        child: Hero(
+                          tag: wordlist[index].word,
+                          child: Image(
+                            width: 220.w,
+                            fit: BoxFit.fill,
+                            image: AssetImage(planets[index].iconImage),
+                          ),
+                        ),
+                      ),
+                      //数字
+
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          margin: EdgeInsets.only(top: 200.h, left: 390.w),
+                          //右下角的数字
+                          child: Text(
+                            (index + 1).toString(),
+                            style: TextStyle(
+                              fontFamily: 'SFProText',
+                              fontSize: 200.sp,
+                              color: primaryTextColor.withOpacity(0.04),
+                              fontWeight: FontWeight.w900,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  back: Stack(children: [
+                    Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 60.h,
+                        ),
+                        Card(
+                          elevation: 8,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(height: 50.h),
+                                Text(
+                                  wordlist[index].word,
+                                  style: TextStyle(
+                                    fontFamily: 'SFProText',
+                                    fontSize: 40.sp,
+                                    color: const Color(0xff47455f),
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
+                                SizedBox(height: 30.h),
+                                // 详细
+                                Container(
+                                  width: double.infinity,
+                                  height: 180.h,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: splitWrapStr(
+                                        wordlist[index].translation,
+                                        TextStyle(
+                                          fontFamily: 'SFProText',
+                                          fontSize: 30.sp,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                        TextAlign.left),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 90.h,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ]),
+                );
+              },
+            ),
+          );
+    }
   }
 }

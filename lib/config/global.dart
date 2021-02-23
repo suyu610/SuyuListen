@@ -54,6 +54,7 @@ void initRoute() {
 
 void createFolders() {
   createFolder("audios");
+  createFolder("lrc");
 }
 
 void initToast() {

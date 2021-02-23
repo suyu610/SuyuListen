@@ -53,19 +53,6 @@ class _ArticleListPageState extends State<ArticleListPage> {
         //     status: '加载中...', maskType: EasyLoadingMaskType.black);
       } else {
         timer.cancel();
-        // list.clear();
-        // int count = Random().nextInt(10) + 1;
-        // list = List.generate(count, (index) {
-        //   return new UserArticleEntity()
-        //     ..studyProgress = Random().nextInt(100)
-        //     ..downloadValue = 0
-        //     ..articleEntity = new ArticleEntity(
-        //         title: "title",
-        //         coins: Random().nextInt(10),
-        //         level: randomLevel(),
-        //         imageUrl:
-        //             coverImageList[Random().nextInt(coverImageList.length)]);
-        // });
         EasyLoading.showSuccess("加载完成");
         setState(() {});
         easyRefreshController.resetLoadState();

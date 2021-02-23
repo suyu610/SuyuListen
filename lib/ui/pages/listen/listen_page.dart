@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:isolate';
 import 'dart:ui';
 // 第三方库
+import 'package:SuyuListening/entity/entities.dart';
 import 'package:SuyuListening/provider/listen_provider.dart';
 import 'package:confetti/confetti.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -24,7 +25,9 @@ import '../../components/dialog/emoji_feedback.dart';
 import 'listen.dart';
 
 class ListenPage extends StatefulWidget {
-  ListenPage({Key key}) : super(key: key);
+  final ArticleEntity articleEntity;
+
+  ListenPage({this.articleEntity, Key key}) : super(key: key);
 
   @override
   _ListenPageState createState() => _ListenPageState();
@@ -39,6 +42,7 @@ class _ListenPageState extends State<ListenPage> {
   ///
   @override
   void initState() {
+    widget.articleEntity.lrcEntity.init();
     IsolateNameServer.registerPortWithName(
         _port.sendPort, 'downloader_send_port');
     _port.listen((dynamic data) {
