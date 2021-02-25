@@ -1,5 +1,5 @@
 import 'package:SuyuListening/config/styled_text_config.dart';
-import 'package:SuyuListening/provider/listen_provider.dart';
+import 'package:SuyuListening/controller/listen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:styled_text/styled_text.dart';
@@ -13,12 +13,12 @@ PreferredSizeWidget keyBoardFooterWidget(context) => PreferredSize(
           padding: const EdgeInsets.only(right: 8.0, left: 8),
           child: AnimatedOpacity(
             duration: Duration(milliseconds: 300),
-            opacity: Provider.of<ListenProvider>(context, listen: true)
+            opacity: Provider.of<ListenController>(context, listen: true)
                     .showCheckText
                 ? 1.0
                 : 0.0,
             child: StyledText(
-              text: Provider.of<ListenProvider>(context, listen: true)
+              text: Provider.of<ListenController>(context, listen: true)
                   .checkText,
               styles: styledTextConfig,
             ),

@@ -72,7 +72,6 @@ class _ArticleListTileState extends State<ArticleListTile>
     super.build(context);
     return GestureDetector(
       onTap: () => {
-        print(model.articleEntity),
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return ArticleDetailPage(articleEntity: model.articleEntity);
         }))
@@ -186,7 +185,6 @@ class _ArticleListTileState extends State<ArticleListTile>
                                 allowHalfRating: true,
                                 onRatingCallback: (double value,
                                     ValueNotifier<bool> isIndicator) {
-                                  print('Number of stars-->  $value');
                                   //change the isIndicator from false  to true ,the       RatingBar cannot support touch event;
                                   isIndicator.value = true;
                                 },

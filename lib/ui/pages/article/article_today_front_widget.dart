@@ -164,7 +164,6 @@ class _TodayArticleFrontWidgetState extends State<TodayArticleFrontWidget> {
                                 allowHalfRating: true,
                                 onRatingCallback: (double value,
                                     ValueNotifier<bool> isIndicator) {
-                                  print('Number of stars-->  $value');
                                   //change the isIndicator from false  to true ,the RatingBar cannot support touch event;
                                   isIndicator.value = true;
                                 },

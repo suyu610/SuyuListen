@@ -45,7 +45,6 @@ class WordDetailController extends ChangeNotifier implements MyPageController {
   int currentTabbarIndex = 0;
 
   onPageChanged(index) {
-    print(index);
     _tabController.animateTo(0);
     currentTabbarIndex = 0;
     notifyListeners();

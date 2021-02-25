@@ -68,7 +68,6 @@ class _ArticleListPageState extends State<ArticleListPage> {
   }
 
   void _onPageChanged(int index) {
-    print(index);
     _tabController.animateTo(index, duration: Duration(milliseconds: 300));
   }
 

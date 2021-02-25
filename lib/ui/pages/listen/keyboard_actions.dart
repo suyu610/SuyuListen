@@ -59,7 +59,6 @@ List<ButtonBuilder> keyboardActions = [
         EasyLoading.show(status: "正在录音", dismissOnTap: true)
       },
       onLongPressEnd: (detail) => {
-        print(detail),
         EasyLoading.instance.indicatorType = EasyLoadingIndicatorType.pulse,
         EasyLoading.show(status: "识别中", dismissOnTap: true),
         Future.delayed(

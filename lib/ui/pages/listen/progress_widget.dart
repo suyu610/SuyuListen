@@ -1,10 +1,10 @@
 import 'package:SuyuListening/constant/theme_color.dart';
+import 'package:SuyuListening/controller/listen_controller.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../provider/listen_provider.dart';
 import 'package:flutter/material.dart';
 
 class ProgressWidget extends StatefulWidget {
@@ -17,19 +17,27 @@ class ProgressWidget extends StatefulWidget {
 // 进度条
 class _ProgressWidgetState extends State<ProgressWidget> {
   AudioPlayer player;
+
   @override
   void initState() {
-    player =
-        Provider.of<ListenProvider>(context, listen: false).getPlayerInstance();
+    player = Provider.of<ListenController>(context, listen: false)
+        .getPlayerInstance();
     // _maxValue = player.duration.inMinutes.toDouble();
     super.initState();
+  }
+
+  Future<double> getMaxTime() async {
+    _maxValue = await Provider.of<ListenController>(context, listen: false)
+        .articleEntity
+        .lrcEntity
+        .getMaxTime();
+    return _maxValue.toDouble();
   }
 
   double _maxValue = 0;
   @override
   Widget build(BuildContext context) {
     if (player.duration != null) {
-      print(player.duration.inMilliseconds);
       _maxValue = player.duration.inMilliseconds.toDouble();
       setState(() {});
     } else {
@@ -38,11 +46,15 @@ class _ProgressWidgetState extends State<ProgressWidget> {
     return Container(
       padding: EdgeInsets.only(right: 6, left: 6),
       child: StreamBuilder<Duration>(
-        stream: player.durationStream,
+        stream: Provider.of<ListenController>(context, listen: false)
+            .getPlayerInstance()
+            .durationStream,
         builder: (context, snapshot) {
           final duration = snapshot.data ?? Duration.zero;
           return StreamBuilder<Duration>(
-            stream: player.positionStream,
+            stream: Provider.of<ListenController>(context, listen: false)
+                .getPlayerInstance()
+                .positionStream,
             builder: (context, snapshot) {
               var position = snapshot.data ?? Duration.zero;
               if (position > duration) {
@@ -79,18 +91,9 @@ class _ProgressWidgetState extends State<ProgressWidget> {
                             borderRadius: BorderRadius.circular(4),
                             color: yellow),
                       ),
-                      values: [
-                        (player.position ?? Duration(milliseconds: 100000))
-                            .inMilliseconds
-                            .toDouble(),
-                        (player.duration ?? Duration(milliseconds: 100000))
-                            .inMilliseconds
-                            .toDouble()
-                      ],
-                      max:
-                          _maxValue, //player.duration.inMilliseconds.toDouble() ?? 0,
+                      values: [position.inMicroseconds.toDouble()],
+                      max: duration.inMicroseconds.toDouble(),
                       min: 0,
-                      maximumDistance: 10000,
                       rtl: false,
                       handlerAnimation: FlutterSliderHandlerAnimation(
                           curve: Curves.elasticOut,
@@ -98,10 +101,9 @@ class _ProgressWidgetState extends State<ProgressWidget> {
                           duration: Duration(milliseconds: 700),
                           scale: 1.4),
                       onDragging: (handlerIndex, lowerValue, upperValue) {
-                        print(lowerValue);
-                        player
-                            .seek(Duration(milliseconds: (lowerValue).round()));
-                        setState(() {});
+                        Provider.of<ListenController>(context, listen: false)
+                            .getPlayerInstance()
+                            .seek(Duration(microseconds: (lowerValue).round()));
                       },
                     ),
                   ),

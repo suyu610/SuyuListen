@@ -54,10 +54,8 @@ class _CountdownWidgetState extends State<CountdownWidget> {
                 isReverseAnimation: false,
                 isTimerTextShown: true,
                 onStart: () {
-                  print('Countdown Started');
                 },
                 onComplete: () {
-                  print('Countdown Ended');
                 },
               ),
             ),

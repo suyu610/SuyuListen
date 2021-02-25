@@ -25,7 +25,6 @@ class PostApi {
         contentType: Headers.jsonContentType));
     response = await dio.post("post/getUpdate/$timeStamp");
     if (response.statusCode == 200) {
-      print(response.data);
       HttpResponseListEntity<ArticleEntity> result =
           HttpResponseListEntity<ArticleEntity>.fromJson(response.data);
       if (result.code == "0") {

@@ -31,9 +31,6 @@ String generatYoudaoInput(String word) {
         word.length.toString() +
         word.substring(word.length - 10, word.length);
   }
-  print("=====");
-  print(output);
-  print("=====");
   return output;
 }
 
@@ -86,7 +83,6 @@ Future<List<SimpleWordEntity>> getSimpleWordListByPrefix(
       contentType: Headers.jsonContentType));
   response = await dio.post("/dict/getMeaning/prefix/$prefix/$limit");
   if (response.statusCode == 200) {
-    // print(response.data);
     HttpResponseListEntity<SimpleWordEntity> result =
         HttpResponseListEntity<SimpleWordEntity>.fromJson(response.data);
 
@@ -107,7 +103,6 @@ Future<SimpleWordEntity> getSimpleWordByWord(List<String> word) async {
       contentType: Headers.jsonContentType));
   response = await dio.post("/dict/getMeaning/$word");
   if (response.statusCode == 200) {
-    // print(response.data);
     HttpResponseEntity<SimpleWordEntity> result =
         HttpResponseEntity<SimpleWordEntity>.fromJson(response.data);
 
@@ -128,9 +123,6 @@ Future<List<SimpleWordEntity>> getSimpleWordList(List<String> words) async {
   wordParameter = words.join(",");
 
   wordParameter = wordParameter.trim();
-  print("========getSimpleWordList========");
-  print(wordParameter);
-  print("================================");
   Dio dio = new Dio(BaseOptions(
       baseUrl: "https://api-word.qdu.life/",
       contentType: Headers.jsonContentType));
@@ -146,7 +138,6 @@ Future<List<SimpleWordEntity>> getSimpleWordList(List<String> words) async {
     }
   }
 
-  print("========getSimpleWordList========");
 
   return null;
 }

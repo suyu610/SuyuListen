@@ -22,14 +22,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ArticleDAO articleDAO;
   List<ArticleEntity> list;
-  void getList() async {}  
+
+  
   Future<List<ArticleEntity>> getUpdate() async {
     PostApi postApi = PostApi.instance;
     list = await postApi.getUpdateAPI(1613010188308);
 
     // 插到数据库中
     list.forEach((element) {
-      print(element);
       //   articleDAO.insert(element);
     });
 

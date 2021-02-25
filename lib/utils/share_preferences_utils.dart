@@ -19,13 +19,11 @@ class SharePreferencesUtils {
     final future = com.future;
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      print(prefs);
       String jsonEncodestr = jsonEncode(value);
       prefs.setString(key, jsonEncodestr);
       com.complete(true);
     } catch (err) {
       com.complete(false);
-      print(' save  is  err ,,,,,');
       print(err.toString());
     }
     return future;

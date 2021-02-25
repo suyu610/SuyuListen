@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:jpush_flutter/jpush_flutter.dart';
 
+import 'controller/listen_controller.dart';
 import 'controller/word_detail_controller.dart';
 import 'controller/wordbook_controller.dart';
 import 'entity/search_model.dart';
@@ -17,7 +18,6 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'ui/pages/splash/splash_page.dart';
 import 'config/global.dart';
 import 'constant/theme_color.dart';
-import 'provider/listen_provider.dart';
 import 'route/router_helper.dart';
 
 void main() async {
@@ -34,8 +34,8 @@ void main() async {
           ListenableProvider<SearchModel>(
             create: (_) => SearchModel(),
           ),
-          ListenableProvider<ListenProvider>(
-            create: (_) => ListenProvider(),
+          ListenableProvider<ListenController>(
+            create: (_) => ListenController(),
           ),
           ListenableProvider<KeyProvider>(
             create: (_) => KeyProvider(),
@@ -60,15 +60,12 @@ class MyApp extends StatelessWidget {
     jpush.addEventHandler(
       // 接收通知回调方法。
       onReceiveNotification: (Map<String, dynamic> message) async {
-        print("flutter onReceiveNotification: $message");
       },
       // 点击通知回调方法。
       onOpenNotification: (Map<String, dynamic> message) async {
-        print("flutter onOpenNotification: $message");
       },
       // 接收自定义消息回调方法。
       onReceiveMessage: (Map<String, dynamic> message) async {
-        print("flutter onReceiveMessage: $message");
       },
     );
     return ScreenUtilInit(

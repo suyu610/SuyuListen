@@ -105,9 +105,7 @@ class FirstWordBookPageState extends State<FirstWordBookPage> {
                 children: <Widget>[
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        print("..");
-                      },
+                      onTap: () {},
                       child:
                           Provider.of<WordBookController>(context, listen: true)
                                   .wordBookList[index]

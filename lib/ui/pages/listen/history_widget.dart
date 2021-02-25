@@ -38,7 +38,6 @@ class _HistoryWidgetState extends State<HistoryWidget>
 
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
-        print(visible);
         isKeyboardVisible = visible;
         if (!visible) {
           _animationController.forward();

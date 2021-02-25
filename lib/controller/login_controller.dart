@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class LoginController implements MyPageController {
   BuildContext context;
+
   @override
   Future initController() async {
     return true;

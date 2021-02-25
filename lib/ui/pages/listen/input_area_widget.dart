@@ -1,4 +1,5 @@
 import 'package:SuyuListening/constant/theme_color.dart';
+import 'package:SuyuListening/controller/listen_controller.dart';
 import 'package:SuyuListening/ui/components/keyboard_actions.dart/keyboard_actions.dart';
 import 'package:SuyuListening/utils/check_util.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -7,7 +8,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../provider/listen_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'keyboard_actions.dart';
@@ -28,7 +28,7 @@ class _InputAreaWidgetState extends State<InputAreaWidget> {
   KeyboardActionsConfig _buildConfig(BuildContext context) {
     return KeyboardActionsConfig(
       keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
-      keyboardBarColor: Provider.of<ListenProvider>(context, listen: true)
+      keyboardBarColor: Provider.of<ListenController>(context, listen: true)
           .keyboardActionAreaColor,
       nextFocus: false,
 
@@ -63,9 +63,9 @@ class _InputAreaWidgetState extends State<InputAreaWidget> {
               // TODO
               // 检查拼写,如果正确，则清空，并跳转到下一句
               if (outputStr == rightStr) {
-                Provider.of<ListenProvider>(context, listen: false).success();
+                Provider.of<ListenController>(context, listen: false).success();
                 EasyLoading.showSuccess("真棒!!!!").then((value) => {
-                      Provider.of<ListenProvider>(context, listen: false)
+                      Provider.of<ListenController>(context, listen: false)
                           .setCheckText('''
 <normal>hello! my name is hpy</normal>  
 \n<trans>\n【 译:你好！我的名字是黄鹏宇 】</trans>
@@ -77,9 +77,9 @@ class _InputAreaWidgetState extends State<InputAreaWidget> {
               }
               // 如果错误，应该
               else {
-                Provider.of<ListenProvider>(context, listen: false)
+                Provider.of<ListenController>(context, listen: false)
                     .setCheckText(outputStr);
-                Provider.of<ListenProvider>(context, listen: false)
+                Provider.of<ListenController>(context, listen: false)
                     .setShowCheckText();
                 // EasyLoading.showError("有错误");
               }
@@ -112,9 +112,11 @@ class _InputAreaWidgetState extends State<InputAreaWidget> {
                       title: "垃圾",
                       onConfirmBtnTap: () => {
                             Navigator.pop(context),
-                            Provider.of<ListenProvider>(context, listen: false)
+                            Provider.of<ListenController>(context,
+                                    listen: false)
                                 .setShowCheckText(),
-                            Provider.of<ListenProvider>(context, listen: false)
+                            Provider.of<ListenController>(context,
+                                    listen: false)
                                 .setCheckText('''
 <normal>hello! my name is hpy</normal>
                                     \n<trans>\n译:你好！我的名字是黄鹏宇</trans>

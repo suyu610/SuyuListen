@@ -17,42 +17,42 @@ class LrcEntity {
     this.lrcList,
   });
 
-  void init() async {
+  Future<void> init() async {
     // 首先判断本地是否存在
-    // 如果不存在则从网络上下载
-    var url = "https://cdns.qdu.life/suyuListen/files/$savePath" + ".lrc";
-    Dio dio = new Dio();
     String path = await getLrcFolderPath();
-    var response = await dio.download(url, path + "/" + savePath + ".txt",
-        options: Options(headers: {HttpHeaders.acceptEncodingHeader: "*"}),
-        onReceiveProgress: (received, total) {
-      if (total != -1) {
-        print((received / total * 100).toStringAsFixed(0) + "%");
-      }
-    });
+    File file = new File(path + "/" + savePath + ".txt");
+    if (!await file.exists()) {
+      // 如果不存在则从网络上下载
+      var url = "https://cdns.qdu.life/suyuListen/files/$savePath" + ".lrc";
+      Dio dio = new Dio();
+      String path = await getLrcFolderPath();
+      var response = await dio.download(url, path + "/" + savePath + ".txt",
+          options: Options(headers: {HttpHeaders.acceptEncodingHeader: "*"}),
+          onReceiveProgress: (received, total) {
+        if (total != -1) {
+        }
+      });
 
-    if (response.statusCode == 200) {
-      // 解析lrc
-      print(response);
-      parseLrcFile();
+      if (response.statusCode == 200) {
+        // 解析lrc
+        parseLrcFile();
+      } else {
+        throw Exception("下载失败");
+      }
     } else {
-      throw Exception("下载失败");
+      parseLrcFile();
     }
   }
 
-  void parseLrcFile() async {
+  Future<void> parseLrcFile() async {
     String path = await getLrcFolderPath();
     File file = new File(path + "/" + savePath + ".txt");
 
     if (!await file.exists()) {
       init();
     } else {
-      String lrcStr = await file.readAsString(encoding: latin1); // Error
-
+      String lrcStr = await file.readAsString(encoding: latin1);
       lrcList = LyricUtil.formatLyric(lrcStr);
-      lrcList.forEach((element) {
-        print(element.toString());
-      });
     }
   }
 
@@ -62,16 +62,19 @@ class LrcEntity {
   }
 
   // 获取最大时间
-  num getMaxTime() {
-    return lrcList.last.endTime.inMilliseconds;
+  Future<double> getMaxTime() async {
+    if (lrcList != null) {
+      return lrcList.last.endTime.inMilliseconds.toDouble();
+    } else {
+      await parseLrcFile();
+      return lrcList.last.endTime.inMilliseconds.toDouble();
+    }
   }
 
   // 通过时间点，获得当前的歌词
   // 如果没找到匹配的，则返回空
   Lyric getLyric(num time) {
     if (time < 0) throw Exception("时间为负数");
-
-    if (time > getMaxTime()) throw Exception("超出时间");
 
     lrcList.forEach((element) {
       if (time >= element.startTime.inMilliseconds &&

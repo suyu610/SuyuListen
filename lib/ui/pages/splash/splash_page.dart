@@ -84,7 +84,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 builder:
                     (BuildContext context, AsyncSnapshot<String> snapshot) {
                   if (snapshot.hasData) {
-                    print(snapshot.data);
                     SchedulerBinding.instance.addPostFrameCallback((_) {
                       Future.delayed(
                           Duration(milliseconds: 1500),
